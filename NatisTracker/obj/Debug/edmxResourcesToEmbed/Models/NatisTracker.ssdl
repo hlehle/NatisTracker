@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Intern_LeaveDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Intern_LeaveDB.dbo.Employee_Table' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Employee_Table">
+    <Key>
+      <PropertyRef Name="Employee_ID" />
+    </Key>
+    <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Employee_Name" Type="varchar(max)" />
+    <Property Name="Employee_Surname" Type="varchar(max)" />
+    <Property Name="Department" Type="varchar(max)" />
+    <Property Name="User_Type" Type="varchar(max)" />
+    <Property Name="Email" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="LogInfo">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateScanned" Type="date" Nullable="false" />
+    <Property Name="User" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Department" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="NatisData">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="User" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateLoaded" Type="date" />
+    <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EngineNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CarMake" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SeriesNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="RegistrationDate" Type="date" Nullable="false" />
+    <Property Name="VehicleStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OwnerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OwnerIdentityNumber" Type="nvarchar" MaxLength="13" Nullable="false" />
+    <Property Name="NatisLocation" Type="nvarchar" MaxLength="100" Nullable="false" />
+  </EntityType>
+  <EntityType Name="NatisDelivery">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DealershipName" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="PackageNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="PackageSender" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PackageRecipient" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateSent" Type="date" Nullable="false" />
+    <Property Name="DateReceived" Type="date" />
+    <Property Name="CourierStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="DriverDetails" Type="nvarchar(max)" />
+    <Property Name="DriverCantact" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeliveryChoice" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NatisRequest">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequesterName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RequesterDepartment" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RequestStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="RequestDate" Type="date" Nullable="false" />
+    <Property Name="Vin" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContractNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReplyDate" Type="date" />
+    <Property Name="Responder" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Intern_LeaveDBModelStoreContainer">
+    <EntitySet Name="LogInfo" EntityType="Self.LogInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NatisData" EntityType="Self.NatisData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NatisDelivery" EntityType="Self.NatisDelivery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NatisRequest" EntityType="Self.NatisRequest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee_Table" EntityType="Self.Employee_Table" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Employee_Table].[Employee_ID] AS [Employee_ID], 
+    [Employee_Table].[UserName] AS [UserName], 
+    [Employee_Table].[Password] AS [Password], 
+    [Employee_Table].[Employee_Name] AS [Employee_Name], 
+    [Employee_Table].[Employee_Surname] AS [Employee_Surname], 
+    [Employee_Table].[Department] AS [Department], 
+    [Employee_Table].[User_Type] AS [User_Type], 
+    [Employee_Table].[Email] AS [Email]
+    FROM [dbo].[Employee_Table] AS [Employee_Table]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

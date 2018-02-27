@@ -1,0 +1,85 @@
+﻿@model IEnumerable<int>
+
+<!DOCTYPE html>
+@{
+    ViewBag.Title = "Dealership_Origination_Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html lang="en">
+<head>
+
+</head>
+
+<body>
+    @using (Html.BeginForm("OffPremiseTracker", "Dealership_Origination_Form", FormMethod.Post))
+    {
+        <fieldset>
+            <h2>Welcome @Session["Name"] @Session["Surname"]</h2>
+            <br /><br />
+            <div class="form-group">
+
+                @Html.Label("Package Number", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBox("FirstName")
+                </div>
+            </div>
+            <br /><br />
+            <div class="form-group">
+
+                @Html.Label("Item Quantity", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+
+
+                    @Html.DropDownList("Item Quantity", new SelectList(Model.list, "Standin"), 1)
+                </div>
+            </div>
+            <br /><br />
+            <div class="form-group">
+
+                @Html.Label("Contract Number(s)", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBox("Contract Number(s)")
+                </div>
+            </div>
+            <br /><br />
+            <div class="form-group">
+
+                @Html.Label("FirstName", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBox("FirstName")
+                </div>
+            </div>
+            <br /><br />
+            <div class="form-group">
+
+                @Html.Label("Date Sent", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBox("Date Sent")
+                </div>
+            </div>
+            <br /><br />
+            <div class="form-group">
+
+                @Html.Label("Courier Status", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBox("Courier Status")
+                </div>
+            </div>
+            <br /><br />
+            <div class="form-group">
+
+                @Html.Label("Comment", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextBox("Comment")
+                </div>
+            </div>
+            <br /><br />
+            <button class="btn btn-large btn-primary" type="submit">Send</button>
+
+        </fieldset>
+    }
+</body>
+
+</html>
+

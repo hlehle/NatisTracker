@@ -1,0 +1,138 @@
+﻿@model IEnumerable<NatisTracker.Models.NatisRequest>
+@{
+    ViewBag.Title = "RequestResponse";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.date-picker').datepicker();
+    });
+
+</script>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>RequestResponse &middot; FindMy Natis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!-- Le styles -->
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <style type="text/css">
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+
+
+    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icon/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icon/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icon/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="icon/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="icon/favicon.png">
+</head>
+<body>
+    <h2>Welcome @Session["Name"] @Session["Surname"]</h2>
+    <br /><br />
+
+    @using (Html.BeginForm("RequestResponse", "Process", FormMethod.Post))
+    {
+        <div id="ViewPackageInfo" class="tab-pane fade in">
+            <div class="container">
+                <table>
+                    <tr>
+                        <th>Requester</th>
+                        <th>Requester Department</th>
+                        <th>Date Requested</th>
+                        <th>Contract Number</th>
+                        <th>Status</th>
+                    </tr>
+                    @foreach (var Request in Model)
+                    {
+                        if (Request.RequestStatus == "Pending")
+                        {
+                            <tr>
+                                <td>
+                                    @Request.RequesterName
+                                @Html.Hidden("RecordNumber", Request.RecordNumber.ToString())
+                            </td>
+                            <td>@Request.RequesterDepartment</td>
+                            <td>@Request.RequestDate</td>
+                            <td>@Request.ContractNo</td>
+                            <td>
+                                @Html.DropDownList("Status", new List<SelectListItem>
+                                        {
+                                            new SelectListItem { Text="Reply", Value = "Pending"},
+                                            new SelectListItem { Text="Accept", Value = "Accepted"},
+                                            new SelectListItem { Text="Deny", Value = "Denied"},
+                                        })
+
+                            </td>
+                        </tr>
+                        }
+
+                    }
+                </table>
+
+                <br><br>
+                <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                <p align="right">
+
+                    @Html.ActionLink("Back to previous page", "AdminView", "Users", null, null)
+                </p>
+
+                <script>
+                    function getReply(element) {
+                        var a = $(element).closest('tr');
+                        return $("#Status", a).val();
+                    }
+
+                    function SubmitLeaveResponse(appId, userId, appResponse) {
+                        var jqxhr = $.post("@Url.Action("RequestResponse")", { appId: appId, userId: userId, approvalResponse: appResponse });
+                    };
+                </script>
+
+            </div>
+        </div>
+    }
+</body>
+</html>
