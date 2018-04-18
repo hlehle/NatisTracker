@@ -1,81 +1,41 @@
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\csc.exe
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\vbc.exe
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\VBCSCompiler.exe
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\NatisTracker.dll.config
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\NatisTracker.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\NatisTracker.pdb
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\EntityFramework.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\EntityFramework.SqlServer.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Helpers.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Mvc.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Razor.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Webpages.Deployment.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Webpages.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\EntityFramework.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\EntityFramework.SqlServer.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Razor.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Webpages.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Webpages.Deployment.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Helpers.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\System.Web.Mvc.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csprojResolveAssemblyReference.cache
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\obj\Debug\NatisTracker.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\obj\Debug\NatisTracker.pdb
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\csc.exe
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\System.Collections.Immutable.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\System.Reflection.Metadata.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\vbc.exe
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\VBCSCompiler.exe
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\roslyn\VBCSCompiler.exe.config
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\NatisTracker.dll.config
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\NatisTracker.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\NatisTracker.pdb
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\EntityFramework.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\EntityFramework.SqlServer.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\Microsoft.Web.Infrastructure.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Helpers.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Mvc.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Razor.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Webpages.Deployment.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Webpages.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\EntityFramework.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\EntityFramework.SqlServer.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Razor.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Webpages.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Webpages.Deployment.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Helpers.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\System.Web.Mvc.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csprojResolveAssemblyReference.cache
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\obj\Debug\NatisTracker.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\obj\Debug\NatisTracker.pdb
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\Aspose.BarCode.dll
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\Aspose.BarCode.xml
-C:\Development\Projects\NatisTracker\NatisTracker\NatisTracker\bin\Oracle.DataAccess.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\Aspose.BarCode.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\Oracle.DataAccess.dll
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\Aspose.BarCode.xml
-C:\Users\mdlalos\Desktop\NatisTracker\NatisTracker\bin\Aspose.Total.lic
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\csc.exe
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\vbc.exe
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\VBCSCompiler.exe
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\Aspose.Total.lic
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\NatisTracker.dll.config
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\NatisTracker.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\NatisTracker.pdb
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\Aspose.BarCode.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\EntityFramework.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\EntityFramework.SqlServer.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\Oracle.DataAccess.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Helpers.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Mvc.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Razor.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Webpages.Deployment.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Webpages.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\EntityFramework.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\EntityFramework.SqlServer.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Razor.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Webpages.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Webpages.Deployment.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Helpers.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\bin\System.Web.Mvc.xml
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csproj.ResolveComReference.cache
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\obj\Debug\NatisTracker.dll
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\obj\Debug\NatisTracker.pdb
+C:\Users\mdlalos\Desktop\New folder (3)\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csprojResolveAssemblyReference.cache

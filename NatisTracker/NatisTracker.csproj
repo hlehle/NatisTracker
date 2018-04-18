@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B73F3D07-75A8-4D84-B4E6-A51F1B89F5A2}</ProjectGuid>
+    <ProjectGuid>{C50D973B-C15E-4FE2-A718-426D1FBA5D39}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -43,8 +43,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Aspose.BarCode">
-      <HintPath>..\..\..\..\..\Users\mdlalos\Documents\FindMy Natis\Test\Test\bin\Debug\Aspose.BarCode.dll</HintPath>
+    <Reference Include="Aspose.BarCode, Version=17.11.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Aspose.BarCode.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -60,7 +61,6 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Oracle.DataAccess, Version=4.112.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86" />
-    <Reference Include="System.ObjectModel" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -104,19 +104,61 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\base\accordion.css" />
+    <Content Include="Content\base\all.css" />
+    <Content Include="Content\base\autocomplete.css" />
+    <Content Include="Content\base\base.css" />
+    <Content Include="Content\base\button.css" />
+    <Content Include="Content\base\core.css" />
+    <Content Include="Content\base\datepicker.css" />
+    <Content Include="Content\base\dialog.css" />
+    <Content Include="Content\base\draggable.css" />
+    <Content Include="Content\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\base\jquery-ui.css" />
+    <Content Include="Content\base\jquery-ui.min.css" />
+    <Content Include="Content\base\menu.css" />
+    <Content Include="Content\base\progressbar.css" />
+    <Content Include="Content\base\resizable.css" />
+    <Content Include="Content\base\selectable.css" />
+    <Content Include="Content\base\selectmenu.css" />
+    <Content Include="Content\base\slider.css" />
+    <Content Include="Content\base\sortable.css" />
+    <Content Include="Content\base\spinner.css" />
+    <Content Include="Content\base\tabs.css" />
+    <Content Include="Content\base\theme.css" />
+    <Content Include="Content\base\tooltip.css" />
     <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\docs.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Global.asax" />
-    <Content Include="img\BEkLRV.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
-    <Content Include="img\presentation.png" />
+    <Content Include="fonts\logo2.png" />
+    <Content Include="Global.asax" />
     <Content Include="Models\NatisTracker.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>NatisTracker.edmx</DependentUpon>
@@ -134,9 +176,6 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="App_Code\GlyphIcon.cshtml" />
-    <Content Include="Resources\Aspose.Total.lic" />
-    <Content Include="Resources\Aspose.BarCode.lic" />
     <Content Include="Aspose.Total.lic">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -147,39 +186,47 @@
     <Content Include="Models\NatisTracker.edmx.diagram">
       <DependentUpon>NatisTracker.edmx</DependentUpon>
     </Content>
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Properties\PublishProfiles\Local Filesystem.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.dataTables.min.js" />
+    <Content Include="Scripts\MicrosoftAjax.js" />
+    <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Web.config" />
-    <Content Include="Views\Process\LoadNewNatis.cshtml" />
-    <Content Include="Views\Users\AdminView.cshtml" />
-    <Content Include="Views\Users\UserView.cshtml" />
-    <Content Include="Views\Users\DealershipView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\OffPremiseTrackerController.cs" />
     <Compile Include="Controllers\ProcessController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\ViewSwitcherController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContractNumber.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Employee_Table.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Leave_Days.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LogInfo.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NatisData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NatisDelivery.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NatisRequest.cs">
@@ -200,21 +247,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NatisTracker.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+    <Compile Include="Models\SentIN_Delivery.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+    <Compile Include="Models\SentOUT_Delivery.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="UIServices\BackToSafe.cs" />
+    <Compile Include="UIServices\Collect.cs" />
+    <Compile Include="UIServices\DeliveryServiceIN.cs" />
+    <Compile Include="UIServices\DeliveryServiceOUT.cs" />
+    <Compile Include="UIServices\IDeliveryService.cs" />
+    <Compile Include="UIServices\INatisRequest.cs" />
+    <Compile Include="UIServices\LoadNew.cs" />
+    <Compile Include="UIServices\IScanNatis.cs" />
+    <Compile Include="UIServices\Request.cs" />
+    <Compile Include="UIServices\Respond.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIServices\LoginService.cs" />
-    <Compile Include="UIServices\NatisDataPopulate.cs" />
-    <Compile Include="UIServices\NatisRequest.cs" />
-    <Compile Include="UIServices\PopulateDelivery.cs" />
-    <Compile Include="UIServices\ScanNatis.cs" />
+    <Compile Include="ViewModels\Delivery.cs" />
     <Compile Include="ViewModels\LogInfoViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="ViewModels\NatisDataViewModel.cs" />
@@ -230,14 +283,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Views\OffPremiseTracker\Dealership_Origination_Form.cshtml" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
-    <Content Include="Views\Users\OriginationView.cshtml" />
-    <Content Include="Views\Process\Scan_To_Collect.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
+    <Content Include="Views\Process\LoadNewNatis.cshtml" />
     <Content Include="Views\Process\RequestNatis.cshtml" />
     <Content Include="Views\Process\RequestResponse.cshtml" />
     <Content Include="Views\Process\Scan_Back_To_Safe.cshtml" />
+    <Content Include="Views\Process\Scan_To_Collect.cshtml" />
+    <Content Include="Views\Users\AdminView.cshtml" />
+    <Content Include="Views\Users\DealershipView.cshtml" />
+    <Content Include="Views\Users\OriginationView.cshtml" />
+    <Content Include="Views\Users\UserView.cshtml" />
+    <Content Include="Views\Shared\View.cshtml" />
+    <Content Include="Views\Users\_Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,10 +305,38 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\themes\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -265,9 +351,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>22217</DevelopmentServerPort>
+          <DevelopmentServerPort>58648</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:22217/</IISUrl>
+          <IISUrl>http://localhost:58648/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

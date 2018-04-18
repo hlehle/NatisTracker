@@ -4,13 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="80baab236a234bcd85f0a3e1433b9a14" Name="Diagram1">
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.LogInfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisData" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisDelivery" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisRequest" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.Employee_Table" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
+      <Diagram DiagramId="bcc877e875c242b3a0711d91966f71b0" Name="Diagram1">
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.ContractNumber" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.Leave_Days" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.LogInfo" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisData" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisRequest" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.SentIN_Delivery" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.SentOUT_Delivery" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.sysdiagram" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.Employee_Table" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractNumbers_SentIN_Delivery" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

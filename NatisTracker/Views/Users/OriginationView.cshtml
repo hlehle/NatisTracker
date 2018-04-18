@@ -1,4 +1,4 @@
-﻿@model NatisTracker.ViewModels.MasterViewModel
+﻿@model NatisTracker.ViewModels.DeliveryViewModel
 @{
     ViewBag.Title = "OriginationView";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,19 +6,7 @@
 
 <!DOCTYPE html>
 
-
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<script type="text/javascript">
-    $(function () {
-        $('.date-picker').datepicker();
-    });
-
-</script>
-
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>Sign in &middot; Leave Management System</title>
@@ -26,18 +14,6 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
-    <link rel="stylesheet" href="/resources/demos/style.css">
-
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-    <!-- Le styles -->
-
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
     <style type="text/css">
         table {
             font-family: arial, sans-serif;
@@ -54,88 +30,165 @@
         tr:nth-child(even) {
             background-color: #dddddd;
         }
+
+        .container {
+            height: 100%;
+            padding: 5px 5px 5px 5px;
+            margin-left: 1%;
+            margin-right: 1%;
+            width: 98%;
+        }
     </style>
 
-
-    <link href="~/Content/bootstrap-responsive.css" rel="stylesheet" />
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
-    <![endif]-->
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="icon/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="icon/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="icon/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="icon/apple-touch-icon-57-precomposed.png">
-    <link rel="shortcut icon" href="icon/favicon.png">
 </head>
 <body>
-    <h2>Welcome @Session["Name"] @Session["Surname"]</h2>
-    <br /><br />
+    <ul class="nav nav-tabs nav-pills" data-tabs="tabs" id="myTab">
+        <li class="active"><a data-toggle="tab" href="#Courier">Sent By Courier</a></li>
+        <li><a data-toggle="tab" href="#Driver">Sent By Driver</a></li>
+    </ul>
 
-    @using (Html.BeginForm("OriginationView", "Users", FormMethod.Post))
-    {
-        <div id="ViewPackageInfo" class="tab-pane fade in">
-            <div class="container">
-                <table>
-                    <tr>
-                        <th>Dealership Name</th>
-                        <th>Package Number</th>
-                        <th>Package Sender</th>
-                        <th>Date Sent</th>
-                        <th>Delivery Status</th>
-                        <th>Comment</th>
-                        <th>Reply</th>
-                    </tr>
-                    @if (Model.deliveryModel != null)
+    <div class="container">
+        <div class="tab-content">
+            <div id="Courier" class="tab-pane fade in active">
+                @using (Html.BeginForm("OriginationView", "Users", FormMethod.Post))
                 {
-                    foreach (var deliveryInfo in Model.deliveryModel)
-                    {
-                        if (deliveryInfo.CourierStatus == "Transit")
+                    <div class="table-responsive table table-striped">
+                        <h3>Sent By Courier Response Table</h3>
+                        <br /><br />
+                        @if (Model.CourierViewModel != null)
                         {
-                                <tr>
-                                    <td>
-                                        @Html.Hidden("RecordNumber", @deliveryInfo.RecordNumber.ToString())
-                                        @deliveryInfo.DealershipName
-                                    </td>
-                                    <td>@deliveryInfo.PackageNumber</td>
-                                    <td>@deliveryInfo.PackageSender</td>
-                                    <td>@deliveryInfo.DateSent</td>
-                                    <td>@deliveryInfo.CourierStatus</td>
-                                    <td>@deliveryInfo.Comment</td>
-                                    <td>
-                                        @Html.DropDownList("Delivery_Status", new List<SelectListItem>
-                                        {
-                                            new SelectListItem { Text="Reply", Value = "Transit"},
-                                            new SelectListItem { Text="Received", Value = "Received"},
-                                            new SelectListItem { Text="Not Received", Value = "Not Received"},
-                                        })
+                            <table class="table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Dealership Name</th>
+                                        <th>Contract Numbers</th>
+                                        <th>Waybill Number</th>
+                                        <th>Item Sent</th>
+                                        <th>Package Sender</th>
+                                        <th>Date Sent</th>
+                                        <th>Delivery Status</th>
+                                        <th>Comment</th>
+                                        <th>Reply</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @for (int i = 0; i < Model.CourierViewModel.DeliveryItems.Count; i++)
+                                {
+                                    var delivery = Model.CourierViewModel.DeliveryItems[i];
+                                        <tr>
+                                            <td>@delivery.DealershipName</td>
+                                            <td>
+                                                @for (int j = 0; j < Model.CourierViewModel.DeliveryItems[i].ContractNumberItems.Count; j++)
+                                                {
+                                                    @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].RecordNumber)
+                                                    <div class="checkbox">
+                                                        @Html.CheckBoxFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved)
+                                                        @Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber<br />
+                                                        @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber)
+                                                        @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].RecordNumber)
+                                                    </div>
+                                                }
+                                            </td>
+                                            <td>@delivery.WaybillNumber</td>
+                                            <td>@delivery.Quantity</td>
+                                            <td>@delivery.</td>
+                                            <td>@delivery.DateSent</td>
+                                            <td>@delivery.DeliveryStatus</td>
+                                            <td>@delivery.Comment</td>
+                                            <td>
+                                                @Html.DropDownListFor(a => a.CourierViewModel.DeliveryItems[i].DeliveryStatus, new List<SelectListItem>
+                                                {
+                                                    new SelectListItem { Text="Reply", Value = "Transit"},
+                                                    new SelectListItem { Text="Received", Value = "Received"},
+                                                    new SelectListItem { Text="Not Received", Value = "Not Received"},
+                                                })
 
-                                    </td>
-                                </tr>
-                            }
-
+                                            </td>
+                                        </tr>
+                                }
+                                    </tbody>
+                            </table>
                         }
-                    }
-                </table>
 
-                <br><br>
-                <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                    </div>
+                    <br /><br />
 
-                <script>
-                    function getReply(element) {
-                        var a = $(element).closest('tr');
-                        return $("#Delivery_Status", a).val();
-                    }
+                    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                }
+            </div>
 
-                    function SubmitLeaveResponse(appId, userId, appResponse) {
-                        var jqxhr = $.post("@Url.Action("OriginationView")", { appId: appId, userId: userId, approvalResponse: appResponse });
-                    };
-                </script>
+            <div id="Driver" class="tab-pane fade in">
+                @using (Html.BeginForm("OriginationView", "Users", FormMethod.Post))
+                {
+                    <div class="table-responsive table table-striped">
+                        <h3>Sent By Courier Response Table</h3>
+                        <br /><br />
+                        @if (Model.DriverViewModel != null)
+                        {
+                            <table class="table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Dealership Name</th>
+                                        <th>Contract Numbers</th>
+                                        <th>Drivers Details</th>
+                                        <th>Drivers Contacts</th>
+                                        <th>Item Sent</th>
+                                        <th>Package Sender</th>
+                                        <th>Date Sent</th>
+                                        <th>Delivery Status</th>
+                                        <th>Comment</th>
+                                        <th>Reply</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @for (int i = 0; i < Model.DriverViewModel.DeliveryItems.Count; i++)
+                                {
+                                    var delivery = Model.DriverViewModel.DeliveryItems[i];
+                                        <tr>
+                                            <td>@delivery.DealershipName</td>
+                                            <td>
+                                                @for (int j = 0; j < Model.DriverViewModel.DeliveryItems[i].ContractNumberItems.Count; j++)
+                                                {
+                                                    @Html.HiddenFor(a => Model.DriverViewModel.DeliveryItems[i].RecordNumber)
+                                                    <div class="checkbox">
+                                                        @Html.CheckBoxFor(a => Model.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved)
+                                                        @Model.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber<br />
+                                                        @Html.HiddenFor(a => Model.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber)
+                                                        @Html.HiddenFor(a => Model.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].RecordNumber)
+                                                    </div>
 
+                                                }
+                                            </td>
+                                            <td>@delivery.DriverDetails</td>
+                                            <td>@delivery.DriverContacts</td>
+                                            <td>@delivery.Quantity</td>
+                                            <td>@delivery.PackageSender</td>
+                                            <td>@delivery.DateSent</td>
+                                            <td>@delivery.DeliveryStatus</td>
+                                            <td>@delivery.Comment</td>
+                                            <td>
+                                                @Html.DropDownListFor(a => a.DriverViewModel.DeliveryItems[i].DeliveryStatus, new List<SelectListItem>
+                                                    {
+                                                        new SelectListItem { Text="Reply", Value = "Transit"},
+                                                        new SelectListItem { Text="Received", Value = "Received"},
+                                                        new SelectListItem { Text="Not Received", Value = "Not Received"},
+                                                    })
+
+                                            </td>
+                                        </tr>
+                                }
+                                </tbody>
+                            </table>
+                        }
+
+                    </div>
+                    <br /><br />
+
+                    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                }
             </div>
         </div>
-    }
+    </div>
+
 </body>
 </html>

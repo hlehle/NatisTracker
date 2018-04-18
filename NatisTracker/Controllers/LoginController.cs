@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using NatisTracker.Models;
 using NatisTracker.ViewModels;
 using System.Net.Mail;
+using System.Web.Security;
 
 namespace NatisTracker.Controllers
 {
@@ -35,10 +36,6 @@ namespace NatisTracker.Controllers
                         Session["Surname"] = emp.Employee_Surname.ToString();
                         Session["Department"] = emp.Department.ToString();
 
-                        var viewModel = new ViewModels.UserDetailViewModel();
-                        viewModel.Employee_Name = emp.Employee_Name;
-                        viewModel.Employee_Name = emp.Employee_Surname;
-
                         if (emp.User_Type == "Admin")
                         {
                             return RedirectToAction("AdminView", "Users");
@@ -46,11 +43,37 @@ namespace NatisTracker.Controllers
 
                         else if (emp.User_Type == "EndUser")
                         {
+                            // Origination, Remarketing, Fines & Licensing and The Driver don't
+                            // Request for Natis document and hence they have special pages as End Users
+
                             if (emp.Department.Equals("Origination"))
                             {
                                 return RedirectToAction("OriginationView", "Users");
                             }
-                            return RedirectToAction("UserView", "Users");
+
+                            else if (emp.Department.Equals("Remarketing"))
+                            {
+                                return RedirectToAction("OriginationView", "Users");
+                            }
+
+                            else if (emp.Department.Equals("Fines & Licensing"))
+                            {
+                                return RedirectToAction("OriginationView", "Users");
+                            }
+
+                            else if (emp.Department.Equals("Driver"))
+                            {
+                                return RedirectToAction("OriginationView", "Users");
+                            }
+
+                            else
+                            {
+                                // Call Centre, Maturities and Legal Department catered here
+                                // Departments above can make request for the Natis docs
+
+                                return RedirectToAction("UserView", "Users");
+                            }
+                            
                         }
 
                         else if (emp.User_Type == "Dealership")
@@ -67,12 +90,23 @@ namespace NatisTracker.Controllers
 
                     else
                     {
-                        Response.Write("<script LANGUAGE='JavaScript' >alert('Incorrect Login Credentials')</script>");
+                        Response.Write("<script LANGUAGE='JavaScript' >alert('Incorrect User name or password')</script>");
                     }
                 }
             }
 
             return View(objEmp);
+        }
+
+        public ActionResult LogOut()
+        {
+
+            FormsAuthentication.SignOut();
+
+            Session.Abandon(); // it will clear the session at the end of request
+
+            return RedirectToAction("Login", "Login");
+
         }
     }
 }

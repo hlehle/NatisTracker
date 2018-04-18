@@ -1,22 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <License>
   <Data>
-    <LicensedTo>Daimler</LicensedTo>
-    <EmailTo>extern.e.mdlalose@daimler.com</EmailTo>
+    <LicensedTo>Daimler AG</LicensedTo>
+    <EmailTo>LCC.DC@Daimler.com</EmailTo>
     <LicenseType>Developer Small Business</LicenseType>
-    <LicenseNote>Limited to one developer, limited to one physical location</LicenseNote>
-    <OrderID>180221025013</OrderID>
-    <UserID>134950136</UserID>
+    <LicenseNote>Limited to 3 developers, limited to 3 physical locations</LicenseNote>
+    <OrderID>160118020740</OrderID>
+    <UserID>110601</UserID>
     <OEM>This is not a redistributable license</OEM>
     <Products>
       <Product>Aspose.Total for .NET</Product>
     </Products>
     <EditionType>Enterprise</EditionType>
-    <SerialNumber>a1b9e9c0-32eb-4466-8d8e-c1e30e99d9f8</SerialNumber>
-    <SubscriptionExpiry>20190221</SubscriptionExpiry>
-    <LicenseExpiry>20180323</LicenseExpiry>
-    <ExpiryNote>This is a temporary license for non-commercial use only and it will expire on 2018-03-23.</ExpiryNote>
+    <SerialNumber>f9cc674d-1848-456d-8c48-6cc35cdae73e</SerialNumber>
+    <SubscriptionExpiry>20170124</SubscriptionExpiry>
     <LicenseVersion>3.0</LicenseVersion>
     <LicenseInstructions>http://www.aspose.com/corporate/purchase/license-instructions.aspx</LicenseInstructions>
   </Data>
-  <Signature>B5mzP1LOu4ORmNiciKvBhWpIjYnhtPszhGRjXWv5b5wcOUJKy2hgk6iYT3gUlNzJ31WiRgulnD8gE0j+KmaOqJb786Ex0JPfxH5zQ4QGeil3gIKG52q3KR0HZs6Q8deHovDAaeMaNjyYgGeeooHFkqV9XBbD03Sx2XcEPyjIUZE=</Signature>
+  <Signature>zwlg00rY/oIiajCOLibeDDcThaiBV6zJ1XeoMTNtTkq41MYLhIfKPbWeK/wC5QM662Of/Hm41pJET2RzMGbHQ/No4U3ZHwwx5uY/gP0scOcnz6dby8a7ILIA8eaPeQ6CPlkTKz9OSY4zxDVQopbIQgbv/sUmeVcE1GwZudXu8AU=</Signature>
 </License>

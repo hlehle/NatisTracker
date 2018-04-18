@@ -9,6 +9,7 @@ namespace NatisTracker.ViewModels
     {
         public HttpPostedFileBase file { get; set; }
         public string vin { get; set; }
+        public string contractNo { get; set; }
         public string registrationNo { get; set; }
         public string engineNo { get; set; }
         public string carMake { get; set; }

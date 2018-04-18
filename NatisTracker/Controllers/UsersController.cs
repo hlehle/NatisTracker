@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using Oracle.DataAccess.Client;
 using System.Data;
-using NatisTracker.UIServices;
 
 namespace NatisTracker.Controllers
 {
@@ -21,7 +20,12 @@ namespace NatisTracker.Controllers
         public ActionResult AdminView()
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+
+            viewMaster.RequestViewModel = db.NatisRequests;
+            viewMaster.logs = db.LogInfoes;
             viewMaster.natisDataViewModel = db.NatisDatas;
+            viewMaster.contracts = db.ContractNumbers.ToList();
+            viewMaster.deliveryModel = db.SentIN_Delivery;
             var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
             var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
             var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
@@ -29,6 +33,7 @@ namespace NatisTracker.Controllers
             viewMaster.callCentreViewModel = callCentre;
             viewMaster.legalViewModel = legal;
             viewMaster.maturitiesViewModel = maturities;
+
             return View(viewMaster);
         }
 
@@ -36,37 +41,46 @@ namespace NatisTracker.Controllers
         public ActionResult AdminView(FormCollection form)
         {
             var viewMaster = new MasterViewModel();
-            string vin = null;
-
 
             TryUpdateModel<MasterViewModel>(viewMaster, form);
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
-            {
-                if (ModelState.IsValid)
-                {
-                    vin = getVin(viewMaster.viewModel.contractNo);
-                    var found = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
-                    var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
-                    var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
-                    var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
 
-                    viewMaster.callCentreViewModel = callCentre;
-                    viewMaster.legalViewModel = legal;
-                    viewMaster.maturitiesViewModel = maturities;
+            //if (ModelState.IsValid)
+            //{
+                string vin = getVin(viewMaster.viewModel.contractNo);
+                var found = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
+                var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
+                var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
+                var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+
+                viewMaster.callCentreViewModel = callCentre;
+                viewMaster.legalViewModel = legal;
+                viewMaster.maturitiesViewModel = maturities;
+
+                if (vin == null)
+                    viewMaster.natisDataViewModel = db.NatisDatas;
+                else
                     viewMaster.natisDataViewModel = found;
 
-                    
-                }
-            }
+                viewMaster.RequestViewModel = db.NatisRequests;
+                viewMaster.logs = db.LogInfoes;
+                viewMaster.contracts = db.ContractNumbers.ToList();
+                viewMaster.deliveryModel = db.SentIN_Delivery;
+            //}
+
             return View(viewMaster);
         }
 
         public ActionResult UserView()
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
-            var name = Session["Name"].ToString() + " " + Session["Surname"].ToString();
+
+            string name = Session["Name"].ToString() + " " + Session["Surname"].ToString();
+
             viewMaster.RequestViewModel = db.NatisRequests.Where(a => a.RequesterName == name).ToList();
             viewMaster.natisDataViewModel = db.NatisDatas;
+            viewMaster.deliveryModel = db.SentIN_Delivery;
+            viewMaster.viewModel = new UserDetailViewModel();
 
             var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
             var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
@@ -87,94 +101,111 @@ namespace NatisTracker.Controllers
 
 
             TryUpdateModel<MasterViewModel>(viewMaster, form);
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
-            {
-                if (ModelState.IsValid)
-                {
-                    vin = getVin(viewMaster.viewModel.contractNo);
-                    var found = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
-                    viewMaster.natisDataViewModel = found;
-
-
-
-                    var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
-                    var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
-                    var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
-
-                    viewMaster.callCentreViewModel = callCentre;
-                    viewMaster.legalViewModel = legal;
-                    viewMaster.maturitiesViewModel = maturities;
-                }
-            }
-
-            return View(viewMaster);
-        }
-
-        public ActionResult DealershipView(MasterViewModel viewModel)
-        {
-            if (viewModel != null && viewModel.viewModel != null)
-            {
-                viewMaster = viewModel;
-            }
-            else
-            {
-                viewMaster.viewModel = new UserDetailViewModel();
-            }
-
-            viewMaster.deliveryModel = new Intern_LeaveDBEntities().NatisDeliveries;
-            viewMaster.viewModel.list = getList();
-
-
-            return View(viewMaster);
-        }
-
-        [HttpPost]
-        public ActionResult DealershipView(FormCollection form)
-        {
-            var view = new MasterViewModel();
-
-            TryUpdateModel<MasterViewModel>(view, form);
+            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
 
             if (ModelState.IsValid)
             {
+                //viewMaster = new DeliveryServiceOUT().sendDelivery(viewMaster, Session["Name"].ToString(), Session["Surname"].ToString());
 
-                PopulateDelivery p = new PopulateDelivery();
-                p.sendDelivery(view, Session["Name"].ToString(), Session["Surname"].ToString());
-                //return View(view);
+                vin = getVin(viewMaster.viewModel.contractNo);
+                if (vin != null)
+                    viewMaster.natisDataViewModel = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
+                else
+                    viewMaster.natisDataViewModel = db.NatisDatas;
 
+                var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
+                var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
+                var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+
+                viewMaster.callCentreViewModel = callCentre;
+                viewMaster.legalViewModel = legal;
+                viewMaster.maturitiesViewModel = maturities;
             }
-            else
+            return View(viewMaster);
+        }
+
+        public ActionResult DealershipView(string DealershipName, string FName, string LName, string EmailAddress)
+        {
+            Session["Name"] = FName;
+            Session["Surname"] = LName;
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                Response.Write("<script LANGUAGE='JavaScript' >alert('Message Unsuccessfully Sent')</script>");
-                //return View(viewModel);
+                DeliveryitemViewModel viewModel = new DeliveryitemViewModel();
+                viewModel.CourierDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Courier")).ToList();
+                viewModel.DriverDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Driver")).ToList();
+                viewModel.ContractsDisplay = db.ContractNumbers.ToList();
+                viewModel.DealerList = getList();
+                viewModel.QuantityList = GetQuantity();
+                viewModel.DealershipName = DealershipName;
+                viewModel.PackageSender = FName + " " + LName;
+                viewModel.SenderEmail = EmailAddress;
+
+                return View(viewModel);
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult DealershipView(DeliveryitemViewModel viewModel)
+        {            
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                //viewModel.deliveryDisplay = db.SentIN_Delivery.ToList();
+                var tryUpdate = TryUpdateModel(viewModel);
+                var modelState = ModelState.Values.ToList();
+
+                if (ModelState.IsValid)
+                {
+                    new DeliveryServiceIN().sendDelivery(viewModel, Session["Name"].ToString(), Session["Surname"].ToString());
+
+                    if (viewModel.WaybillNumber != null || viewModel.DriverDetails != null)
+                    {
+                        ModelState.Clear();
+                        viewModel = new DeliveryitemViewModel();
+                        viewModel.CourierDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Courier")).ToList();
+                        viewModel.DriverDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Driver")).ToList();
+                        viewModel.ContractsDisplay = db.ContractNumbers.ToList();
+                    }
+                }
             }
 
-
-
-            //view.viewModel = new UserDetailViewModel();
-            view.deliveryModel = new Intern_LeaveDBEntities().NatisDeliveries;
-            view.viewModel.list = getList();
-            return View(view);
+            viewModel.DealerList = getList();
+            viewModel.QuantityList = GetQuantity();
+            return View(viewModel);
 
         }
 
         public ActionResult OriginationView()
         {
-            viewMaster.deliveryModel = new Intern_LeaveDBEntities().NatisDeliveries;
-            return View(viewMaster);
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                DeliveryViewModel viewModel = new DeliveryViewModel();
+                viewModel = PopulateDeliveryViewModel(viewModel, db);
+                return View(viewModel);
+            }
         }
 
         [HttpPost]
         public ActionResult OriginationView(FormCollection form)
         {
-            if (ModelState.IsValid)
+            DeliveryViewModel viewModel = new DeliveryViewModel();
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                PopulateDelivery p = new PopulateDelivery();
-                p.receiveDelivery(form, Session["Name"].ToString(),Session["Surname"].ToString());
+                TryUpdateModel(viewModel);
+
+                //if (ModelState.IsValid)
+                //{
+                //    new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString(), Session["Surname"].ToString());
+                //    viewModel = PopulateDeliveryViewModel(viewModel, db);
+
+                //    return View(viewModel);
+                //}
+
+                new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString(), Session["Surname"].ToString());
+                viewModel = PopulateDeliveryViewModel(viewModel, db);
+                return View(viewModel);
             }
-            var view = new MasterViewModel();
-            view.deliveryModel = new Intern_LeaveDBEntities().NatisDeliveries;
-            return View(view);
+            
         }
         public List<string> getList()
         {
@@ -402,6 +433,20 @@ namespace NatisTracker.Controllers
             return list;
         }
 
+        public ActionResult Details(int q)
+        {
+            return PartialView("_Details");
+        }
+
+        public List<int> GetQuantity()
+        {
+            List<int> list = new List<int>();
+            for (int i = 1; i < 500; i++)
+            {
+                list.Add(i);
+            }
+            return list;
+        }
         public string getVin(string contractNo)
         {
             try
@@ -435,6 +480,85 @@ namespace NatisTracker.Controllers
             {
                 return null;
             }
+        }
+
+        public DeliveryViewModel PopulateDeliveryViewModel(DeliveryViewModel viewModel, Intern_LeaveDBEntities db)
+        {
+            viewModel.CourierViewModel = new DeliveryCourierViewModel();
+            viewModel.DriverViewModel = new DeliveryDriverViewModel();
+            viewModel.CourierViewModel.DeliveryItems = new List<DeliveryitemViewModel>();
+            viewModel.DriverViewModel.DeliveryItems = new List<DeliveryitemViewModel>();
+
+            //viewModel.callCentreViewModel = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
+            //viewModel.legalViewModel = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+            //viewModel.maturitiesViewModel = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
+
+            var SentInDeliveries = db.SentIN_Delivery;
+            var CourierSentInDeliveries = SentInDeliveries.Where(w => w.DeliveryChoice == "Courier" && w.CourierStatus == "Transit").ToList();
+            foreach (var item in CourierSentInDeliveries)
+            {
+                DeliveryitemViewModel itemViewModel = new DeliveryitemViewModel();
+                itemViewModel.RecordNumber = item.RecordNumber;
+                itemViewModel.DealershipName = item.DealershipName;
+                itemViewModel.WaybillNumber = item.PackageNumber;
+                itemViewModel.PackageSender = item.PackageSender;
+                itemViewModel.Recipient = item.PackageRecipient;
+                itemViewModel.DateSent = item.DateSent;
+                itemViewModel.DateRecieved = new DateTime();
+                itemViewModel.DeliveryStatus = item.CourierStatus;
+                itemViewModel.DeliveryChoice = item.DeliveryChoice;
+                itemViewModel.Quantity = (int)item.Quantity;
+                itemViewModel.DealerList = getList();
+                itemViewModel.Comment = item.Comment;
+
+                itemViewModel.ContractNumberItems = new List<DeliveryItemContractViewModel>();
+                foreach (var contractNumber in item.ContractNumbers)
+                {
+                    DeliveryItemContractViewModel contractViewModel = new DeliveryItemContractViewModel();
+                    contractViewModel.ContractNumber = contractNumber.ContractNumber1;
+                    contractViewModel.RecordNumber = contractNumber.RecordNumber;
+                    contractViewModel.IsRecieved = contractNumber.IsReceived;
+
+                    itemViewModel.ContractNumberItems.Add(contractViewModel);
+                }
+
+                viewModel.CourierViewModel.DeliveryItems.Add(itemViewModel);
+            }
+
+            var DriverSentInDeliveries = SentInDeliveries.Where(w => w.DeliveryChoice == "Driver" && w.CourierStatus == "Transit").ToList();
+            foreach (var item in DriverSentInDeliveries)
+            {
+                DeliveryitemViewModel itemViewModel = new DeliveryitemViewModel();
+                itemViewModel.RecordNumber = item.RecordNumber;
+                itemViewModel.DealershipName = item.DealershipName;
+                itemViewModel.WaybillNumber = item.PackageNumber;
+                itemViewModel.PackageSender = item.PackageSender;
+                itemViewModel.Recipient = item.PackageRecipient;
+                itemViewModel.DateSent = item.DateSent;
+                itemViewModel.DateRecieved = new DateTime();
+                itemViewModel.DriverContacts = item.DriverContact;
+                itemViewModel.DriverDetails = item.DriverDetails;
+                itemViewModel.DeliveryStatus = item.CourierStatus;
+                itemViewModel.DeliveryChoice = item.DeliveryChoice;
+                itemViewModel.Quantity = (int)item.Quantity;
+                itemViewModel.DealerList = getList();
+                itemViewModel.Comment = item.Comment;
+
+                itemViewModel.ContractNumberItems = new List<DeliveryItemContractViewModel>();
+                foreach (var contractNumber in item.ContractNumbers)
+                {
+                    DeliveryItemContractViewModel contractViewModel = new DeliveryItemContractViewModel();
+                    contractViewModel.ContractNumber = contractNumber.ContractNumber1;
+                    contractViewModel.RecordNumber = contractNumber.RecordNumber;
+                    contractViewModel.IsRecieved = contractNumber.IsReceived;
+
+                    itemViewModel.ContractNumberItems.Add(contractViewModel);
+                }
+
+                viewModel.DriverViewModel.DeliveryItems.Add(itemViewModel);
+            }
+
+            return viewModel;
         }
     }
 }

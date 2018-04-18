@@ -16,7 +16,8 @@ namespace NatisTracker.Models
     {
         public int RecordNumber { get; set; }
         public string User { get; set; }
-        public Nullable<System.DateTime> DateLoaded { get; set; }
+        public System.DateTime DateLoaded { get; set; }
+        public string ContractNumber { get; set; }
         public string VinNumber { get; set; }
         public string RegistrationNumber { get; set; }
         public string EngineNumber { get; set; }
