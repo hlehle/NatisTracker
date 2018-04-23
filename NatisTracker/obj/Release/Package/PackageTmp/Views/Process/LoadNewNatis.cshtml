@@ -52,7 +52,7 @@
 
                 @using (Html.BeginForm("LoadNewNatis", "Process", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    if (Model.natis != null && Model.natis.OwnerName != null)
+                    if (Model != null)
                     {
                         <div class="table-responsive table table-striped">
                             <table class="table">

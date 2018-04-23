@@ -13,72 +13,82 @@ namespace NatisTracker.Models
 {
     public class LoadNew : IScanNatis
     {
-        public bool Scan(MasterViewModel appForm, string name, string surname, string department)
+        public bool Scan(NatisAndContractViewModel viewModel, string name, string surname, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                if (appForm.natis.file != null)
+                if (viewModel.file != null)
                 {
-                    byte[] byteArr = new byte[appForm.natis.file.ContentLength];
-                    appForm.natis.file.InputStream.Read(byteArr, 0, appForm.natis.file.ContentLength);
+                    byte[] byteArr = new byte[viewModel.file.ContentLength];
+                    viewModel.file.InputStream.Read(byteArr, 0, viewModel.file.ContentLength);
                     Stream stream = new MemoryStream(byteArr);
                     string[] natis = readBarCode(stream);
 
                     if (natis != null)
                     {
-                        NatisData database = new NatisData();
+                        // Filling Natis Doc Data
+                        NatisData natisData = new NatisData();
 
-                        database.ContractNumber = getContractNo(natis[9]);
-                        database.User = name;
-                        database.DateLoaded = DateTime.Now;
-                        database.VinNumber = natis[9];
-                        database.RegistrationNumber = natis[5];
-                        database.EngineNumber = natis[10];
-                        database.CarMake = natis[7];
-                        database.SeriesNumber = getDescription(getContractNo(natis[9]));
-                        database.Description = natis[6];
-                        database.RegistrationDate = Convert.ToDateTime(natis[12]);
-                        database.VehicleStatus = natis[11];
-                        database.OwnerName = natis[15];
-                        database.OwnerIdentityNumber = natis[14];
-                        database.NatisLocation = "Safe Vault";
+                        natisData.User = name + " " + surname;
+                        natisData.DateLoaded = DateTime.Now;
+                        natisData.VinNumber = natis[9];
+                        natisData.RegistrationNumber = natis[5];
+                        natisData.EngineNumber = natis[10];
+                        natisData.CarMake = natis[7];
+                        natisData.SeriesNumber = getDescription(getContractNo(natis[9]));
+                        natisData.Description = natis[6];
+                        natisData.RegistrationDate = Convert.ToDateTime(natis[12]);
+                        natisData.VehicleStatus = natis[11];
+                        natisData.OwnerName = natis[15];
+                        natisData.OwnerIdentityNumber = natis[14];
+                        natisData.NatisLocation = "Safe Vault";
 
-                        if (!isExist(db, database))
+                        // Filling Contract Data
+                        string contractNumber = getContractNo(natisData.VinNumber);
+                        string[] contractInfo = GetContractStatus(contractNumber); 
+                        ContractsData contractData = new ContractsData();
+                        //contractData.RecordNumber = natisData.RecordNumber;
+                        contractData.VinNumber = natisData.VinNumber;
+                        contractData.ContractNumber = contractNumber;
+                        contractData.ContractStatus = contractInfo[0];
+                        contractData.StatusDescription = contractInfo[1];
+                        
+                        if (!isExist(db, natisData))
                         {
-                            LogInfo log = new LogInfo();
+                            ScanLogsData log = new ScanLogsData();
+
                             log.ContractNumber = getContractNo(natis[9]);
-                            log.VinNumber = natis[9];
+                            log.VinNumber = natisData.VinNumber;
                             log.DateScanned = DateTime.Now;
-                            log.User = name + " " + surname;
-                            log.Department = "Safe Vault";
-                            log.ContractStatus = "800";
+                            log.User = natisData.User;
+                            log.Department = natisData.NatisLocation;
+                            log.ContractStatus = contractData.ContractStatus;
+                            log.ContractDescription = contractData.StatusDescription;
                             log.Comment = "First time loaded to the Safe";
 
-                            db.NatisDatas.Add(database);
-                            db.LogInfoes.Add(log);
+                            db.NatisDatas.Add(natisData);
+                            db.ScanLogsDatas.Add(log);
+                            db.ContractsDatas.Add(contractData);
                             db.SaveChanges();
 
-                            appForm.natis.contractNo = database.ContractNumber;
-                            appForm.natis.vin = database.VinNumber;
-                            appForm.natis.registrationNo = database.RegistrationNumber;
-                            appForm.natis.engineNo = database.EngineNumber;
-                            appForm.natis.carMake = database.CarMake;
-                            appForm.natis.seriesNo = database.SeriesNumber;
-                            appForm.natis.description = database.Description;
-                            appForm.natis.registrationDate = database.RegistrationDate;
-                            appForm.natis.OwnerName = database.OwnerName;
-                            appForm.natis.OwnerID = database.OwnerIdentityNumber;
-                            appForm.natis.natisLocation = database.NatisLocation;
+                            viewModel.contractNo = contractNumber;
+                            viewModel.vin = natisData.VinNumber;
+                            viewModel.registrationNo = natisData.RegistrationNumber;
+                            viewModel.engineNo = natisData.EngineNumber;
+                            viewModel.carMake = natisData.CarMake;
+                            viewModel.seriesNo = natisData.SeriesNumber;
+                            viewModel.description = natisData.Description;
+                            viewModel.registrationDate = natisData.RegistrationDate;
+                            viewModel.OwnerName = natisData.OwnerName;
+                            viewModel.OwnerID = natisData.OwnerIdentityNumber;
+                            viewModel.natisLocation = natisData.NatisLocation;
 
                             return true;
                         }
-
-
                     }
                 }
-
+                return false;
             }
-            return false;
         }
 
         public string getDescription(string contractNo)
@@ -155,7 +165,7 @@ namespace NatisTracker.Models
         {
             foreach (var item in db.NatisDatas)
             {
-                if (item.VinNumber.Equals(data.VinNumber))
+                if (item.VinNumber.Equals(data.VinNumber) && item.NatisLocation.Equals(data.NatisLocation))
                 {
                     return true;
                 }
@@ -179,7 +189,61 @@ namespace NatisTracker.Models
                 reader.Close();
                 return codeText;
             }
-            catch (Exception)
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public string[] GetContractStatus(string contractNumber)
+        {
+            try
+            {
+                //using connection string attributes to connect to Oracle Database
+                string connectionString = "Data Source=WEBDBQA;User ID=enatis_user;Password=welcome1";
+
+
+                OracleConnection conn = new OracleConnection(connectionString);
+                conn.Open();
+
+                string query = "select ssd.sub_status_code, ssd.sub_status_description " +
+                               "from PMS.CM_CONTRACT_DETAIL_MV t "+
+                               "inner join PMS.CS_STATUS_DESC sd "+
+                               "on t.status_code = sd.status_code "+
+                               "and sd.language_code = 'E' "+
+                               "inner join PMS.CS_SUB_STAT_DESC ssd "+
+                               "on t.sub_status_code = ssd.sub_status_code "+
+                               "and ssd.language_code = 'E' "+
+                               "where CONTRACT_NUMBER = :contractNumber "+
+                               "order by t.version_number desc";
+
+                OracleCommand cmd = new OracleCommand(query, conn);
+                cmd.Parameters.Add("contractNumber", "0000000000"+contractNumber);
+                cmd.CommandType = CommandType.Text;
+
+                string[] contractInfo = new string[2];
+                OracleDataReader results = cmd.ExecuteReader();
+                if (results.HasRows)
+                {
+                    results.Read();
+                    contractInfo[0] = results.GetValue(0).ToString();
+                    contractInfo[1] = results.GetValue(1).ToString();
+                    return contractInfo;
+                }
+                else
+                {
+                    contractInfo[0] = "";
+                    contractInfo[1] = "";
+
+                }
+
+                // Close and Dispose OracleConnection object
+                conn.Close();
+                conn.Dispose();
+                //Console.WriteLine("Disconnected");
+                return contractInfo;
+            }
+            catch (Exception ex)
             {
                 return null;
             }

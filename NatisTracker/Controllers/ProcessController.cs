@@ -21,40 +21,37 @@ namespace NatisTracker.Controllers
         [HttpGet]
         public ActionResult LoadNewNatis()
         {
-            MasterViewModel view = new MasterViewModel();
-            view.natis = new NatisDataViewModel();
-            return View(view);
+            var viewModel = new NatisAndContractViewModel();
+            return View(viewModel);
         }
 
         [HttpPost]
         public ActionResult LoadNewNatis(FormCollection form)
         {
-            MasterViewModel appForm = new MasterViewModel();
-            appForm.natis = new NatisDataViewModel();
-            TryUpdateModel<MasterViewModel>(appForm, form);
+            var viewModel = new NatisAndContractViewModel();
+            TryUpdateModel(viewModel, form);
 
             if (ModelState.IsValid)
             {
                 var a = Request.Files.Count;
-                appForm.natis.file = Request.Files[0];
+                viewModel.file = Request.Files[0];
 
-                //NatisDataPopulate n = new NatisDataPopulate();
-                bool isPopulated = new LoadNew().Scan(appForm, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
+                bool isPopulated = new LoadNew().Scan(viewModel, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
 
                 if (isPopulated)
                 {
-                    //appForm.natis = new NatisDataViewModel();
-                    return View(appForm);
+                    //viewModel.natis = new NatisDataViewModel();
+                    return View(viewModel);
                 }
 
                 else
                 {
-                    MasterViewModel p = null;
+                    NatisAndContractViewModel p = null;
                     return View(p);
                 }
             }
 
-            return View(appForm);
+            return View(viewModel);
         }
 
         public ActionResult GenerateReport()
@@ -66,7 +63,7 @@ namespace NatisTracker.Controllers
         public ActionResult RequestResponse()
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
-            return View(from requests in db.NatisRequests select requests);
+            return View(from requests in db.RequestsDatas select requests);
         }
 
         [HttpPost]
@@ -78,7 +75,7 @@ namespace NatisTracker.Controllers
             }
 
             Intern_LeaveDBEntities database = new Intern_LeaveDBEntities();
-            return View(from requests in database.NatisRequests select requests);
+            return View(from requests in database.RequestsDatas select requests);
 
         }
         [HttpGet]
@@ -87,25 +84,6 @@ namespace NatisTracker.Controllers
             MasterViewModel view = new MasterViewModel();
             view.logInfo = new LogInfoViewModel();
             return View(view);
-        }
-
-        [HttpPost]
-        public ActionResult Scan_Back_To_Safe(FormCollection form)
-        {
-            var appForm = new MasterViewModel();
-            appForm.logInfo = new LogInfoViewModel();
-            TryUpdateModel<MasterViewModel>(appForm, form);
-
-            if (ModelState.IsValid)
-            {
-                var a = Request.Files.Count;
-                appForm.logInfo.file = Request.Files[0];
-
-                //ScanNatis s = new ScanNatis();
-                new BackToSafe().Scan(appForm, @Session["Name"].ToString(), @Session["Surname"].ToString(), Session["Department"].ToString());
-            }
-
-            return View(appForm);
         }
 
         public ActionResult Scan_To_Collect()
@@ -118,20 +96,18 @@ namespace NatisTracker.Controllers
         [HttpPost]
         public ActionResult Scan_To_Collect(FormCollection form)
         {
-            var appForm = new MasterViewModel();
-            appForm.logInfo = new LogInfoViewModel();
-            TryUpdateModel<MasterViewModel>(appForm, form);
+            var viewModel = new NatisAndContractViewModel();
+            TryUpdateModel<NatisAndContractViewModel>(viewModel, form);
 
             if (ModelState.IsValid)
             {
                 var a = Request.Files.Count;
-                appForm.logInfo.file = Request.Files[0];
+                viewModel.file = Request.Files[0];
 
-                //ScanNatis c = new ScanNatis();
-                new Collect().Scan(appForm, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
+                new Collect().Scan(viewModel, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
             }
 
-            return View(appForm);
+            return View(viewModel);
         }
 
         public ActionResult RequestNatis()
@@ -143,12 +119,12 @@ namespace NatisTracker.Controllers
         [HttpPost]
         public ActionResult RequestNatis(FormCollection form)
         {
-            var appForm = new NatisRequests();
-            TryUpdateModel<NatisRequests>(appForm, form);
+            var viewModel = new NatisRequests();
+            TryUpdateModel<NatisRequests>(viewModel, form);
 
             if (ModelState.IsValid)
             {
-                new Request().request(appForm, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
+                new Request().request(viewModel, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
                 ViewBag.Stored = "Yes";
             }
             else
@@ -156,12 +132,12 @@ namespace NatisTracker.Controllers
                 ViewBag.Stored = "No";
             }
 
-            return View(appForm);
+            return View(viewModel);
         }
 
         public ActionResult GenerateReports()
         {
-            var log = new Intern_LeaveDBEntities().LogInfoes.ToList();
+            var log = new Intern_LeaveDBEntities().ScanLogsDatas.ToList();
 
             //this represents the entire Microsoft Office Excel application
             Excel.Application xlApp;

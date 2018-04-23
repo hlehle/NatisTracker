@@ -10,18 +10,18 @@ namespace NatisTracker.Models
 {
     public class Request : INatisRequest
     {
-        public void request(NatisRequests appForm, string name, string surname, string department)
+        public void request(NatisRequests viewModel, string name, string surname, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                Models.NatisRequest database = new Models.NatisRequest();
+                RequestsData database = new RequestsData();
                 database.RequesterName = name + " " + surname;
                 database.RequestDate = DateTime.Now;
                 database.RequesterDepartment = department;
                 database.RequestStatus = "Pending";
-                database.ContractNo = appForm.contractNo;
+                database.ContractNo = viewModel.contractNo;
 
-                db.NatisRequests.Add(database);
+                db.RequestsDatas.Add(database);
                 db.SaveChanges();
 
 

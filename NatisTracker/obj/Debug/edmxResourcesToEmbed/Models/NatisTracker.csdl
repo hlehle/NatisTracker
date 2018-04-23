@@ -10,37 +10,24 @@
     <Property Name="IsReceived" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="SentIN_Delivery" Relationship="Self.FK_ContractNumbers_SentIN_Delivery" FromRole="ContractNumbers" ToRole="SentIN_Delivery" />
   </EntityType>
-  <EntityType Name="Leave_Days">
-    <Key>
-      <PropertyRef Name="Emp_ID" />
-    </Key>
-    <Property Name="Emp_ID" Type="Int32" Nullable="false" />
-    <Property Name="Annual_Leave" Type="Int32" Nullable="false" />
-    <Property Name="Sick_Leave" Type="Int32" Nullable="false" />
-    <Property Name="Fam_Leave" Type="Int32" Nullable="false" />
-    <Property Name="App_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-  </EntityType>
-  <EntityType Name="LogInfo">
+  <EntityType Name="ContractsData">
     <Key>
       <PropertyRef Name="RecordNumber" />
     </Key>
     <Property Name="RecordNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ContractNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContractStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StatusDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="DateScanned" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="User" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="ContractStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NatisData" Relationship="Self.FK_ContractsData_NatisData" FromRole="ContractsData" ToRole="NatisData" />
   </EntityType>
   <EntityType Name="NatisData">
     <Key>
-      <PropertyRef Name="RecordNumber" />
+      <PropertyRef Name="VinNumber" />
     </Key>
     <Property Name="RecordNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="User" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="DateLoaded" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ContractNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="RegistrationNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="EngineNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
@@ -52,8 +39,9 @@
     <Property Name="OwnerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="OwnerIdentityNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="NatisLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ContractsDatas" Relationship="Self.FK_ContractsData_NatisData" FromRole="NatisData" ToRole="ContractsData" />
   </EntityType>
-  <EntityType Name="NatisRequest">
+  <EntityType Name="RequestsData">
     <Key>
       <PropertyRef Name="RecordNumber" />
     </Key>
@@ -66,6 +54,20 @@
     <Property Name="ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ReplyDate" Type="DateTime" Precision="3" />
     <Property Name="Responder" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ScanLogsData">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ContractNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DateScanned" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="User" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContractStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ContractDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="SentIN_Delivery">
     <Key>
@@ -113,7 +115,7 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
-  <EntityType Name="Employee_Table">
+  <EntityType Name="EmployeeData">
     <Key>
       <PropertyRef Name="Employee_ID" />
     </Key>
@@ -140,19 +142,76 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ContractsData_NatisData">
+    <End Role="NatisData" Type="Self.NatisData" Multiplicity="1" />
+    <End Role="ContractsData" Type="Self.ContractsData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NatisData">
+        <PropertyRef Name="VinNumber" />
+      </Principal>
+      <Dependent Role="ContractsData">
+        <PropertyRef Name="VinNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="Intern_LeaveDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumber" />
-    <EntitySet Name="Leave_Days" EntityType="Self.Leave_Days" />
-    <EntitySet Name="LogInfoes" EntityType="Self.LogInfo" />
+    <EntitySet Name="ContractsDatas" EntityType="Self.ContractsData" />
     <EntitySet Name="NatisDatas" EntityType="Self.NatisData" />
-    <EntitySet Name="NatisRequests" EntityType="Self.NatisRequest" />
+    <EntitySet Name="RequestsDatas" EntityType="Self.RequestsData" />
+    <EntitySet Name="ScanLogsDatas" EntityType="Self.ScanLogsData" />
     <EntitySet Name="SentIN_Delivery" EntityType="Self.SentIN_Delivery" />
     <EntitySet Name="SentOUT_Delivery" EntityType="Self.SentOUT_Delivery" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-    <EntitySet Name="Employee_Table" EntityType="Self.Employee_Table" />
+    <EntitySet Name="EmployeeDatas" EntityType="Self.EmployeeData" />
     <AssociationSet Name="FK_ContractNumbers_SentIN_Delivery" Association="Self.FK_ContractNumbers_SentIN_Delivery">
       <End Role="SentIN_Delivery" EntitySet="SentIN_Delivery" />
       <End Role="ContractNumbers" EntitySet="ContractNumbers" />
     </AssociationSet>
+    <AssociationSet Name="FK_ContractsData_NatisData" Association="Self.FK_ContractsData_NatisData">
+      <End Role="NatisData" EntitySet="NatisDatas" />
+      <End Role="ContractsData" EntitySet="ContractsDatas" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Intern_LeaveDBModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Intern_LeaveDBModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
   </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
 </Schema>

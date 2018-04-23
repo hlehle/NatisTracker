@@ -20,13 +20,13 @@ namespace NatisTracker.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Employee_Table objEmp)
+        public ActionResult Login(EmployeeData objEmp)
         {
             if (ModelState.IsValid)
             {
                 using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
                 {
-                    var emp = db.Employee_Table.Where(a => a.UserName.Equals(objEmp.UserName)
+                    var emp = db.EmployeeDatas.Where(a => a.UserName.Equals(objEmp.UserName)
                     && a.Password.Equals(objEmp.Password)).FirstOrDefault();
 
                     if (emp != null)
@@ -91,6 +91,7 @@ namespace NatisTracker.Controllers
                     else
                     {
                         Response.Write("<script LANGUAGE='JavaScript' >alert('Incorrect User name or password')</script>");
+                        return RedirectToAction("Login", "Login");
                     }
                 }
             }

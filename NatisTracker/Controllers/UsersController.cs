@@ -21,9 +21,10 @@ namespace NatisTracker.Controllers
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
 
-            viewMaster.RequestViewModel = db.NatisRequests;
-            viewMaster.logs = db.LogInfoes;
+            viewMaster.RequestViewModel = db.RequestsDatas;
+            viewMaster.logs = db.ScanLogsDatas;
             viewMaster.natisDataViewModel = db.NatisDatas;
+            viewMaster.contractData = db.ContractsDatas.ToList();
             viewMaster.contracts = db.ContractNumbers.ToList();
             viewMaster.deliveryModel = db.SentIN_Delivery;
             var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
@@ -62,8 +63,9 @@ namespace NatisTracker.Controllers
                 else
                     viewMaster.natisDataViewModel = found;
 
-                viewMaster.RequestViewModel = db.NatisRequests;
-                viewMaster.logs = db.LogInfoes;
+                viewMaster.RequestViewModel = db.RequestsDatas;
+            viewMaster.contractData = db.ContractsDatas.ToList();
+                viewMaster.logs = db.ScanLogsDatas;
                 viewMaster.contracts = db.ContractNumbers.ToList();
                 viewMaster.deliveryModel = db.SentIN_Delivery;
             //}
@@ -77,7 +79,7 @@ namespace NatisTracker.Controllers
 
             string name = Session["Name"].ToString() + " " + Session["Surname"].ToString();
 
-            viewMaster.RequestViewModel = db.NatisRequests.Where(a => a.RequesterName == name).ToList();
+            viewMaster.RequestViewModel = db.RequestsDatas.Where(a => a.RequesterName == name).ToList();
             viewMaster.natisDataViewModel = db.NatisDatas;
             viewMaster.deliveryModel = db.SentIN_Delivery;
             viewMaster.viewModel = new UserDetailViewModel();

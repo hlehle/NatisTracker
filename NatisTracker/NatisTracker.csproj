@@ -217,19 +217,13 @@
     <Compile Include="Models\ContractNumber.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee_Table.cs">
+    <Compile Include="Models\ContractsData.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Leave_Days.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\LogInfo.cs">
+    <Compile Include="Models\EmployeeData.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NatisData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NatisRequest.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\NatisTracker.Context.cs">
@@ -247,16 +241,27 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NatisTracker.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestsData.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ScanLogsData.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\SentIN_Delivery.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SentOUT_Delivery.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="UIServices\BackToSafe.cs" />
     <Compile Include="UIServices\Collect.cs" />
     <Compile Include="UIServices\DeliveryServiceIN.cs" />
     <Compile Include="UIServices\DeliveryServiceOUT.cs" />

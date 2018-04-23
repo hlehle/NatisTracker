@@ -13,21 +13,21 @@ namespace NatisTracker.Models
 {
     public class Collect : IScanNatis
     {
-        public bool Scan(MasterViewModel appForm, string name, string surname, string department)
+        public bool Scan(NatisAndContractViewModel viewModel, string name, string surname, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
 
-                if (appForm.logInfo.file != null)
+                if (viewModel.file != null)
                 {
-                    byte[] byteArr = new byte[appForm.logInfo.file.ContentLength];
-                    appForm.logInfo.file.InputStream.Read(byteArr, 0, appForm.logInfo.file.ContentLength);
+                    byte[] byteArr = new byte[viewModel.file.ContentLength];
+                    viewModel.file.InputStream.Read(byteArr, 0, viewModel.file.ContentLength);
                     Stream stream = new MemoryStream(byteArr);
                     string[] natis = readBarCode(stream);
 
                     string contractNumber = getContractNo(natis[9]);
 
-                    LogInfo database = new LogInfo();
+                    ScanLogsData database = new ScanLogsData();
                     NatisData data = new NatisData();
 
                     database.ContractNumber = contractNumber;
@@ -36,21 +36,21 @@ namespace NatisTracker.Models
                     database.User = name + " " + surname;
                     database.Department = department;
                     database.ContractStatus = "800";
-                    database.Comment = appForm.logInfo.comment;
+                    database.Comment = viewModel.Comment;
 
                     data = db.NatisDatas.FirstOrDefault(u => u.VinNumber == database.VinNumber);
                     data.NatisLocation = department;
 
-                    db.LogInfoes.Add(database);
+                    db.ScanLogsDatas.Add(database);
                     db.SaveChanges();
 
-                    appForm.logInfo.contractNo = database.ContractNumber;
-                    appForm.logInfo.VIN = database.VinNumber;
-                    appForm.logInfo.Date = database.DateScanned;
-                    appForm.logInfo.user = name + " " + surname;
-                    appForm.logInfo.department = database.Department;
-                    appForm.logInfo.status = database.ContractStatus;
-                    appForm.logInfo.comment = database.Comment;
+                    viewModel.contractNo = database.ContractNumber;
+                    viewModel.vin = database.VinNumber;
+                    viewModel.DateScanned = database.DateScanned;
+                    viewModel.ScanningUser = name + " " + surname;
+                    viewModel.Department = database.Department;
+                    viewModel.ContractStatus = database.ContractStatus;
+                    viewModel.Comment = database.Comment;
 
                 }
             }

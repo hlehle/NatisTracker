@@ -67,10 +67,10 @@
             <div id="Menu" class="tab-pane fade in active">
 
                 <ul class="list-item">
-                    <li class="list-group-item"> <a href="@Url.Action("LoadNewNatis", "Process")" class="btn btn-block">Load New Natis</a></li>
+                    <li class="list-group-item"> <a href="@Url.Action("LoadNewNatis", "Process")" class="btn btn-block">Scan To Safe</a></li>
                     <li class="list-group-item"> <a href="@Url.Action("GenerateReports", "Process")" class="btn btn-block">Generate Report</a></li>
                     <li class="list-group-item"> <a href="@Url.Action("RequestResponse", "Process")" class="btn btn-block">Respond to Request</a></li>
-                    <li class="list-group-item"> <a href="@Url.Action("Scan_Back_To_Safe", "Process")" class="btn btn-block">Scan Back to Safe</a></li>
+                    @*<li class="list-group-item"> <a href="@Url.Action("Scan_Back_To_Safe", "Process")" class="btn btn-block">Scan Back to Safe</a></li>*@
                     <li class="list-group-item"> <a href="#" class="btn btn-block">Escalations</a></li>
                 </ul>
 
@@ -225,7 +225,8 @@
                     <table id="searchTable" class="table table-striped table-bordered">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Contract Number</th>
+                                <th>Date Scanned</th>
+                                <th>Contract Numbers</th>
                                 <th>VIN Number</th>
                                 <th>Registration Number</th>
                                 <th>Engine Number</th>
@@ -236,6 +237,8 @@
                                 <th>Owner name</th>
                                 <th>Owner ID</th>
                                 <th>Natis Location</th>
+                                <th>Contract Status</th>
+                                <th>Status Description</th>
                             </tr>
                         </thead>
 
@@ -244,7 +247,17 @@
                             {
 
                                 <tr>
-                                    <td>@item.ContractNumber</td>
+                                    <td>@item.DateLoaded</td>
+                                    <td>
+                                        @for (int i = 0; i < Model.contractData.Count(); i++)
+                                        {
+                                            if (Model.contractData[i].VinNumber.Equals(item.VinNumber))
+                                            {
+                                                @Model.contractData[i].ContractNumber
+                                            }
+
+                                        }
+                                    </td>
                                     <td>@item.VinNumber</td>
                                     <td>@item.RegistrationNumber</td>
                                     <td>@item.EngineNumber</td>
@@ -255,6 +268,24 @@
                                     <td>@item.OwnerName</td>
                                     <td>@item.OwnerIdentityNumber</td>
                                     <td>@item.NatisLocation</td>
+                                    <td>
+                                        @for (int i = 0; i < Model.contractData.Count(); i++)
+                                        {
+                                            if (Model.contractData[i].VinNumber.Equals(item.VinNumber))
+                                            {
+                                                @Model.contractData[i].ContractStatus
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @for (int i = 0; i < Model.contractData.Count(); i++)
+                                        {
+                                            if (Model.contractData[i].VinNumber.Equals(item.VinNumber))
+                                            {
+                                                @Model.contractData[i].StatusDescription
+                                            }
+                                        }
+                                    </td>
                                 </tr>
 
                             }
@@ -262,7 +293,8 @@
 
                         <tfoot class="thead-dark">
                             <tr>
-                                <th>Contract Number</th>
+                                <th>Date Scanned</th>
+                                <th>Contract Numbers</th>
                                 <th>VIN Number</th>
                                 <th>Registration Number</th>
                                 <th>Engine Number</th>
@@ -273,6 +305,8 @@
                                 <th>Owner name</th>
                                 <th>Owner ID</th>
                                 <th>Natis Location</th>
+                                <th>Contract Status</th>
+                                <th>Status Description</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -424,6 +458,7 @@
                                     <th>Scanned By</th>
                                     <th>Natis Location</th>
                                     <th>Contract Status</th>
+                                    <th>Contract Description</th>
                                     <th>Comment</th>
                                 </tr>
                             </thead>
@@ -438,6 +473,7 @@
                                         <td>@item.User</td>
                                         <td>@item.Department</td>
                                         <td>@item.ContractStatus</td>
+                                        <td>@item.ContractDescription</td>
                                         <td>@item.Comment</td>
                                     </tr>
 
@@ -451,6 +487,7 @@
                                     <th>Scanned By</th>
                                     <th>Natis Location</th>
                                     <th>Contract Status</th>
+                                    <th>Contract Description</th>
                                     <th>Comment</th>
                                 </tr>
                             </tfoot>
