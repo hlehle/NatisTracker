@@ -183,7 +183,7 @@
                                                 if (contract.RecordNumber.Equals(deliveryInfo.RecordNumber))
                                                 {
                                             <div class="checkbox">
-                                                @if (contract.IsReceived)
+                                                @if ((bool)contract.IsReceived)
                                                         {
                                                         @Html.CheckBox("checkbox", new { @checked = "checked", @disabled = "true" }) @contract.ContractNumber1 <br />
                                                         }
@@ -246,7 +246,7 @@
                                                 if (contract.RecordNumber.Equals(deliveryInfo.RecordNumber))
                                                 {
                                             <div class="checkbox">
-                                                @if (contract.IsReceived)
+                                                @if ((bool)contract.IsReceived)
                                                         {
                                                         @Html.CheckBox("checkbox", new { @checked = "checked", @disabled = "true" }) @contract.ContractNumber1 <br />
                                                         }

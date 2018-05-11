@@ -12,6 +12,7 @@ using Aspose.BarCode.BarCodeRecognition;
 using System.Data;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
+using System.Text;
 
 namespace NatisTracker.Controllers
 {
@@ -36,7 +37,7 @@ namespace NatisTracker.Controllers
                 var a = Request.Files.Count;
                 viewModel.file = Request.Files[0];
 
-                bool isPopulated = new LoadNew().Scan(viewModel, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
+                bool isPopulated = new LoadNew().Scan(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
 
                 if (isPopulated)
                 {
@@ -71,7 +72,7 @@ namespace NatisTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                new Respond().respond(form, @Session["Name"].ToString(), Session["Surname"].ToString());
+                new Respond().respond(form, @Session["Name"].ToString());
             }
 
             Intern_LeaveDBEntities database = new Intern_LeaveDBEntities();
@@ -88,8 +89,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult Scan_To_Collect()
         {
-            MasterViewModel view = new MasterViewModel();
-            view.logInfo = new LogInfoViewModel();
+            var view = new NatisAndContractViewModel();
             return View(view);
         }
 
@@ -97,14 +97,14 @@ namespace NatisTracker.Controllers
         public ActionResult Scan_To_Collect(FormCollection form)
         {
             var viewModel = new NatisAndContractViewModel();
-            TryUpdateModel<NatisAndContractViewModel>(viewModel, form);
+            TryUpdateModel(viewModel, form);
 
             if (ModelState.IsValid)
             {
                 var a = Request.Files.Count;
                 viewModel.file = Request.Files[0];
 
-                new Collect().Scan(viewModel, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
+                new Collect().Scan(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
             }
 
             return View(viewModel);
@@ -112,7 +112,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult RequestNatis()
         {
-
+            //ViewBag.Stored = "No";
             return View(new NatisRequests());
         }
 
@@ -124,8 +124,9 @@ namespace NatisTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                new Request().request(viewModel, Session["Name"].ToString(), Session["Surname"].ToString(), Session["Department"].ToString());
+                viewModel = new Request().request(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
                 ViewBag.Stored = "Yes";
+                ModelState.Clear();
             }
             else
             {
@@ -133,81 +134,155 @@ namespace NatisTracker.Controllers
             }
 
             return View(viewModel);
+
         }
 
-        public ActionResult GenerateReports()
+        public ActionResult GenerateOneReports(FormCollection form)
+        {
+            var contractNumber = form["a"];
+            var log = new Intern_LeaveDBEntities().ScanLogsDatas.Where(a => a.ContractNumber == contractNumber).ToList();
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\"+contractNumber+".csv";
+            StringBuilder line = new StringBuilder();
+            FileContentResult file = null;
+
+            //using (FileStream streamWriter = new FileStream(path, FileMode.Create))
+            //{
+            var header = string.Format("{0},{1},{2},{3},{4},{5},{6}",
+                                           "Contract Number",
+                                           "VIN",
+                                           "Date Scanned",
+                                           "Scanned By",
+                                           "Natis Location",
+                                           "Contract Status",
+                                           "Comment"
+                                          );
+                line.AppendLine(header);
+
+                for (int i = 0; i < log.Count; i++)
+                {
+                    var listResults = string.Format("{0},{1},{2},{3},{4},{5},{6}",
+                                                      log[i].ContractNumber,
+                                                      log[i].VinNumber,
+                                                      log[i].DateScanned,
+                                                      log[i].User,
+                                                      log[i].Department,
+                                                      log[i].ContractStatus,
+                                                      log[i].Comment
+                                                     );
+                    line.AppendLine(listResults);
+
+
+                //}
+                byte[] data = Encoding.Default.GetBytes(line.ToString());
+                file = File(data, "application/csv", contractNumber+" Report.csv");
+                //streamWriter.Write(data,0,data.Length);                
+            }
+
+            //return RedirectToAction("AdminView", "Users");
+            return file;
+        }
+
+        public ActionResult GenerateAuditReports()
         {
             var log = new Intern_LeaveDBEntities().ScanLogsDatas.ToList();
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AuditReport.csv";
+            StringBuilder line = new StringBuilder();
+            FileContentResult file = null;
 
-            //this represents the entire Microsoft Office Excel application
-            Excel.Application xlApp;
 
-            //create an Excel workbook
-            Excel._Workbook xlwookbook;
+            //using (FileStream streamWriter = new FileStream(path, FileMode.Create))
+            //{
+                var header = string.Format("{0},{1},{2},{3},{4},{5},{6}",
+                                           "Contract Number",
+                                           "VIN",
+                                           "Date Scanned",
+                                           "Scanned By",
+                                           "Natis Location",
+                                           "Contract Status",
+                                           "Comment"
+                                          );
+                line.AppendLine(header);
 
-            //create an Excel worksheet
-            Excel._Worksheet xlSheet;
-
-            //represents a range, a cell, a row , a selection of cells etc
-            Excel.Range xlrange;
-
-            try
-            {
-                //create a new Excel window
-                xlApp = new Excel.Application();
-                xlApp.Visible = true;
-
-                //create a new Workbook
-                xlwookbook = xlApp.Workbooks.Add(Missing.Value);
-
-                //create a new Worksheet
-                xlSheet = (Excel._Worksheet)xlwookbook.ActiveSheet;
-
-                //create table headers
-                xlSheet.Cells[1, 1] = "Contract Number";
-                xlSheet.Cells[1, 2] = "VIN NUmber";
-                xlSheet.Cells[1, 3] = "Date Scanned";
-                xlSheet.Cells[1, 4] = "Scanned By";
-                xlSheet.Cells[1, 5] = "Location";
-                xlSheet.Cells[1, 6] = "Contract Status";
-                xlSheet.Cells[1, 7] = "Comment";
-
-                //format A1 : D1
-                xlSheet.get_Range("A1", "G1").Font.Bold = true;
-
-                //set the vertical alignment
-                xlSheet.get_Range("A1", "G1").VerticalAlignment = Excel.XlVAlign.xlVAlignCenter;
-
-                for (int i = 2; i < log.Count+2; i++)
+                for (int i = 0; i < log.Count; i++)
                 {
-                    xlSheet.Cells[i, 1] = log[i-2].ContractNumber;
-                    xlSheet.Cells[i, 2] = log[i-2].VinNumber;
-                    xlSheet.Cells[i, 3] = log[i-2].DateScanned;
-                    xlSheet.Cells[i, 4] = log[i-2].User;
-                    xlSheet.Cells[i, 5] = log[i-2].Department;
-                    xlSheet.Cells[i, 6] = log[i-2].ContractStatus;
-                    xlSheet.Cells[i, 7] = log[i-2].Comment;
+                    var listResults = string.Format("{0},{1},{2},{3},{4},{5},{6}",
+                                                      log[i].ContractNumber,
+                                                      log[i].VinNumber,
+                                                      log[i].DateScanned,
+                                                      log[i].User,
+                                                      log[i].Department,
+                                                      log[i].ContractStatus,
+                                                      log[i].Comment
+                                                     );
+                    line.AppendLine(listResults);
+
+
+                //}
+                byte[] data = Encoding.Default.GetBytes(line.ToString());
+                
+                file = File(data, "application/csv", "Audit Report.csv");
+
+                //streamWriter.Write(data, 0, data.Length);
+            }
+
+            return file;
+        }
+
+        public ActionResult GenerateDepartmentReports(FormCollection form)
+        {
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                var department = form["b"];
+                var natis = db.NatisDatas.Where(a => a.NatisLocation == department).ToList();
+                var log = new List<ScanLogsData>();
+
+                foreach (var item in natis)
+                {
+                    var vin = item.VinNumber;
+                    var temp = db.ScanLogsDatas.Where(a => a.VinNumber == vin).OrderBy(a => a.DateScanned).FirstOrDefault();
+                    log.Add(temp);
                 }
 
-                //AutoFit columns A:D
-                xlrange = xlSheet.get_Range("A1", "G1");
-                xlrange.EntireColumn.AutoFit();
+                StringBuilder line = new StringBuilder();
+                FileContentResult file = null;
 
-                xlApp.Visible = true;
 
-                //UserControl = true: if the application is visible or if it
-                //was created or started by the user
-                xlApp.UserControl = true;
+                //using (FileStream streamWriter = new FileStream(path, FileMode.Create))
+                //{
+                var header = string.Format("{0},{1},{2},{3},{4},{5},{6}",
+                                           "Contract Number",
+                                           "VIN",
+                                           "Date Scanned",
+                                           "Scanned By",
+                                           "Natis Location",
+                                           "Contract Status",
+                                           "Comment"
+                                          );
+                line.AppendLine(header);
 
-                xlwookbook.SaveAs("Audit Report.xls");
+                for (int i = 0; i < log.Count; i++)
+                {
+                    var listResults = string.Format("{0},{1},{2},{3},{4},{5},{6}",
+                                                      log[i].ContractNumber,
+                                                      log[i].VinNumber,
+                                                      log[i].DateScanned,
+                                                      log[i].User,
+                                                      log[i].Department,
+                                                      log[i].ContractStatus,
+                                                      log[i].Comment
+                                                     );
+                    line.AppendLine(listResults);
+
+
+                    //}
+                    byte[] data = Encoding.Default.GetBytes(line.ToString());
+                    file = File(data, "application/csv", department + " Report.csv");
+                    //streamWriter.Write(data, 0, data.Length);
+                }
+
+                return file;
             }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-            return RedirectToAction("AdminView", "Users");
+            
         }
     }
 }

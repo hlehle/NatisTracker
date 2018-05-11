@@ -220,6 +220,9 @@
     <Compile Include="Models\ContractsData.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DriverData.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EmployeeData.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
@@ -269,10 +272,14 @@
     <Compile Include="UIServices\INatisRequest.cs" />
     <Compile Include="UIServices\LoadNew.cs" />
     <Compile Include="UIServices\IScanNatis.cs" />
+    <Compile Include="UIServices\PopulateDriverData.cs" />
+    <Compile Include="UIServices\Populate.cs" />
     <Compile Include="UIServices\Request.cs" />
     <Compile Include="UIServices\Respond.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Delivery.cs" />
+    <Compile Include="ViewModels\Driver.cs" />
+    <Compile Include="ViewModels\DriverPackage.cs" />
     <Compile Include="ViewModels\LogInfoViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="ViewModels\NatisDataViewModel.cs" />
@@ -301,6 +308,7 @@
     <Content Include="Views\Users\UserView.cshtml" />
     <Content Include="Views\Shared\View.cshtml" />
     <Content Include="Views\Users\_Details.cshtml" />
+    <Content Include="Views\Users\DriverView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

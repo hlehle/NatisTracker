@@ -65,6 +65,7 @@
 
                     @Html.HiddenFor(model => model.ContractStrings)
                     <fieldset>
+                        
                         <div class="form-group">
 
                             @Html.LabelFor(a => a.DeliveryChoice, "Delivery Choice", new { @class = "col-md-2 control-label" })
@@ -129,7 +130,11 @@
                         </div>
 
                         <br /><br />
-                        <button class="btn btn-large btn-primary" id="btnSubmit" type="submit">Send</button>
+
+                        <button class="btn btn-small btn-primary" id="btnSubmit" type="submit" style="text-align:left">Send</button>
+                        <P> 
+                            <a href="http://localhost:33330/Pps/Home" style="text-align:right" class="col-md-11 control-label">Back to previous page</a>
+                        </P>
 
                     </fieldset>
 
@@ -178,7 +183,7 @@
                                                 if (contract.RecordNumber.Equals(deliveryInfo.RecordNumber))
                                                 {
                                             <div class="checkbox">
-                                                @if (contract.IsReceived)
+                                                @if ((bool)contract.IsReceived)
                                                         {
                                                         @Html.CheckBox("checkbox", new { @checked = "checked", @disabled = "true" }) @contract.ContractNumber1 <br />
                                                         }
@@ -241,7 +246,7 @@
                                                 if (contract.RecordNumber.Equals(deliveryInfo.RecordNumber))
                                                 {
                                             <div class="checkbox">
-                                                @if (contract.IsReceived)
+                                                @if ((bool)contract.IsReceived)
                                                         {
                                                         @Html.CheckBox("checkbox", new { @checked = "checked", @disabled = "true" }) @contract.ContractNumber1 <br />
                                                         }

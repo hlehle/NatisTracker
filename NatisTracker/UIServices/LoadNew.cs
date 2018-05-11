@@ -13,7 +13,7 @@ namespace NatisTracker.Models
 {
     public class LoadNew : IScanNatis
     {
-        public bool Scan(NatisAndContractViewModel viewModel, string name, string surname, string department)
+        public bool Scan(NatisAndContractViewModel viewModel, string name, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
@@ -29,7 +29,7 @@ namespace NatisTracker.Models
                         // Filling Natis Doc Data
                         NatisData natisData = new NatisData();
 
-                        natisData.User = name + " " + surname;
+                        natisData.User = name;
                         natisData.DateLoaded = DateTime.Now;
                         natisData.VinNumber = natis[9];
                         natisData.RegistrationNumber = natis[5];
@@ -52,18 +52,20 @@ namespace NatisTracker.Models
                         contractData.ContractNumber = contractNumber;
                         contractData.ContractStatus = contractInfo[0];
                         contractData.StatusDescription = contractInfo[1];
-                        
+
+                        ScanLogsData log = new ScanLogsData();
+
+                        log.ContractNumber = getContractNo(natis[9]);
+                        log.VinNumber = natisData.VinNumber;
+                        log.DateScanned = DateTime.Now;
+                        log.User = natisData.User;
+                        log.Department = natisData.NatisLocation;
+                        log.ContractStatus = contractData.ContractStatus;
+                        log.ContractDescription = contractData.StatusDescription;
+
                         if (!isExist(db, natisData))
                         {
-                            ScanLogsData log = new ScanLogsData();
-
-                            log.ContractNumber = getContractNo(natis[9]);
-                            log.VinNumber = natisData.VinNumber;
-                            log.DateScanned = DateTime.Now;
-                            log.User = natisData.User;
-                            log.Department = natisData.NatisLocation;
-                            log.ContractStatus = contractData.ContractStatus;
-                            log.ContractDescription = contractData.StatusDescription;
+                            
                             log.Comment = "First time loaded to the Safe";
 
                             db.NatisDatas.Add(natisData);
@@ -84,6 +86,37 @@ namespace NatisTracker.Models
                             viewModel.natisLocation = natisData.NatisLocation;
 
                             return true;
+                        }
+                        else if (isExist(db, natisData) && !isInSafe(db, natisData))
+                        {
+                            log.Comment = "Back to Safe";
+
+                            var vin = natisData.VinNumber;
+                            var temp = db.NatisDatas.Where(a => a.VinNumber == vin).FirstOrDefault();
+                            temp.NatisLocation = natisData.NatisLocation;
+                            //db.NatisDatas.Add(natisData);
+                            db.ScanLogsDatas.Add(log);
+                            db.ContractsDatas.Add(contractData);
+                            db.SaveChanges();
+
+                            viewModel.contractNo = contractNumber;
+                            viewModel.vin = natisData.VinNumber;
+                            viewModel.registrationNo = natisData.RegistrationNumber;
+                            viewModel.engineNo = natisData.EngineNumber;
+                            viewModel.carMake = natisData.CarMake;
+                            viewModel.seriesNo = natisData.SeriesNumber;
+                            viewModel.description = natisData.Description;
+                            viewModel.registrationDate = natisData.RegistrationDate;
+                            viewModel.OwnerName = natisData.OwnerName;
+                            viewModel.OwnerID = natisData.OwnerIdentityNumber;
+                            viewModel.natisLocation = natisData.NatisLocation;
+
+                            return true;
+                        }
+
+                        else if (isExist(db, natisData) && isInSafe(db, natisData))
+                        {
+                            return false;
                         }
                     }
                 }
@@ -161,11 +194,23 @@ namespace NatisTracker.Models
             }
         }
 
-        public bool isExist(Intern_LeaveDBEntities db, NatisData data)
+        public bool isInSafe(Intern_LeaveDBEntities db, NatisData data)
         {
             foreach (var item in db.NatisDatas)
             {
                 if (item.VinNumber.Equals(data.VinNumber) && item.NatisLocation.Equals(data.NatisLocation))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool isExist(Intern_LeaveDBEntities db, NatisData data)
+        {
+            foreach (var item in db.NatisDatas)
+            {
+                if (item.VinNumber.Equals(data.VinNumber))
                 {
                     return true;
                 }

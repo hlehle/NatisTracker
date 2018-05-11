@@ -13,7 +13,7 @@ namespace NatisTracker.Models
 {
     public class Collect : IScanNatis
     {
-        public bool Scan(NatisAndContractViewModel viewModel, string name, string surname, string department)
+        public bool Scan(NatisAndContractViewModel viewModel, string name, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
@@ -27,30 +27,34 @@ namespace NatisTracker.Models
 
                     string contractNumber = getContractNo(natis[9]);
 
-                    ScanLogsData database = new ScanLogsData();
+                    ScanLogsData log = new ScanLogsData();
                     NatisData data = new NatisData();
 
-                    database.ContractNumber = contractNumber;
-                    database.VinNumber = natis[9];
-                    database.DateScanned = DateTime.Now;
-                    database.User = name + " " + surname;
-                    database.Department = department;
-                    database.ContractStatus = "800";
-                    database.Comment = viewModel.Comment;
+                    string[] contactInfo = GetContractStatus(contractNumber);
 
-                    data = db.NatisDatas.FirstOrDefault(u => u.VinNumber == database.VinNumber);
+                    log.ContractNumber = contractNumber;
+                    log.VinNumber = natis[9];
+                    log.DateScanned = DateTime.Now;
+                    log.User = name;
+                    log.Department = department;
+                    log.ContractStatus = contactInfo[0];
+                    log.ContractDescription = contactInfo[1];
+                    log.Comment = viewModel.Comment;
+
+                    data = db.NatisDatas.FirstOrDefault(u => u.VinNumber == log.VinNumber);
                     data.NatisLocation = department;
 
-                    db.ScanLogsDatas.Add(database);
+                    db.ScanLogsDatas.Add(log);
                     db.SaveChanges();
 
-                    viewModel.contractNo = database.ContractNumber;
-                    viewModel.vin = database.VinNumber;
-                    viewModel.DateScanned = database.DateScanned;
-                    viewModel.ScanningUser = name + " " + surname;
-                    viewModel.Department = database.Department;
-                    viewModel.ContractStatus = database.ContractStatus;
-                    viewModel.Comment = database.Comment;
+                    viewModel.contractNo = log.ContractNumber;
+                    viewModel.vin = log.VinNumber;
+                    viewModel.DateScanned = log.DateScanned;
+                    viewModel.ScanningUser = name;
+                    viewModel.Department = log.Department;
+                    viewModel.ContractStatus = log.ContractStatus;
+                    viewModel.StatusDescription = log.ContractDescription;
+                    viewModel.Comment = log.Comment;
 
                 }
             }
@@ -109,6 +113,60 @@ namespace NatisTracker.Models
                 return contractNumber;
             }
             catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public string[] GetContractStatus(string contractNumber)
+        {
+            try
+            {
+                //using connection string attributes to connect to Oracle Database
+                string connectionString = "Data Source=WEBDBQA;User ID=enatis_user;Password=welcome1";
+
+
+                OracleConnection conn = new OracleConnection(connectionString);
+                conn.Open();
+
+                string query = "select ssd.sub_status_code, ssd.sub_status_description " +
+                               "from PMS.CM_CONTRACT_DETAIL_MV t " +
+                               "inner join PMS.CS_STATUS_DESC sd " +
+                               "on t.status_code = sd.status_code " +
+                               "and sd.language_code = 'E' " +
+                               "inner join PMS.CS_SUB_STAT_DESC ssd " +
+                               "on t.sub_status_code = ssd.sub_status_code " +
+                               "and ssd.language_code = 'E' " +
+                               "where CONTRACT_NUMBER = :contractNumber " +
+                               "order by t.version_number desc";
+
+                OracleCommand cmd = new OracleCommand(query, conn);
+                cmd.Parameters.Add("contractNumber", "0000000000" + contractNumber);
+                cmd.CommandType = CommandType.Text;
+
+                string[] contractInfo = new string[2];
+                OracleDataReader results = cmd.ExecuteReader();
+                if (results.HasRows)
+                {
+                    results.Read();
+                    contractInfo[0] = results.GetValue(0).ToString();
+                    contractInfo[1] = results.GetValue(1).ToString();
+                    return contractInfo;
+                }
+                else
+                {
+                    contractInfo[0] = "";
+                    contractInfo[1] = "";
+
+                }
+
+                // Close and Dispose OracleConnection object
+                conn.Close();
+                conn.Dispose();
+                //Console.WriteLine("Disconnected");
+                return contractInfo;
+            }
+            catch (Exception ex)
             {
                 return null;
             }

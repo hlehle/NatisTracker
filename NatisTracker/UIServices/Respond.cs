@@ -10,16 +10,16 @@ namespace NatisTracker.Models
 {
     public class Respond : INatisRequest
     {
-        public void request(NatisRequests viewModel, string name, string surname, string department) { }
+        public NatisRequests request(NatisRequests viewModel, string name,string department) { return viewModel; }
 
-        public void respond(FormCollection form, string name, string surname)
+        public void respond(FormCollection form, string name)
         {
             string[] recordNumbers = form["RecordNumber"].Split(new char[] { ',' });
             string[] replies = form["Status"].Split(new char[] { ',' });
 
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                Models.RequestsData response = new RequestsData();
+                RequestsData response = new RequestsData();
 
                 for (int i = 0; i < recordNumbers.Length; i++)
                 {
@@ -29,7 +29,7 @@ namespace NatisTracker.Models
                     if (!reply.Equals("Pending"))
                     {
                         response = db.RequestsDatas.Single(u => u.RecordNumber == recordNumber);
-                        response.Responder = name + " " + surname;
+                        response.Responder = name;
                         response.ReplyDate = DateTime.Now;
                         response.RequestStatus = reply.ToString();
 

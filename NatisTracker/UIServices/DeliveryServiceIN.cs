@@ -4,12 +4,13 @@ using System.Linq;
 using System.Web;
 using NatisTracker.ViewModels;
 using System.Web.Mvc;
+using System.Net.Mail;
 
 namespace NatisTracker.Models
 {
     public class DeliveryServiceIN : IDeliveryService
     {
-        public DeliveryitemViewModel sendDelivery(DeliveryitemViewModel viewModel, string name, string surname)
+        public DeliveryitemViewModel sendDelivery(DeliveryitemViewModel viewModel, string name)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
@@ -21,7 +22,7 @@ namespace NatisTracker.Models
 
                     database.DealershipName = viewModel.DealershipName;
                     database.PackageNumber = viewModel.WaybillNumber;
-                    database.PackageSender = name + " " + surname;
+                    database.PackageSender = name;
                     database.DateSent = DateTime.Now;
                     database.CourierStatus = "Transit";
                     database.DeliveryChoice = viewModel.DeliveryChoice;
@@ -48,7 +49,7 @@ namespace NatisTracker.Models
             return viewModel;
         }
 
-        public DeliveryViewModel receiveDelivery(DeliveryViewModel viewModel, string name, string surname)
+        public DeliveryViewModel receiveDelivery(DeliveryViewModel viewModel, string name)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
@@ -62,7 +63,7 @@ namespace NatisTracker.Models
                             var delivery = db.SentIN_Delivery.First(r => r.RecordNumber == num);
                             delivery.CourierStatus = viewModel.CourierViewModel.DeliveryItems[i].DeliveryStatus;
                             delivery.DateReceived = DateTime.Now;
-                            delivery.PackageRecipient = name+" "+surname;
+                            delivery.PackageRecipient = name;
 
                             for (int j = 0; j < viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems.Count(); j++)
                             {
@@ -91,7 +92,7 @@ namespace NatisTracker.Models
                             var delivery = db.SentIN_Delivery.First(r => r.RecordNumber == num);
                             delivery.CourierStatus = viewModel.DriverViewModel.DeliveryItems[i].DeliveryStatus;
                             delivery.DateReceived = DateTime.Now;
-                            delivery.PackageRecipient = name + " " + surname;
+                            delivery.PackageRecipient = name;
 
                             for (int j = 0; j < viewModel.DriverViewModel.DeliveryItems[i].ContractNumberItems.Count(); j++)
                             {
@@ -115,9 +116,54 @@ namespace NatisTracker.Models
             }
         }
 
+        public void SendToDriver(DriverPackage viewModel, string name) {}
+
         public string[] getContractsNo(string contracts)
         {
             return contracts.Trim().Split(' ');
+        }
+
+        public void SendEmail(string customerEmail, string subject, string boby)
+        {
+            //Set email user name - Change this as per your settings
+            const string username = "internleavesystem@gmail.com";
+            //Set the email password - Change this as per your settings
+            const string password = "Leave@2018";
+            SmtpClient smtpclient = new SmtpClient();
+            MailMessage mail = new MailMessage();
+
+            //Set the email from address of mail message -  Change this as per your settings
+            MailAddress fromaddress = new MailAddress("internleavesystem@gmail.com");
+
+            //Set the email smtp host -  Change this as per your settings
+            smtpclient.Host = "53.151.100.102";
+
+            //Set the email client port -  Change this as per your settings
+            smtpclient.Port = 25;
+            mail.From = fromaddress;
+
+            //Adding email id of receiver link
+            mail.To.Add(customerEmail);
+
+            //Set the email subject
+            mail.Subject = subject;
+            mail.IsBodyHtml = false;
+
+            //Set the email body - Change this as per your logic
+            mail.Body = boby;
+            smtpclient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpclient.Credentials = new System.Net.NetworkCredential(username, password);
+
+            try
+            {
+                //Sending Email
+                smtpclient.Send(mail);
+
+            }
+            catch (Exception ex)
+            {
+                //Catch if any exception occurs
+            }
         }
     }
 }

@@ -14,13 +14,18 @@ namespace NatisTracker.Models
     
     public partial class EmployeeData
     {
-        public int Employee_ID { get; set; }
+        public int RecordNumber { get; set; }
+        public string UserId { get; set; }
         public string UserName { get; set; }
-        public string Password { get; set; }
-        public string Employee_Name { get; set; }
         public string Employee_Surname { get; set; }
+        public string ContactName { get; set; }
+        public string Password { get; set; }
         public string Department { get; set; }
         public string User_Type { get; set; }
         public string Email { get; set; }
+        public string Title { get; set; }
+        public string DCXKIM { get; set; }
+        public string DCXLDOMAIL { get; set; }
+        public string LocationCode { get; set; }
     }
 }

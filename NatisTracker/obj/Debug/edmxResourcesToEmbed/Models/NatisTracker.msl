@@ -8,6 +8,7 @@
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="ContractNumber1" ColumnName="ContractNumber" />
           <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -19,6 +20,40 @@
           <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
           <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
           <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DriverDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.DriverData">
+        <MappingFragment StoreEntitySet="DriverData">
+          <ScalarProperty Name="SentBy" ColumnName="SentBy" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+          <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+          <ScalarProperty Name="DriverEmail" ColumnName="DriverEmail" />
+          <ScalarProperty Name="DriverDepartment" ColumnName="DriverDepartment" />
+          <ScalarProperty Name="DriverContacts" ColumnName="DriverContacts" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.EmployeeData">
+        <MappingFragment StoreEntitySet="EmployeeData">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Employee_Surname" ColumnName="Employee_Surname" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="User_Type" ColumnName="User_Type" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="DCXKIM" ColumnName="DCXKIM" />
+          <ScalarProperty Name="DCXLDOMAIL" ColumnName="DCXLDOMAIL" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -117,20 +152,6 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EmployeeDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.EmployeeData">
-        <MappingFragment StoreEntitySet="EmployeeData">
-          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
-          <ScalarProperty Name="Employee_Surname" ColumnName="Employee_Surname" />
-          <ScalarProperty Name="Department" ColumnName="Department" />
-          <ScalarProperty Name="User_Type" ColumnName="User_Type" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

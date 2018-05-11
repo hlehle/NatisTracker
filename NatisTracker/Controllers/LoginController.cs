@@ -31,9 +31,9 @@ namespace NatisTracker.Controllers
 
                     if (emp != null)
                     {
-                        Session["ID"] = emp.Employee_ID.ToString();
-                        Session["Name"] = emp.Employee_Name.ToString();
-                        Session["Surname"] = emp.Employee_Surname.ToString();
+                        Session["ID"] = emp.UserId.ToString();
+                        Session["Name"] = emp.ContactName.ToString();
+                        //Session["Surname"] = emp.Employee_Surname.ToString();
                         Session["Department"] = emp.Department.ToString();
 
                         if (emp.User_Type == "Admin")
@@ -51,19 +51,19 @@ namespace NatisTracker.Controllers
                                 return RedirectToAction("OriginationView", "Users");
                             }
 
-                            else if (emp.Department.Equals("Remarketing"))
-                            {
-                                return RedirectToAction("OriginationView", "Users");
-                            }
+                            //else if (emp.Department.Equals("Remarketing"))
+                            //{
+                            //    return RedirectToAction("OriginationView", "Users");
+                            //}
 
-                            else if (emp.Department.Equals("Fines & Licensing"))
-                            {
-                                return RedirectToAction("OriginationView", "Users");
-                            }
+                            //else if (emp.Department.Equals("Fines & Licensing"))
+                            //{
+                            //    return RedirectToAction("OriginationView", "Users");
+                            //}
 
                             else if (emp.Department.Equals("Driver"))
                             {
-                                return RedirectToAction("OriginationView", "Users");
+                                return RedirectToAction("DriverView", "Users");
                             }
 
                             else

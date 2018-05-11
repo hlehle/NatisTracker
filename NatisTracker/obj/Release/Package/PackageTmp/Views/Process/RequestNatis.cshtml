@@ -44,19 +44,14 @@
 </head>
 
 <body>
-
-
     @using (Html.BeginForm("RequestNatis", "Process", FormMethod.Post))
-            {
+    {
         <br /><br />
         <div class="container">
             <div class="tab-content">
-
                 <fieldset>
-
-
                     <div class="form-group">
-
+                        
                         @Html.LabelFor(a => a.contractNo, "Enter Contract Number", new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
                             @Html.TextBoxFor(a => a.contractNo)
@@ -64,18 +59,25 @@
                     </div>
                     <button class="btn btn-large btn-primary" type="submit">Request</button>
                     <p align="right">
-
+                        
                         @Html.ActionLink("Back to previous page", "UserView", "Users", null, null)
                     </p>
                 </fieldset>
             </div>
         </div>
-
-        if (ViewBag.Stored != null)
-        {
-            Response.Write("<script LANGUAGE='JavaScript' >alert('Document Requested')</script>");
-        }
     }
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        @if (ViewBag.Stored == "Yes")
+        {
+            <text>
+                $(document).ready(function () {
+                    alert("Document Requested");
+                });
+            </text>
+        }
+    </script>
 
 </body>
 

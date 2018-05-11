@@ -8,15 +8,17 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using Oracle.DataAccess.Client;
+using NatisTracker.UIServices;
 using System.Data;
 
 namespace NatisTracker.Controllers
 {
     public class UsersController : Controller
     {
-        MasterViewModel viewMaster = new MasterViewModel();
-        //UserDetailViewModel view = new UserDetailViewModel();
         // GET: Users
+
+        MasterViewModel viewMaster = new MasterViewModel();
+                
         public ActionResult AdminView()
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
@@ -30,7 +32,17 @@ namespace NatisTracker.Controllers
             var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
             var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
             var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+            var licensing = db.NatisDatas.Where(a => a.NatisLocation == "Fines & Licensing");
+            var operations = db.NatisDatas.Where(a => a.NatisLocation == "Operation");
+            var driver = db.NatisDatas.Where(a => a.NatisLocation == "Driver");
+            var remarketing = db.NatisDatas.Where(a => a.NatisLocation == "Remarketing");
+            var origination = db.NatisDatas.Where(a => a.NatisLocation == "Origination");
 
+            viewMaster.LicensingViewModel = licensing;
+            viewMaster.OperationsViewModel = operations;
+            viewMaster.DriverViewModel = driver;
+            viewMaster.RemarketingViewModel = remarketing;
+            viewMaster.OriginationViewModel = origination;
             viewMaster.callCentreViewModel = callCentre;
             viewMaster.legalViewModel = legal;
             viewMaster.maturitiesViewModel = maturities;
@@ -48,26 +60,37 @@ namespace NatisTracker.Controllers
 
             //if (ModelState.IsValid)
             //{
-                string vin = getVin(viewMaster.viewModel.contractNo);
-                var found = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
-                var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
-                var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
-                var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+            string vin = getVin(viewMaster.viewModel.contractNo);
+            var found = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
+            var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
+            var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
+            var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+            var licensing = db.NatisDatas.Where(a => a.NatisLocation == "Fines & Licensing");
+            var operations = db.NatisDatas.Where(a => a.NatisLocation == "Operation");
+            var driver = db.NatisDatas.Where(a => a.NatisLocation == "Driver");
+            var remarketing = db.NatisDatas.Where(a => a.NatisLocation == "Remarketing");
+            var origination = db.NatisDatas.Where(a => a.NatisLocation == "Origination");
 
-                viewMaster.callCentreViewModel = callCentre;
-                viewMaster.legalViewModel = legal;
-                viewMaster.maturitiesViewModel = maturities;
 
-                if (vin == null)
-                    viewMaster.natisDataViewModel = db.NatisDatas;
-                else
-                    viewMaster.natisDataViewModel = found;
+            viewMaster.LicensingViewModel = licensing;
+            viewMaster.OperationsViewModel = operations;
+            viewMaster.DriverViewModel = driver;
+            viewMaster.RemarketingViewModel = remarketing;
+            viewMaster.OriginationViewModel = origination;
+            viewMaster.callCentreViewModel = callCentre;
+            viewMaster.legalViewModel = legal;
+            viewMaster.maturitiesViewModel = maturities;
 
-                viewMaster.RequestViewModel = db.RequestsDatas;
+            if (vin == null)
+                viewMaster.natisDataViewModel = db.NatisDatas;
+            else
+                viewMaster.natisDataViewModel = found;
+
+            viewMaster.RequestViewModel = db.RequestsDatas;
             viewMaster.contractData = db.ContractsDatas.ToList();
-                viewMaster.logs = db.ScanLogsDatas;
-                viewMaster.contracts = db.ContractNumbers.ToList();
-                viewMaster.deliveryModel = db.SentIN_Delivery;
+            viewMaster.logs = db.ScanLogsDatas;
+            viewMaster.contracts = db.ContractNumbers.ToList();
+            viewMaster.deliveryModel = db.SentIN_Delivery;
             //}
 
             return View(viewMaster);
@@ -77,17 +100,34 @@ namespace NatisTracker.Controllers
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
 
-            string name = Session["Name"].ToString() + " " + Session["Surname"].ToString();
+            string name = Session["Name"].ToString();
 
             viewMaster.RequestViewModel = db.RequestsDatas.Where(a => a.RequesterName == name).ToList();
             viewMaster.natisDataViewModel = db.NatisDatas;
             viewMaster.deliveryModel = db.SentIN_Delivery;
+            viewMaster.contractData = db.ContractsDatas.ToList();
+            var dr = new Driver();
+            dr.QuantityList = GetQuantity();
+            dr.ContractList = new List<string>();
+
+            viewMaster.DriverView = dr;
             viewMaster.viewModel = new UserDetailViewModel();
+            viewMaster._DriverPackage = PopulateDriverPackage1(db);
 
             var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
             var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
             var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+            var licensing = db.NatisDatas.Where(a => a.NatisLocation == "Fines & Licensing");
+            var operations = db.NatisDatas.Where(a => a.NatisLocation == "Operation");
+            var driver = db.NatisDatas.Where(a => a.NatisLocation == "Driver");
+            var remarketing = db.NatisDatas.Where(a => a.NatisLocation == "Remarketing");
+            var origination = db.NatisDatas.Where(a => a.NatisLocation == "Origination");
 
+            viewMaster.LicensingViewModel = licensing;
+            viewMaster.OperationsViewModel = operations;
+            viewMaster.DriverViewModel = driver;
+            viewMaster.RemarketingViewModel = remarketing;
+            viewMaster.OriginationViewModel = origination;
             viewMaster.callCentreViewModel = callCentre;
             viewMaster.legalViewModel = legal;
             viewMaster.maturitiesViewModel = maturities;
@@ -109,19 +149,46 @@ namespace NatisTracker.Controllers
             {
                 //viewMaster = new DeliveryServiceOUT().sendDelivery(viewMaster, Session["Name"].ToString(), Session["Surname"].ToString());
 
-                vin = getVin(viewMaster.viewModel.contractNo);
-                if (vin != null)
-                    viewMaster.natisDataViewModel = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
-                else
-                    viewMaster.natisDataViewModel = db.NatisDatas;
+                if (viewMaster.viewModel != null)
+                {
+                    vin = getVin(viewMaster.viewModel.contractNo);
+                    if (vin != null)
+                        viewMaster.natisDataViewModel = db.NatisDatas.Where(a => a.VinNumber == vin).ToList();
+                    else
+                        viewMaster.natisDataViewModel = db.NatisDatas;
+                }
+                
+                if (viewMaster.DriverView != null)
+                {
+                    new PopulateDriverData().PopulateData(viewMaster.DriverView, Session["Name"].ToString());
+                    viewMaster.DriverView.QuantityList = GetQuantity();
+                }
+
+                if (viewMaster._DriverPackage != null)
+                {
+                    new DeliveryServiceOUT().ReceivePackage(viewMaster._DriverPackage, Session["Name"].ToString(), Session["Department"].ToString());
+                    viewMaster._DriverPackage = PopulateDriverPackage1(db);
+                }
 
                 var maturities = db.NatisDatas.Where(a => a.NatisLocation == "Maturities");
                 var callCentre = db.NatisDatas.Where(a => a.NatisLocation == "Call Centre");
                 var legal = db.NatisDatas.Where(a => a.NatisLocation == "Legal");
+                var licensing = db.NatisDatas.Where(a => a.NatisLocation == "Fines & Licensing");
+                var operations = db.NatisDatas.Where(a => a.NatisLocation == "Operation");
+                var driver = db.NatisDatas.Where(a => a.NatisLocation == "Driver");
+                var remarketing = db.NatisDatas.Where(a => a.NatisLocation == "Remarketing");
+                var origination = db.NatisDatas.Where(a => a.NatisLocation == "Origination");
 
+                
+                viewMaster.LicensingViewModel = licensing;
+                viewMaster.OperationsViewModel = operations;
+                viewMaster.DriverViewModel = driver;
+                viewMaster.RemarketingViewModel = remarketing;
+                viewMaster.OriginationViewModel = origination;
                 viewMaster.callCentreViewModel = callCentre;
                 viewMaster.legalViewModel = legal;
                 viewMaster.maturitiesViewModel = maturities;
+                viewMaster.contractData = db.ContractsDatas.ToList();
             }
             return View(viewMaster);
         }
@@ -144,12 +211,12 @@ namespace NatisTracker.Controllers
 
                 return View(viewModel);
             }
-            
+
         }
 
         [HttpPost]
         public ActionResult DealershipView(DeliveryitemViewModel viewModel)
-        {            
+        {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
                 //viewModel.deliveryDisplay = db.SentIN_Delivery.ToList();
@@ -158,7 +225,7 @@ namespace NatisTracker.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    new DeliveryServiceIN().sendDelivery(viewModel, Session["Name"].ToString(), Session["Surname"].ToString());
+                    new DeliveryServiceIN().sendDelivery(viewModel, Session["Name"].ToString());
 
                     if (viewModel.WaybillNumber != null || viewModel.DriverDetails != null)
                     {
@@ -176,7 +243,7 @@ namespace NatisTracker.Controllers
             return View(viewModel);
 
         }
-
+        [HttpGet]
         public ActionResult OriginationView()
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
@@ -203,11 +270,40 @@ namespace NatisTracker.Controllers
                 //    return View(viewModel);
                 //}
 
-                new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString(), Session["Surname"].ToString());
+                new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString());
                 viewModel = PopulateDeliveryViewModel(viewModel, db);
                 return View(viewModel);
             }
-            
+
+        }
+
+        public ActionResult DriverView()
+        {
+            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            var driverPackage = PopulateDriverPackage(db);
+            return View(driverPackage);
+        }
+
+        [HttpPost]
+        public ActionResult DriverView(FormCollection f)
+        {
+            var viewModel = new DriverPackage();
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                TryUpdateModel(viewModel);
+
+                //if (ModelState.IsValid)
+                //{
+                //    new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString(), Session["Surname"].ToString());
+                //    viewModel = PopulateDeliveryViewModel(viewModel, db);
+
+                //    return View(viewModel);
+                //}
+
+                new DeliveryServiceOUT().SendToDriver(viewModel, Session["Name"].ToString());
+                viewModel = PopulateDriverPackage(db);
+                return View(viewModel);
+            }
         }
         public List<string> getList()
         {
@@ -518,8 +614,8 @@ namespace NatisTracker.Controllers
                 {
                     DeliveryItemContractViewModel contractViewModel = new DeliveryItemContractViewModel();
                     contractViewModel.ContractNumber = contractNumber.ContractNumber1;
-                    contractViewModel.RecordNumber = contractNumber.RecordNumber;
-                    contractViewModel.IsRecieved = contractNumber.IsReceived;
+                    contractViewModel.RecordNumber = (int)contractNumber.RecordNumber;
+                    contractViewModel.IsRecieved = (bool)contractNumber.IsReceived;
 
                     itemViewModel.ContractNumberItems.Add(contractViewModel);
                 }
@@ -551,8 +647,8 @@ namespace NatisTracker.Controllers
                 {
                     DeliveryItemContractViewModel contractViewModel = new DeliveryItemContractViewModel();
                     contractViewModel.ContractNumber = contractNumber.ContractNumber1;
-                    contractViewModel.RecordNumber = contractNumber.RecordNumber;
-                    contractViewModel.IsRecieved = contractNumber.IsReceived;
+                    contractViewModel.RecordNumber = (int)contractNumber.RecordNumber;
+                    contractViewModel.IsRecieved = (bool)contractNumber.IsReceived;
 
                     itemViewModel.ContractNumberItems.Add(contractViewModel);
                 }
@@ -561,6 +657,63 @@ namespace NatisTracker.Controllers
             }
 
             return viewModel;
+        }
+
+        public DriverPackage PopulateDriverPackage(Intern_LeaveDBEntities db) 
+        {
+            DriverPackage driverPackage = new DriverPackage();
+            var driver = db.DriverDatas.Where(a => a.DriverName == null);
+            driverPackage.PackageItems = new List<DriverPackageItems>();
+
+            foreach (var item in driver)
+            {
+                DriverPackageItems a = new DriverPackageItems();
+                a.DriverId = item.DriverId;
+                a.ItemQuantity = item.ItemQuantity;
+                a.SentBy = item.SentBy;
+                a.SentDate = item.SentDate;
+
+                a.ContractNumbers = new List<DriverContracts>();
+                foreach (var contractNumber in item.ContractNumbers)
+                {
+                    DriverContracts driverContract = new DriverContracts();
+                    driverContract.DriverId = (int)contractNumber.DriverId;
+                    driverContract.ContractNumber = contractNumber.ContractNumber1;
+                    a.ContractNumbers.Add(driverContract);
+                }
+                driverPackage.PackageItems.Add(a);
+            }
+
+            return driverPackage;
+        }
+
+        public DriverPackage PopulateDriverPackage1(Intern_LeaveDBEntities db)
+        {
+            DriverPackage driverPackage = new DriverPackage();
+            var driver = db.DriverDatas.Where(a => a.DriverName != null);
+            driverPackage.PackageItems = new List<DriverPackageItems>();
+
+            foreach (var item in driver)
+            {
+                DriverPackageItems a = new DriverPackageItems();
+                a.DriverId = item.DriverId;
+                a.ItemQuantity = item.ItemQuantity;
+                a.SentBy = item.SentBy;
+                a.SentDate = item.SentDate;
+
+                a.ContractNumbers = new List<DriverContracts>();
+                foreach (var contractNumber in item.ContractNumbers)
+                {
+                    DriverContracts driverContract = new DriverContracts();
+                    driverContract.DriverId = (int)contractNumber.DriverId;
+                    driverContract.ContractNumber = contractNumber.ContractNumber1;
+                    driverContract.IsReceived = (bool)contractNumber.IsReceived;
+                    a.ContractNumbers.Add(driverContract);
+                }
+                driverPackage.PackageItems.Add(a);
+            }
+
+            return driverPackage;
         }
     }
 }

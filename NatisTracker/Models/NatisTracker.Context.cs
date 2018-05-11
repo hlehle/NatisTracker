@@ -29,13 +29,14 @@ namespace NatisTracker.Models
     
         public virtual DbSet<ContractNumber> ContractNumbers { get; set; }
         public virtual DbSet<ContractsData> ContractsDatas { get; set; }
+        public virtual DbSet<DriverData> DriverDatas { get; set; }
+        public virtual DbSet<EmployeeData> EmployeeDatas { get; set; }
         public virtual DbSet<NatisData> NatisDatas { get; set; }
         public virtual DbSet<RequestsData> RequestsDatas { get; set; }
         public virtual DbSet<ScanLogsData> ScanLogsDatas { get; set; }
         public virtual DbSet<SentIN_Delivery> SentIN_Delivery { get; set; }
         public virtual DbSet<SentOUT_Delivery> SentOUT_Delivery { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<EmployeeData> EmployeeDatas { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

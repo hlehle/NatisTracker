@@ -22,6 +22,7 @@ namespace NatisTracker.ViewModels
         public DateTime DateScanned { get; set; }
         public string Department { get; set; }
         public string ContractStatus { get; set; }
+        public string StatusDescription { get; set; }
         public IList<ContractInformation> contractInformation { get; set; }
         public string ScanningUser { get; set; }
         public string Comment { get; set; }

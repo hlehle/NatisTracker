@@ -15,10 +15,12 @@ namespace NatisTracker.Models
     public partial class ContractNumber
     {
         public int ID { get; set; }
-        public int RecordNumber { get; set; }
+        public Nullable<int> RecordNumber { get; set; }
         public string ContractNumber1 { get; set; }
-        public bool IsReceived { get; set; }
+        public Nullable<bool> IsReceived { get; set; }
+        public Nullable<int> DriverId { get; set; }
     
+        public virtual DriverData DriverData { get; set; }
         public virtual SentIN_Delivery SentIN_Delivery { get; set; }
     }
 }

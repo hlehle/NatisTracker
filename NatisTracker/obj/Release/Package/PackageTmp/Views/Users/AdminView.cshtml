@@ -47,7 +47,7 @@
                 <a class="dropdown-toggle" data-toggle="dropdown">Deliveries<span class="caret"></span></a>
                 <ul class="dropdown-menu" data-toggle="tabs" id="mySubTab">
                     <li><a data-toggle="tab" href="#Courier">Sent By Courier</a></li>
-                    <li><a data-toggle="tab" href="#Driver">Sent By Driver</a></li>
+                    <li><a data-toggle="tab" href="#SentDriver">Sent By Driver</a></li>
                 </ul>
             </li>
             <li><a data-toggle="tab" href="#Search">Search Natis</a></li>
@@ -57,6 +57,11 @@
                     <li><a data-toggle="tab" href="#Maturities">Maturities</a></li>
                     <li><a data-toggle="tab" href="#Legal">Legal</a></li>
                     <li><a data-toggle="tab" href="#Call_Centre">Call Centre</a></li>
+                    <li><a data-toggle="tab" href="#Licensing">Fines & Licensing</a></li>
+                    <li><a data-toggle="tab" href="#Operations">Operations</a></li>
+                    <li><a data-toggle="tab" href="#Driver">Driver</a></li>
+                    <li><a data-toggle="tab" href="#Remarketing">Remarketing</a></li>
+                    <li><a data-toggle="tab" href="#Origination">Contracts Originations</a></li>
                 </ul>
             </li>
             <li><a data-toggle="tab" href="#logs">Tracking and Reports</a></li>
@@ -67,10 +72,10 @@
             <div id="Menu" class="tab-pane fade in active">
 
                 <ul class="list-item">
-                    <li class="list-group-item"> <a href="@Url.Action("LoadNewNatis", "Process")" class="btn btn-block">Load New Natis</a></li>
+                    <li class="list-group-item"> <a href="@Url.Action("LoadNewNatis", "Process")" class="btn btn-block">Scan To Safe</a></li>
                     <li class="list-group-item"> <a href="@Url.Action("GenerateReports", "Process")" class="btn btn-block">Generate Report</a></li>
                     <li class="list-group-item"> <a href="@Url.Action("RequestResponse", "Process")" class="btn btn-block">Respond to Request</a></li>
-                    <li class="list-group-item"> <a href="@Url.Action("Scan_Back_To_Safe", "Process")" class="btn btn-block">Scan Back to Safe</a></li>
+                    @*<li class="list-group-item"> <a href="@Url.Action("Scan_Back_To_Safe", "Process")" class="btn btn-block">Scan Back to Safe</a></li>*@
                     <li class="list-group-item"> <a href="#" class="btn btn-block">Escalations</a></li>
                 </ul>
 
@@ -83,7 +88,7 @@
                     <br /><br />
                     @if (Model.deliveryModel != null)
                     {
-                        <table class="table-responsive table-bordered">
+                        <table id="CourierTable" class="table-responsive table-bordered">
                             <thead>
                                 <tr>
                                     <th>Dealership Name</th>
@@ -112,7 +117,7 @@
                                                     if (deliveryInfo.RecordNumber.Equals(contracts.RecordNumber))
                                                     {
                                                         <div class="checkbox">
-                                                            @if (contracts.IsReceived)
+                                                            @if ((bool)contracts.IsReceived)
                                                             {
                                                                 @Html.CheckBox("checkbox", new { @checked = "checked", @disabled = "true" }) @contracts.ContractNumber1 <br />
                                                             }
@@ -145,7 +150,7 @@
                 </div>
             </div>
 
-            <div id="Driver" class="tab-pane fade in">
+            <div id="SentDriver" class="tab-pane fade in">
                 <div class="table-responsive table table-striped">
 
                     <h3>Sent By Driver Response Table</h3>
@@ -154,78 +159,79 @@
                     @if (Model.deliveryModel != null)
                     {
 
-                        <table class="table-responsive">
-                            <thead>
-                                <tr>
-                                    <th>Dealership Name</th>
-                                    <th>Contract Numbers</th>
-                                    <th>Drivers Details</th>
-                                    <th>Drivers Contacts</th>
-                                    <th>Item Sent</th>
-                                    <th>Package Sender</th>
-                                    <th>Date Sent</th>
-                                    <th>Package Recipient</th>
-                                    <th>Date Recieved</th>
-                                    <th>Delivery Status</th>
-                                    <th>Comment</th>
-                                </tr>
-                            </thead>
+                    <table id="DriverTable" class="table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Dealership Name</th>
+                                <th>Contract Numbers</th>
+                                <th>Drivers Details</th>
+                                <th>Drivers Contacts</th>
+                                <th>Item Sent</th>
+                                <th>Package Sender</th>
+                                <th>Date Sent</th>
+                                <th>Package Recipient</th>
+                                <th>Date Recieved</th>
+                                <th>Delivery Status</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
 
-                            @foreach (var deliveryInfo in Model.deliveryModel)
+                        @foreach (var deliveryInfo in Model.deliveryModel)
                             {
                                 if (deliveryInfo.DeliveryChoice == "Driver")
                                 {
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                @Html.Hidden("RecordNumber", @deliveryInfo.RecordNumber.ToString())
-                                                @deliveryInfo.DealershipName
-                                            </td>
-                                            <td>
-                                                @foreach (var contracts in Model.contracts)
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.Hidden("RecordNumber", @deliveryInfo.RecordNumber.ToString())
+                                    @deliveryInfo.DealershipName
+                                </td>
+                                <td>
+                                    @foreach (var contracts in Model.contracts)
                                                 {
                                                     if (deliveryInfo.RecordNumber.Equals(contracts.RecordNumber))
                                                     {
-                                                        <div class="checkbox">
-                                                            @if (contracts.IsReceived)
+                                        <div class="checkbox">
+                                            @if ((bool)contracts.IsReceived)
                                                             {
-                                                                @Html.CheckBox("checkbox", new { @checked = "checked", @disabled = "true" }) @contracts.ContractNumber1 <br />
+                                                    @Html.CheckBox("checkbox", new { @checked = "checked", @disabled = "true" }) @contracts.ContractNumber1 <br />
                                                             }
                                                             else
                                                             {
-                                                                @Html.CheckBox("checkbox", new { @disabled = "true" }) @contracts.ContractNumber1 <br />
+                                                    @Html.CheckBox("checkbox", new { @disabled = "true" }) @contracts.ContractNumber1 <br />
                                                             }
-                                                        </div>
+                                        </div>
                                                     }
                                                 }
-                                            </td>
-                                            <td>@deliveryInfo.DriverDetails</td>
-                                            <td>@deliveryInfo.DriverContact</td>
-                                            <td>@deliveryInfo.Quantity</td>
-                                            <td>@deliveryInfo.PackageSender</td>
-                                            <td>@deliveryInfo.DateSent</td>
-                                            <td>@deliveryInfo.PackageRecipient</td>
-                                            <td>@deliveryInfo.DateReceived</td>
-                                            <td>@deliveryInfo.CourierStatus</td>
-                                            <td>@deliveryInfo.Comment</td>
-                                        </tr>
-                                    </tbody>
+                                </td>
+                                <td>@deliveryInfo.DriverDetails</td>
+                                <td>@deliveryInfo.DriverContact</td>
+                                <td>@deliveryInfo.Quantity</td>
+                                <td>@deliveryInfo.PackageSender</td>
+                                <td>@deliveryInfo.DateSent</td>
+                                <td>@deliveryInfo.PackageRecipient</td>
+                                <td>@deliveryInfo.DateReceived</td>
+                                <td>@deliveryInfo.CourierStatus</td>
+                                <td>@deliveryInfo.Comment</td>
+                            </tr>
+                        </tbody>
                                 }
 
                             }
 
-                        </table>
+                    </table>
                     }
 
                 </div>
             </div>
 
-            <div id="Search" class="tab-pane fade in">                
+            <div id="Search" class="tab-pane fade in">
                 <div class="table-responsive">
                     <table id="searchTable" class="table table-striped table-bordered">
                         <thead class="thead-dark">
                             <tr>
-                                <th>Contract Number</th>
+                                <th>Date Scanned</th>
+                                <th>Contract Numbers</th>
                                 <th>VIN Number</th>
                                 <th>Registration Number</th>
                                 <th>Engine Number</th>
@@ -236,33 +242,53 @@
                                 <th>Owner name</th>
                                 <th>Owner ID</th>
                                 <th>Natis Location</th>
+                                <th>Contract Status</th>
+                                <th>Status Description</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             @foreach (var item in Model.natisDataViewModel)
                             {
+                                string contractNumber = "";
+                                string contractStatus = "";
+                                string statusDescription = "";
 
-                                <tr>
-                                    <td>@item.ContractNumber</td>
-                                    <td>@item.VinNumber</td>
-                                    <td>@item.RegistrationNumber</td>
-                                    <td>@item.EngineNumber</td>
-                                    <td>@item.CarMake</td>
-                                    <td>@item.SeriesNumber</td>
-                                    <td>@item.Description</td>
-                                    <td>@item.RegistrationDate</td>
-                                    <td>@item.OwnerName</td>
-                                    <td>@item.OwnerIdentityNumber</td>
-                                    <td>@item.NatisLocation</td>
-                                </tr>
+                                for (int i = 0; i < Model.contractData.Count(); i++)
+                                {
+                                    if (Model.contractData[i].VinNumber.Equals(item.VinNumber))
+                                    {
+                                        contractNumber = Model.contractData[i].ContractNumber;
+                                        contractStatus = Model.contractData[i].ContractStatus;
+                                        statusDescription = Model.contractData[i].StatusDescription;
+                                    }
+
+                                }
+
+                            <tr>
+                                <td>@item.DateLoaded</td>
+                                <td>@contractNumber</td>
+                                <td>@item.VinNumber</td>
+                                <td>@item.RegistrationNumber</td>
+                                <td>@item.EngineNumber</td>
+                                <td>@item.CarMake</td>
+                                <td>@item.SeriesNumber</td>
+                                <td>@item.Description</td>
+                                <td>@item.RegistrationDate</td>
+                                <td>@item.OwnerName</td>
+                                <td>@item.OwnerIdentityNumber</td>
+                                <td>@item.NatisLocation</td>
+                                <td>@contractStatus</td>
+                                <td>@statusDescription</td>
+                            </tr>
 
                             }
                         </tbody>
 
                         <tfoot class="thead-dark">
                             <tr>
-                                <th>Contract Number</th>
+                                <th>Date Scanned</th>
+                                <th>Contract Numbers</th>
                                 <th>VIN Number</th>
                                 <th>Registration Number</th>
                                 <th>Engine Number</th>
@@ -273,6 +299,8 @@
                                 <th>Owner name</th>
                                 <th>Owner ID</th>
                                 <th>Natis Location</th>
+                                <th>Contract Status</th>
+                                <th>Status Description</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -284,7 +312,7 @@
                 @if (Model.maturitiesViewModel != null)
                 {
                 <div class="table-responsive table table-striped">
-                    <table class="table">
+                    <table id="MaturitiesTable" class="table">
                         <thead>
                             <tr>
                                 <th>VIN Number</th>
@@ -301,20 +329,20 @@
                         </thead>
                         @foreach (var item in Model.maturitiesViewModel)
                             {
-                            <tbody>
-                                <tr>
-                                    <td>@item.VinNumber</td>
-                                    <td>@item.RegistrationNumber</td>
-                                    <td>@item.EngineNumber</td>
-                                    <td>@item.CarMake</td>
-                                    <td>@item.SeriesNumber</td>
-                                    <td>@item.Description</td>
-                                    <td>@item.RegistrationDate</td>
-                                    <td>@item.OwnerName</td>
-                                    <td>@item.OwnerIdentityNumber</td>
-                                    <td>@item.NatisLocation</td>
-                                </tr>
-                            </tbody>
+                        <tbody>
+                            <tr>
+                                <td>@item.VinNumber</td>
+                                <td>@item.RegistrationNumber</td>
+                                <td>@item.EngineNumber</td>
+                                <td>@item.CarMake</td>
+                                <td>@item.SeriesNumber</td>
+                                <td>@item.Description</td>
+                                <td>@item.RegistrationDate</td>
+                                <td>@item.OwnerName</td>
+                                <td>@item.OwnerIdentityNumber</td>
+                                <td>@item.NatisLocation</td>
+                            </tr>
+                        </tbody>
                             }
                     </table>
                 </div>
@@ -328,7 +356,7 @@
                 @if (Model.legalViewModel != null)
                 {
                 <div class="table-responsive table table-striped">
-                    <table class="table">
+                    <table id="LegalTable" class="table">
                         <thead>
                             <tr>
                                 <th>VIN Number</th>
@@ -345,20 +373,20 @@
                         </thead>
                         @foreach (var item in Model.legalViewModel)
                             {
-                            <tbody>
-                                <tr>
-                                    <td>@item.VinNumber</td>
-                                    <td>@item.RegistrationNumber</td>
-                                    <td>@item.EngineNumber</td>
-                                    <td>@item.CarMake</td>
-                                    <td>@item.SeriesNumber</td>
-                                    <td>@item.Description</td>
-                                    <td>@item.RegistrationDate</td>
-                                    <td>@item.OwnerName</td>
-                                    <td>@item.OwnerIdentityNumber</td>
-                                    <td>@item.NatisLocation</td>
-                                </tr>
-                            </tbody>
+                        <tbody>
+                            <tr>
+                                <td>@item.VinNumber</td>
+                                <td>@item.RegistrationNumber</td>
+                                <td>@item.EngineNumber</td>
+                                <td>@item.CarMake</td>
+                                <td>@item.SeriesNumber</td>
+                                <td>@item.Description</td>
+                                <td>@item.RegistrationDate</td>
+                                <td>@item.OwnerName</td>
+                                <td>@item.OwnerIdentityNumber</td>
+                                <td>@item.NatisLocation</td>
+                            </tr>
+                        </tbody>
                             }
                     </table>
                 </div>
@@ -372,7 +400,7 @@
                 @if (Model.callCentreViewModel != null)
                 {
                 <div class="table-responsive table table-striped">
-                    <table class="table">
+                    <table id="CallCentreTable" class="table">
                         <thead>
                             <tr>
                                 <th>VIN Number</th>
@@ -411,60 +439,282 @@
 
             </div>
 
+            <div id="Licensing" class="tab-pane fade in">
+                <h3>Natis In Fines & Licensing </h3><br /><br />
+                @if (Model.LicensingViewModel != null)
+                {
+                <div class="table-responsive table table-striped">
+                    <table id="LicensingTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>VIN Number</th>
+                                <th>Registration Number</th>
+                                <th>Engine Number</th>
+                                <th>Car Make</th>
+                                <th>Series Number</th>
+                                <th>Description</th>
+                                <th>Registration Date</th>
+                                <th>Owner name</th>
+                                <th>Owner ID</th>
+                                <th>Natis Location</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.LicensingViewModel)
+                            {
+                            <tbody>
+                                <tr>
+                                    <td>@item.VinNumber</td>
+                                    <td>@item.RegistrationNumber</td>
+                                    <td>@item.EngineNumber</td>
+                                    <td>@item.CarMake</td>
+                                    <td>@item.SeriesNumber</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.RegistrationDate</td>
+                                    <td>@item.OwnerName</td>
+                                    <td>@item.OwnerIdentityNumber</td>
+                                    <td>@item.NatisLocation</td>
+                                </tr>
+                            </tbody>
+                            }
+                    </table>
+                </div>
+                }
+
+
+            </div>
+
+            <div id="Operations" class="tab-pane fade in">
+                <h3>Natis In Contracts Origination</h3><br /><br />
+                @if (Model.OperationsViewModel != null)
+                {
+                <div class="table-responsive table table-striped">
+                    <table id="OperationsTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>VIN Number</th>
+                                <th>Registration Number</th>
+                                <th>Engine Number</th>
+                                <th>Car Make</th>
+                                <th>Series Number</th>
+                                <th>Description</th>
+                                <th>Registration Date</th>
+                                <th>Owner name</th>
+                                <th>Owner ID</th>
+                                <th>Natis Location</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.OperationsViewModel)
+                            {
+                            <tbody>
+                                <tr>
+                                    <td>@item.VinNumber</td>
+                                    <td>@item.RegistrationNumber</td>
+                                    <td>@item.EngineNumber</td>
+                                    <td>@item.CarMake</td>
+                                    <td>@item.SeriesNumber</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.RegistrationDate</td>
+                                    <td>@item.OwnerName</td>
+                                    <td>@item.OwnerIdentityNumber</td>
+                                    <td>@item.NatisLocation</td>
+                                </tr>
+                            </tbody>
+                            }
+                    </table>
+                </div>
+                }
+
+
+            </div>
+
+            <div id="Driver" class="tab-pane fade in">
+                <h3>Natis With the Driver</h3><br /><br />
+                @if (Model.DriverViewModel != null)
+                {
+                <div class="table-responsive table table-striped">
+                    <table id="DriverTables" class="table">
+                        <thead>
+                            <tr>
+                                <th>VIN Number</th>
+                                <th>Registration Number</th>
+                                <th>Engine Number</th>
+                                <th>Car Make</th>
+                                <th>Series Number</th>
+                                <th>Description</th>
+                                <th>Registration Date</th>
+                                <th>Owner name</th>
+                                <th>Owner ID</th>
+                                <th>Natis Location</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.DriverViewModel)
+                            {
+                            <tbody>
+                                <tr>
+                                    <td>@item.VinNumber</td>
+                                    <td>@item.RegistrationNumber</td>
+                                    <td>@item.EngineNumber</td>
+                                    <td>@item.CarMake</td>
+                                    <td>@item.SeriesNumber</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.RegistrationDate</td>
+                                    <td>@item.OwnerName</td>
+                                    <td>@item.OwnerIdentityNumber</td>
+                                    <td>@item.NatisLocation</td>
+                                </tr>
+                            </tbody>
+                            }
+                    </table>
+                </div>
+                }
+
+
+            </div>
+
+            <div id="Remarketing" class="tab-pane fade in">
+                <h3>Natis In Remarketing</h3><br /><br />
+                @if (Model.RemarketingViewModel != null)
+                {
+                <div class="table-responsive table table-striped">
+                    <table id="RemarketingTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>VIN Number</th>
+                                <th>Registration Number</th>
+                                <th>Engine Number</th>
+                                <th>Car Make</th>
+                                <th>Series Number</th>
+                                <th>Description</th>
+                                <th>Registration Date</th>
+                                <th>Owner name</th>
+                                <th>Owner ID</th>
+                                <th>Natis Location</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.RemarketingViewModel)
+                            {
+                            <tbody>
+                                <tr>
+                                    <td>@item.VinNumber</td>
+                                    <td>@item.RegistrationNumber</td>
+                                    <td>@item.EngineNumber</td>
+                                    <td>@item.CarMake</td>
+                                    <td>@item.SeriesNumber</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.RegistrationDate</td>
+                                    <td>@item.OwnerName</td>
+                                    <td>@item.OwnerIdentityNumber</td>
+                                    <td>@item.NatisLocation</td>
+                                </tr>
+                            </tbody>
+                            }
+                    </table>
+                </div>
+                }
+
+
+            </div>
+
+            <div id="Origination" class="tab-pane fade in">
+                <h3>Natis In Origination</h3><br /><br />
+                @if (Model.OriginationViewModel != null)
+                {
+                <div class="table-responsive table table-striped">
+                    <table id="OriginationTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>VIN Number</th>
+                                <th>Registration Number</th>
+                                <th>Engine Number</th>
+                                <th>Car Make</th>
+                                <th>Series Number</th>
+                                <th>Description</th>
+                                <th>Registration Date</th>
+                                <th>Owner name</th>
+                                <th>Owner ID</th>
+                                <th>Natis Location</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.OriginationViewModel)
+                            {
+                            <tbody>
+                                <tr>
+                                    <td>@item.VinNumber</td>
+                                    <td>@item.RegistrationNumber</td>
+                                    <td>@item.EngineNumber</td>
+                                    <td>@item.CarMake</td>
+                                    <td>@item.SeriesNumber</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.RegistrationDate</td>
+                                    <td>@item.OwnerName</td>
+                                    <td>@item.OwnerIdentityNumber</td>
+                                    <td>@item.NatisLocation</td>
+                                </tr>
+                            </tbody>
+                            }
+                    </table>
+                </div>
+                }
+
+
+            </div>
+
             <div id="logs" class="tab-pane fade in">
                 @if (Model.logs != null)
                 {
-                    <div class="table-responsive table table-striped">
-                        <table id="LogTable" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Contract Number</th>
-                                    <th>VIN Number</th>
-                                    <th>Date Scanned</th>
-                                    <th>Scanned By</th>
-                                    <th>Natis Location</th>
-                                    <th>Contract Status</th>
-                                    <th>Comment</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.logs)
+                <div class="table-responsive table table-striped">
+                    <table id="LogTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Contract Number</th>
+                                <th>VIN Number</th>
+                                <th>Date Scanned</th>
+                                <th>Scanned By</th>
+                                <th>Natis Location</th>
+                                <th>Contract Status</th>
+                                <th>Contract Description</th>
+                                <th>Comment</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.logs)
                                 {
 
-                                    <tr>
-                                        <td>@item.ContractNumber</td>
-                                        <td>@item.VinNumber</td>
-                                        <td>@item.DateScanned</td>
-                                        <td>@item.User</td>
-                                        <td>@item.Department</td>
-                                        <td>@item.ContractStatus</td>
-                                        <td>@item.Comment</td>
-                                    </tr>
+                            <tr>
+                                <td>@item.ContractNumber</td>
+                                <td>@item.VinNumber</td>
+                                <td>@item.DateScanned</td>
+                                <td>@item.User</td>
+                                <td>@item.Department</td>
+                                <td>@item.ContractStatus</td>
+                                <td>@item.ContractDescription</td>
+                                <td>@item.Comment</td>
+                            </tr>
 
                                 }
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Contract Number</th>
-                                    <th>VIN Number</th>
-                                    <th>Date Scanned</th>
-                                    <th>Scanned By</th>
-                                    <th>Natis Location</th>
-                                    <th>Contract Status</th>
-                                    <th>Comment</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Contract Number</th>
+                                <th>VIN Number</th>
+                                <th>Date Scanned</th>
+                                <th>Scanned By</th>
+                                <th>Natis Location</th>
+                                <th>Contract Status</th>
+                                <th>Contract Description</th>
+                                <th>Comment</th>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-                    </div>
+                </div>
 
-                    using (Html.BeginForm("GenerateReports", "Process", FormMethod.Post, new { @class= "btn-group", @style = "padding:10px 100px 10px 0px" }))
+                    using (Html.BeginForm("GenerateAuditReports", "Process", FormMethod.Post, new { @class= "btn-group", @style = "padding:10px 100px 10px 0px", target = "_blank"}))
                     {
-                        
                         <button class="btn btn-large btn-primary" type="submit">Audit Report</button>
                     }
 
-                    using (Html.BeginForm("GenerateReports", "Process", FormMethod.Post, new { @class = "btn-group", @style = "padding:10px 10px 10px 100px" }))
+                    using (Html.BeginForm("GenerateOneReports", "Process", FormMethod.Post, new { @class = "btn-group", @style = "padding:10px 10px 10px 100px", target = "_blank"}))
                     {
                         <div class="form-group">
                             @Html.Label("Contract Number or VIN", new { @class = "col-md-4 control-label", @style="padding:5px 0px 0px 0px"})
@@ -476,20 +726,26 @@
                         </div>
                     }
 
-                    using (Html.BeginForm("GenerateReports", "Process", FormMethod.Post, new { @class = "btn-group", @style = "padding:10px 0px 10px 10px" }))
+                    using (Html.BeginForm("GenerateDepartmentReports", "Process", FormMethod.Post, new { @class = "btn-group", @style = "padding:10px 0px 10px 10px", target = "_blank"}))
                     {
-                        <div class="form-group">
-                            @Html.Label("Select Department", new { @class = "col-md-3 control-label" })
-                            <div class="col-md-9">
-                                @Html.DropDownList("b", new List<SelectListItem>
+                <div class="form-group">
+                    @Html.Label("Select Department", new { @class = "col-md-3 control-label" })
+                    <div class="col-md-9">
+                        @Html.DropDownList("b", new List<SelectListItem>
                                 {
                                     new SelectListItem { Text="Maturities", Value = "Maturities"},
                                     new SelectListItem { Text="Legal", Value = "Legal"},
+                                    new SelectListItem { Text="Call Centre", Value = "Call Centre"},
+                                    new SelectListItem { Text="Fines & Licensing", Value = "Fines & Licensing"},
+                                    new SelectListItem { Text="Operations", Value = "Operation"},
+                                    new SelectListItem { Text="Driver", Value = "Driver"},
+                                    new SelectListItem { Text="Remarketing", Value = "Remarketing"},
+                                    new SelectListItem { Text="Contracts Originations", Value = "Origination"},
                                 }, "---Select one---", new { @style="padding:0px 30px 0px 30px"})
 
-                                <button class="btn btn-large btn-primary" type="submit">Department Report</button>
-                            </div>
-                        </div>
+                        <button class="btn btn-large btn-primary" type="submit" >Department Report</button>
+                    </div>
+                </div>
                     }
                 }
 
@@ -500,9 +756,10 @@
                 @if (Model.RequestViewModel != null)
                 {
                 <div class="table-responsive table table-striped">
-                    <table class="table">
+                    <table id="RequestsTable" class="table">
                         <thead>
                             <tr>
+                                <th>Requester Name</th>
                                 <th>Request Status</th>
                                 <th>Request Date</th>
                                 <th>Contract Number</th>
@@ -512,18 +769,21 @@
                         </thead>
                         @if (Model.RequestViewModel != null)
                             {
-                                foreach (var Requests in Model.RequestViewModel)
-                                {
-                        <tbody>
-                            <tr>
-                                <td>@Requests.RequestStatus</td>
-                                <td>@Requests.RequestDate </td>
-                                <td>@Requests.ContractNo</td>
-                                <td>@Requests.ReplyDate</td>
-                                <td>@Requests.Responder</td>
-                            </tr>
-                        </tbody>
-                                }
+                            <tbody>
+                                @foreach (var Requests in Model.RequestViewModel)
+                                    {
+
+                                    <tr>
+                                        <td>@Requests.RequesterName</td>
+                                        <td>@Requests.RequestStatus</td>
+                                        <td>@Requests.RequestDate </td>
+                                        <td>@Requests.ContractNo</td>
+                                        <td>@Requests.ReplyDate</td>
+                                        <td>@Requests.Responder</td>
+                                    </tr>
+
+                                    }
+                            </tbody>
                             }
                     </table>
                 </div>
@@ -542,7 +802,18 @@
         $(document).ready(function () {
             $('#searchTable').DataTable();
             $('#LogTable').DataTable();
-            
+            $('#CourierTable').DataTable();
+            $('#DriverTable').DataTable();
+            $('#DriverTables').DataTable();
+            $('#MaturitiesTable').DataTable();
+            $('#LegalTable').DataTable();
+            $('#CallCentreTable').DataTable();
+            $('#LicensingTable').DataTable();
+            $('#OperationsTable').DataTable();
+            $('#DriverTable').DataTable();
+            $('#RemarketingTable').DataTable();
+            $('#OriginationTable').DataTable();
+            $('#RequestsTable').DataTable();
         });
 
     </script>

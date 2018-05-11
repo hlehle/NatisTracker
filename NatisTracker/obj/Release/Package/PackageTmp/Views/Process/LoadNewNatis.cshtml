@@ -1,4 +1,4 @@
-﻿@model NatisTracker.ViewModels.MasterViewModel
+﻿@model NatisTracker.ViewModels.NatisAndContractViewModel
 
 <!DOCTYPE html>
 @{
@@ -48,11 +48,16 @@
 
     <div class="container">
         <div class="tab-content">
-            <div id="Scan`" class="tab-pane fade in active">
+            <div id="Scan" class="tab-pane fade in active">
 
                 @using (Html.BeginForm("LoadNewNatis", "Process", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    if (Model != null)
+                    if (Model == null)
+                    {
+                        <h3>Barcode not clearly captured or Natis already in the Safe, please try again</h3>
+                    }
+
+                    else if (Model.engineNo != null)
                     {
                         <div class="table-responsive table table-striped">
                             <table class="table">
@@ -73,17 +78,17 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>@Model.natis.contractNo</td>
-                                        <td>@Model.natis.vin</td>
-                                        <td>@Model.natis.registrationNo</td>
-                                        <td>@Model.natis.engineNo</td>
-                                        <td>@Model.natis.carMake</td>
-                                        <td>@Model.natis.seriesNo</td>
-                                        <td>@Model.natis.description</td>
-                                        <td>@Model.natis.registrationDate</td>
-                                        <td>@Model.natis.OwnerName</td>
-                                        <td>@Model.natis.OwnerID</td>
-                                        <td>@Model.natis.natisLocation</td>
+                                        <td>@Model.contractNo</td>
+                                        <td>@Model.vin</td>
+                                        <td>@Model.registrationNo</td>
+                                        <td>@Model.engineNo</td>
+                                        <td>@Model.carMake</td>
+                                        <td>@Model.seriesNo</td>
+                                        <td>@Model.description</td>
+                                        <td>@Model.registrationDate</td>
+                                        <td>@Model.OwnerName</td>
+                                        <td>@Model.OwnerID</td>
+                                        <td>@Model.natisLocation</td>
                                     </tr>
                                 </tbody>
 
@@ -91,12 +96,9 @@
                         </div>
                     }
 
-                    else if (Model == null)
-                    {
-                        <h3>Incorrect file load or file already in the database, please try again</h3>
-                    }
+                    
                     <br /><br />
-                            @Html.TextBoxFor(model => model.natis.file, new { type = "file", id = "File", accept = "image/*", capture = "camera" })<br>
+                            @Html.TextBoxFor(model => model.file, new { type = "file", id = "File", accept = "image/*", capture = "camera" })<br>
 
                             <br /><br>
 

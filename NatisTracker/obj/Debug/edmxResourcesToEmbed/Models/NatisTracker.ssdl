@@ -5,9 +5,10 @@
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="RecordNumber" Type="int" Nullable="false" />
+    <Property Name="RecordNumber" Type="int" />
     <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="IsReceived" Type="bit" Nullable="false" />
+    <Property Name="IsReceived" Type="bit" />
+    <Property Name="DriverId" Type="int" />
   </EntityType>
   <EntityType Name="ContractsData">
     <Key>
@@ -19,20 +20,37 @@
     <Property Name="StatusDescription" Type="nvarchar(max)" />
     <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'Intern_LeaveDB.dbo.EmployeeData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="DriverData">
+    <Key>
+      <PropertyRef Name="DriverId" />
+    </Key>
+    <Property Name="SentBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SentDate" Type="datetime" Nullable="false" />
+    <Property Name="ItemQuantity" Type="int" Nullable="false" />
+    <Property Name="DriverName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DriverEmail" Type="nvarchar" MaxLength="50" />
+    <Property Name="DriverDepartment" Type="nvarchar" MaxLength="50" />
+    <Property Name="DriverContacts" Type="nvarchar(max)" />
+    <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IsConfirmed" Type="bit" />
+  </EntityType>
   <EntityType Name="EmployeeData">
     <Key>
-      <PropertyRef Name="Employee_ID" />
+      <PropertyRef Name="RecordNumber" />
     </Key>
-    <Property Name="Employee_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="50" />
     <Property Name="UserName" Type="varchar" MaxLength="50" />
-    <Property Name="Password" Type="nvarchar(max)" />
-    <Property Name="Employee_Name" Type="varchar(max)" />
     <Property Name="Employee_Surname" Type="varchar(max)" />
+    <Property Name="ContactName" Type="nvarchar(max)" />
+    <Property Name="Password" Type="nvarchar(max)" />
     <Property Name="Department" Type="varchar(max)" />
     <Property Name="User_Type" Type="varchar(max)" />
     <Property Name="Email" Type="varchar(max)" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="DCXKIM" Type="nvarchar" MaxLength="50" />
+    <Property Name="DCXLDOMAIL" Type="nvarchar(max)" />
+    <Property Name="LocationCode" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="NatisData">
     <Key>
@@ -126,8 +144,22 @@ warning 6002: The table/view 'Intern_LeaveDB.dbo.EmployeeData' does not have a p
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
+  <Association Name="FK_ContractNumbers_DriverData">
+    <End Role="DriverData" Type="Self.DriverData" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DriverData">
+        <PropertyRef Name="DriverId" />
+      </Principal>
+      <Dependent Role="ContractNumbers">
+        <PropertyRef Name="DriverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ContractNumbers_SentIN_Delivery">
-    <End Role="SentIN_Delivery" Type="Self.SentIN_Delivery" Multiplicity="1">
+    <End Role="SentIN_Delivery" Type="Self.SentIN_Delivery" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
     </End>
     <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
@@ -141,7 +173,9 @@ warning 6002: The table/view 'Intern_LeaveDB.dbo.EmployeeData' does not have a p
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_ContractsData_NatisData">
-    <End Role="NatisData" Type="Self.NatisData" Multiplicity="1" />
+    <End Role="NatisData" Type="Self.NatisData" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="ContractsData" Type="Self.ContractsData" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NatisData">
@@ -186,24 +220,18 @@ warning 6002: The table/view 'Intern_LeaveDB.dbo.EmployeeData' does not have a p
   <EntityContainer Name="Intern_LeaveDBModelStoreContainer">
     <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumbers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContractsData" EntityType="Self.ContractsData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DriverData" EntityType="Self.DriverData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NatisData" EntityType="Self.NatisData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RequestsData" EntityType="Self.RequestsData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ScanLogsData" EntityType="Self.ScanLogsData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SentIN_Delivery" EntityType="Self.SentIN_Delivery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SentOUT_Delivery" EntityType="Self.SentOUT_Delivery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [EmployeeData].[Employee_ID] AS [Employee_ID], 
-    [EmployeeData].[UserName] AS [UserName], 
-    [EmployeeData].[Password] AS [Password], 
-    [EmployeeData].[Employee_Name] AS [Employee_Name], 
-    [EmployeeData].[Employee_Surname] AS [Employee_Surname], 
-    [EmployeeData].[Department] AS [Department], 
-    [EmployeeData].[User_Type] AS [User_Type], 
-    [EmployeeData].[Email] AS [Email]
-    FROM [dbo].[EmployeeData] AS [EmployeeData]</DefiningQuery>
-    </EntitySet>
+    <AssociationSet Name="FK_ContractNumbers_DriverData" Association="Self.FK_ContractNumbers_DriverData">
+      <End Role="DriverData" EntitySet="DriverData" />
+      <End Role="ContractNumbers" EntitySet="ContractNumbers" />
+    </AssociationSet>
     <AssociationSet Name="FK_ContractNumbers_SentIN_Delivery" Association="Self.FK_ContractNumbers_SentIN_Delivery">
       <End Role="SentIN_Delivery" EntitySet="SentIN_Delivery" />
       <End Role="ContractNumbers" EntitySet="ContractNumbers" />

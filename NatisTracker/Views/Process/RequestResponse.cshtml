@@ -1,4 +1,4 @@
-﻿@model IEnumerable<NatisTracker.Models.NatisRequest>
+﻿@model IEnumerable<NatisTracker.Models.RequestsData>
 @{
     ViewBag.Title = "RequestResponse";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -51,7 +51,7 @@
 
             <div id="ViewPackageInfo" class="tab-pane fade in">
                 <div class="table-responsive table table-striped">
-                    <table class="table">
+                    <table id="PackageTable" class="table">
                         <thead>
                             <tr>
                                 <th>Requester</th>
@@ -100,5 +100,16 @@
             </div>
         </div>
     }
+
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" class="init">
+        $(document).ready(function () {
+            $('#PackageTable').DataTable();
+        });
+
+    </script>
+
 </body>
 </html>

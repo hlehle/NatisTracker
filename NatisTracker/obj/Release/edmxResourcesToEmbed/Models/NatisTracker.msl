@@ -8,31 +8,52 @@
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="ContractNumber1" ColumnName="ContractNumber" />
           <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Leave_Days">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.Leave_Days">
-        <MappingFragment StoreEntitySet="Leave_Days">
-          <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
-          <ScalarProperty Name="Annual_Leave" ColumnName="Annual_Leave" />
-          <ScalarProperty Name="Sick_Leave" ColumnName="Sick_Leave" />
-          <ScalarProperty Name="Fam_Leave" ColumnName="Fam_Leave" />
-          <ScalarProperty Name="App_ID" ColumnName="App_ID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="LogInfoes">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.LogInfo">
-        <MappingFragment StoreEntitySet="LogInfo">
+    <EntitySetMapping Name="ContractsDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ContractsData">
+        <MappingFragment StoreEntitySet="ContractsData">
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
-          <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
-          <ScalarProperty Name="DateScanned" ColumnName="DateScanned" />
-          <ScalarProperty Name="User" ColumnName="User" />
-          <ScalarProperty Name="Department" ColumnName="Department" />
           <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
-          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+          <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DriverDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.DriverData">
+        <MappingFragment StoreEntitySet="DriverData">
+          <ScalarProperty Name="SentBy" ColumnName="SentBy" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+          <ScalarProperty Name="DriverName" ColumnName="DriverName" />
+          <ScalarProperty Name="DriverEmail" ColumnName="DriverEmail" />
+          <ScalarProperty Name="DriverDepartment" ColumnName="DriverDepartment" />
+          <ScalarProperty Name="DriverContacts" ColumnName="DriverContacts" />
+          <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.EmployeeData">
+        <MappingFragment StoreEntitySet="EmployeeData">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Employee_Surname" ColumnName="Employee_Surname" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="User_Type" ColumnName="User_Type" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="DCXKIM" ColumnName="DCXKIM" />
+          <ScalarProperty Name="DCXLDOMAIL" ColumnName="DCXLDOMAIL" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -42,7 +63,6 @@
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="User" ColumnName="User" />
           <ScalarProperty Name="DateLoaded" ColumnName="DateLoaded" />
-          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
           <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
           <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
           <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
@@ -57,9 +77,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="NatisRequests">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.NatisRequest">
-        <MappingFragment StoreEntitySet="NatisRequest">
+    <EntitySetMapping Name="RequestsDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.RequestsData">
+        <MappingFragment StoreEntitySet="RequestsData">
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
           <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />
@@ -69,6 +89,21 @@
           <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
           <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
           <ScalarProperty Name="Responder" ColumnName="Responder" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScanLogsDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ScanLogsData">
+        <MappingFragment StoreEntitySet="ScanLogsData">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+          <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+          <ScalarProperty Name="DateScanned" ColumnName="DateScanned" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
+          <ScalarProperty Name="ContractDescription" ColumnName="ContractDescription" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -120,19 +155,29 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Employee_Table">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.Employee_Table">
-        <MappingFragment StoreEntitySet="Employee_Table">
-          <ScalarProperty Name="Employee_ID" ColumnName="Employee_ID" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Employee_Name" ColumnName="Employee_Name" />
-          <ScalarProperty Name="Employee_Surname" ColumnName="Employee_Surname" />
-          <ScalarProperty Name="Department" ColumnName="Department" />
-          <ScalarProperty Name="User_Type" ColumnName="User_Type" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Intern_LeaveDBModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Intern_LeaveDBModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="Intern_LeaveDBModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="Intern_LeaveDBModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Intern_LeaveDBModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="Intern_LeaveDBModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Intern_LeaveDBModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Intern_LeaveDBModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Intern_LeaveDBModel.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping>

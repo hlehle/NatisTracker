@@ -8,6 +8,6 @@ namespace NatisTracker.Models
 {
     public interface IScanNatis
     {
-        bool Scan(NatisAndContractViewModel viewModel, string name, string surname, string department);
+        bool Scan(NatisAndContractViewModel viewModel, string name,string department);
     }
 }

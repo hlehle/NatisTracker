@@ -13,6 +13,11 @@ namespace NatisTracker.ViewModels
         public UserDetailViewModel viewModel { get; set; }
         public IEnumerable<NatisData> natisDataViewModel { get; set; }
         public IEnumerable<NatisData> maturitiesViewModel { get; set; }
+        public IEnumerable<NatisData> LicensingViewModel { get; set; }
+        public IEnumerable<NatisData> OperationsViewModel { get; set; }
+        public IEnumerable<NatisData> DriverViewModel { get; set; }
+        public IEnumerable<NatisData> RemarketingViewModel { get; set; }
+        public IEnumerable<NatisData> OriginationViewModel { get; set; }
         public IEnumerable<NatisData> legalViewModel { get; set; }
         public IEnumerable<NatisData> callCentreViewModel { get; set; }
         public IList<ContractsData> contractData { get; set; }
@@ -20,6 +25,8 @@ namespace NatisTracker.ViewModels
         public LogInfoViewModel logInfo { get; set; }
         public IList<ContractNumber> contracts { get; set; }
         public IEnumerable<ScanLogsData> logs { get; set; }
+        public Driver DriverView { get; set; }
+        public DriverPackage _DriverPackage { get; set; }
 
     }
     

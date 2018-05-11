@@ -1,4 +1,4 @@
-﻿@model NatisTracker.ViewModels.MasterViewModel
+﻿@model NatisTracker.ViewModels.NatisAndContractViewModel
 
 <!DOCTYPE html>
 @{
@@ -51,7 +51,7 @@
 
                 @using (Html.BeginForm("Scan_To_Collect", "Process", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    if (Model.logInfo.contractNo != null)
+                    if (Model.contractNo != null)
                     {
                         <div class="table-responsive table table-striped">
                             <table class="table">
@@ -63,18 +63,20 @@
                                         <th>User</th>
                                         <th>Natis Location</th>
                                         <th>Contract Status</th>
+                                        <th>Status Description</th>
                                         <th>Comment</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>@Model.logInfo.contractNo</td>
-                                        <td>@Model.logInfo.VIN</td>
-                                        <td>@Model.logInfo.Date</td>
-                                        <td>@Model.logInfo.user</td>
-                                        <td>@Model.logInfo.department</td>
-                                        <td>@Model.logInfo.status</td>
-                                        <td>@Model.logInfo.comment</td>
+                                        <td>@Model.contractNo</td>
+                                        <td>@Model.vin</td>
+                                        <td>@Model.DateScanned</td>
+                                        <td>@Model.ScanningUser</td>
+                                        <td>@Model.Department</td>
+                                        <td>@Model.ContractStatus</td>
+                                        <td>@Model.StatusDescription</td>
+                                        <td>@Model.Comment</td>
                                     </tr>
                                 </tbody>
 
@@ -83,14 +85,14 @@
                         </div>
                     }
                     <br /><br />
-                    @Html.TextBoxFor(model => model.logInfo.file, new { type = "file", id = "File", accept = "image/bmp", capture = "camera" })<br>
+                    @Html.TextBoxFor(model => model.file, new { type = "file", id = "File", accept = "image/bmp", capture = "camera" })<br>
 
                     <br /><br />
                             <div class="form-group">
 
-                                @Html.LabelFor(model => model.logInfo.comment, "Comment", new { @class = "col-md-2 control-label" })
+                                @Html.LabelFor(model => model.Comment, "Comment", new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
-                                    @Html.TextAreaFor(model => model.logInfo.comment)
+                                    @Html.TextAreaFor(model => model.Comment)
                                 </div>
                             </div>
 
