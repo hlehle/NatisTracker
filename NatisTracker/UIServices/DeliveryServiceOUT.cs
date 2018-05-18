@@ -43,7 +43,7 @@ namespace NatisTracker.Models
             return viewModel;
 
         }
-        public DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name) { return new DeliveryViewModel(); }
+        public DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name, string email) { return new DeliveryViewModel(); }
 
         public void SendToDriver(DriverPackage viewModel, string name)
         {

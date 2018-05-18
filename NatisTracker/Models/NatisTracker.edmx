@@ -56,6 +56,7 @@
           <Property Name="DCXKIM" Type="nvarchar" MaxLength="50" />
           <Property Name="DCXLDOMAIL" Type="nvarchar(max)" />
           <Property Name="LocationCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsChangePassword" Type="bit" />
         </EntityType>
         <EntityType Name="NatisData">
           <Key>
@@ -306,6 +307,7 @@
           <Property Name="DCXKIM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DCXLDOMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LocationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsChangePassword" Type="Boolean" />
         </EntityType>
         <EntityType Name="NatisData">
           <Key>
@@ -567,6 +569,7 @@
                 <ScalarProperty Name="DCXKIM" ColumnName="DCXKIM" />
                 <ScalarProperty Name="DCXLDOMAIL" ColumnName="DCXLDOMAIL" />
                 <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+                <ScalarProperty Name="IsChangePassword" ColumnName="IsChangePassword" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

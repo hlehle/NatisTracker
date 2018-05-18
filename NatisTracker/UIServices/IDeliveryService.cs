@@ -10,7 +10,7 @@ namespace NatisTracker.Models
     public interface IDeliveryService
     {
         DeliveryitemViewModel sendDelivery(DeliveryitemViewModel view, string name);
-        DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name);
+        DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name, string email);
 
         void SendToDriver(DriverPackage viewModel, string name);
     }

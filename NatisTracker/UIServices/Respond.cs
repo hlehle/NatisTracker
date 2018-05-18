@@ -10,9 +10,9 @@ namespace NatisTracker.Models
 {
     public class Respond : INatisRequest
     {
-        public NatisRequests request(NatisRequests viewModel, string name,string department) { return viewModel; }
+        public NatisRequests request(NatisRequests viewModel, string name,string department, string email) { return viewModel; }
 
-        public void respond(FormCollection form, string name)
+        public void respond(FormCollection form, string name, string email)
         {
             string[] recordNumbers = form["RecordNumber"].Split(new char[] { ',' });
             string[] replies = form["Status"].Split(new char[] { ',' });
@@ -34,6 +34,11 @@ namespace NatisTracker.Models
                         response.RequestStatus = reply.ToString();
 
                         db.SaveChanges();
+
+                        string to = email;
+                        string subject = "To whom it may concern";
+                        string body = "Your request has been Accepted";
+                        SystemEmailSender.SendMail(to, subject, body);
                     }
                 }
             }

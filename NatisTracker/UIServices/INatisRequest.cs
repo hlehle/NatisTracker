@@ -9,8 +9,8 @@ namespace NatisTracker.Models
 {
     public interface INatisRequest
     {
-        NatisRequests request(NatisRequests viewModel, string name, string department);
+        NatisRequests request(NatisRequests viewModel, string name, string department, string email);
 
-        void respond(FormCollection form, string name);
+        void respond(FormCollection form, string name, string email);
     }
 }

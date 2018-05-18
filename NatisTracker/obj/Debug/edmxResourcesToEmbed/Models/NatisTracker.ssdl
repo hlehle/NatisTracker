@@ -51,6 +51,7 @@
     <Property Name="DCXKIM" Type="nvarchar" MaxLength="50" />
     <Property Name="DCXLDOMAIL" Type="nvarchar(max)" />
     <Property Name="LocationCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsChangePassword" Type="bit" />
   </EntityType>
   <EntityType Name="NatisData">
     <Key>

@@ -55,6 +55,7 @@
     <Property Name="DCXKIM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DCXLDOMAIL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="LocationCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsChangePassword" Type="Boolean" />
   </EntityType>
   <EntityType Name="NatisData">
     <Key>

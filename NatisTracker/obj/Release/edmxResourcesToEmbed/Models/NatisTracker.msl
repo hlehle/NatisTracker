@@ -54,6 +54,7 @@
           <ScalarProperty Name="DCXKIM" ColumnName="DCXKIM" />
           <ScalarProperty Name="DCXLDOMAIL" ColumnName="DCXLDOMAIL" />
           <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="IsChangePassword" ColumnName="IsChangePassword" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

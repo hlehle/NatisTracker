@@ -709,43 +709,43 @@
 
                 </div>
 
-                    using (Html.BeginForm("GenerateAuditReports", "Process", FormMethod.Post, new { @class= "btn-group", @style = "padding:10px 100px 10px 0px", target = "_blank"}))
+                    using (Html.BeginForm("GenerateAuditReports", "Process", FormMethod.Post, new { @class= "btn-group col-md-1", @style = "margin-right:120px", target = "_blank"}))
                     {
                         <button class="btn btn-large btn-primary" type="submit">Audit Report</button>
                     }
 
-                    using (Html.BeginForm("GenerateOneReports", "Process", FormMethod.Post, new { @class = "btn-group", @style = "padding:10px 10px 10px 100px", target = "_blank"}))
+                    using (Html.BeginForm("GenerateOneReports", "Process", FormMethod.Post, new { @class = "btn-group col-md-5", @style = "padding:0px 0px 0px 0px", target = "_blank"}))
                     {
                         <div class="form-group">
-                            @Html.Label("Contract Number or VIN", new { @class = "col-md-4 control-label", @style="padding:5px 0px 0px 0px"})
+                            @Html.Label("Contract Number or VIN", new { @class = "col-md-3 control-label", @style="padding:5px 0px 0px 5px"})
                             <div class="col-md-8">
                                 @Html.TextBox("a")
 
-                                <button class="btn btn-large btn-primary" type="submit">Generate</button>
+                                <button class="btn btn-large btn-primary" style="margin-left:5px" type="submit">Generate</button>
                             </div>
                         </div>
                     }
 
-                    using (Html.BeginForm("GenerateDepartmentReports", "Process", FormMethod.Post, new { @class = "btn-group", @style = "padding:10px 0px 10px 10px", target = "_blank"}))
+                    using (Html.BeginForm("GenerateDepartmentReports", "Process", FormMethod.Post, new { @class = "btn-group col-md-5", @style = "margin-left:20px;align-content:right", target = "_blank"}))
                     {
-                <div class="form-group">
-                    @Html.Label("Select Department", new { @class = "col-md-3 control-label" })
-                    <div class="col-md-9">
-                        @Html.DropDownList("b", new List<SelectListItem>
-                                {
-                                    new SelectListItem { Text="Maturities", Value = "Maturities"},
-                                    new SelectListItem { Text="Legal", Value = "Legal"},
-                                    new SelectListItem { Text="Call Centre", Value = "Call Centre"},
-                                    new SelectListItem { Text="Fines & Licensing", Value = "Fines & Licensing"},
-                                    new SelectListItem { Text="Operations", Value = "Operation"},
-                                    new SelectListItem { Text="Driver", Value = "Driver"},
-                                    new SelectListItem { Text="Remarketing", Value = "Remarketing"},
-                                    new SelectListItem { Text="Contracts Originations", Value = "Origination"},
-                                }, "---Select one---", new { @style="padding:0px 30px 0px 30px"})
+                        <div class="form-group">
+                            @Html.Label("Select Department", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-9">
+                                @Html.DropDownList("b", new List<SelectListItem>
+                                        {
+                                            new SelectListItem { Text="Maturities", Value = "Maturities"},
+                                            new SelectListItem { Text="Legal", Value = "Legal"},
+                                            new SelectListItem { Text="Call Centre", Value = "Call Centre"},
+                                            new SelectListItem { Text="Fines & Licensing", Value = "Fines & Licensing"},
+                                            new SelectListItem { Text="Operations", Value = "Operation"},
+                                            new SelectListItem { Text="Driver", Value = "Driver"},
+                                            new SelectListItem { Text="Remarketing", Value = "Remarketing"},
+                                            new SelectListItem { Text="Contracts Originations", Value = "Origination"},
+                                        }, "---Select one---", new { @style="padding:0px 30px 0px 30px"})
 
-                        <button class="btn btn-large btn-primary" type="submit" >Department Report</button>
-                    </div>
-                </div>
+                                <button class="btn btn-large btn-primary" style="margin-left:5px" type="submit" >Department Report</button>
+                            </div>
+                        </div>
                     }
                 }
 

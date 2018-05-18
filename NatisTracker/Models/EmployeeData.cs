@@ -27,5 +27,6 @@ namespace NatisTracker.Models
         public string DCXKIM { get; set; }
         public string DCXLDOMAIL { get; set; }
         public string LocationCode { get; set; }
+        public Nullable<bool> IsChangePassword { get; set; }
     }
 }

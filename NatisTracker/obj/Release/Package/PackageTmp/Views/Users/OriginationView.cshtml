@@ -53,11 +53,11 @@
                 @using (Html.BeginForm("OriginationView", "Users", FormMethod.Post))
                 {
                     <div class="table-responsive table table-striped">
-                        <h3>Sent By Courier Response Table</h3>
+                        <h3>Sent By Courier</h3>
                         <br /><br />
                         @if (Model.CourierViewModel != null)
                         {
-                            <table class="table-responsive">
+                            <table id="CourierTable" class="table-responsive">
                                 <thead>
                                     <tr>
                                         <th>Dealership Name</th>
@@ -121,11 +121,11 @@
                 @using (Html.BeginForm("OriginationView", "Users", FormMethod.Post))
                 {
                     <div class="table-responsive table table-striped">
-                        <h3>Sent By Courier Response Table</h3>
+                        <h3>Sent By Driver</h3>
                         <br /><br />
                         @if (Model.DriverViewModel != null)
                         {
-                            <table class="table-responsive">
+                            <table id="DriverTable" class="table-responsive">
                                 <thead>
                                     <tr>
                                         <th>Dealership Name</th>
@@ -189,6 +189,18 @@
             </div>
         </div>
     </div>
+
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+
+    <script type="text/javascript" class="init">
+        $(document).ready(function () {
+            $('#CourierTable').DataTable();
+            $('#DriverTable').DataTable();
+        });
+
+    </script>
 
 </body>
 </html>

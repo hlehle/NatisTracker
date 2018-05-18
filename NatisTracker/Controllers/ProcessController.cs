@@ -72,7 +72,7 @@ namespace NatisTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                new Respond().respond(form, @Session["Name"].ToString());
+                new Respond().respond(form, @Session["Name"].ToString(), Session["Email"].ToString());
             }
 
             Intern_LeaveDBEntities database = new Intern_LeaveDBEntities();
@@ -124,7 +124,7 @@ namespace NatisTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                viewModel = new Request().request(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
+                viewModel = new Request().request(viewModel, Session["Name"].ToString(), Session["Department"].ToString(), Session["Email"].ToString());
                 ViewBag.Stored = "Yes";
                 ModelState.Clear();
             }

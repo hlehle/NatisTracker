@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using NatisTracker.ViewModels;
 using System.Web.Mvc;
+
 using System.Net.Mail;
+
 
 namespace NatisTracker.Models
 {
@@ -49,7 +51,7 @@ namespace NatisTracker.Models
             return viewModel;
         }
 
-        public DeliveryViewModel receiveDelivery(DeliveryViewModel viewModel, string name)
+        public DeliveryViewModel receiveDelivery(DeliveryViewModel viewModel, string name, string email)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
@@ -64,7 +66,7 @@ namespace NatisTracker.Models
                             delivery.CourierStatus = viewModel.CourierViewModel.DeliveryItems[i].DeliveryStatus;
                             delivery.DateReceived = DateTime.Now;
                             delivery.PackageRecipient = name;
-
+                            
                             for (int j = 0; j < viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems.Count(); j++)
                             {
                                 var ContractViewModel = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j];
@@ -73,8 +75,16 @@ namespace NatisTracker.Models
                                 var contractNumber = ContractViewModel.ContractNumber;
                                 var contractnumbers = deliverySentIn.ContractNumbers.First(f => f.ContractNumber1 == contractNumber);
                                 contractnumbers.IsReceived = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved;
-                                //contractnumbers.ContractNumber1 = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber;
+                                //contractnumbers.ContractNumber1 = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber;                                
+                                
                             }
+
+                            db.SaveChanges();
+
+                            string[] toArray = db.EmployeeDatas.Where(a => a.User_Type == "Admin").Select(a => a.Email).ToArray();
+                            string subject = "To whom it may concern";
+                            string body = "A new natis pack has been sent from "+viewModel.CourierViewModel.DeliveryItems[i].DealershipName;
+                            SystemEmailSender.SendMail(toArray, subject, body);
                         }
 
                     }
@@ -82,8 +92,6 @@ namespace NatisTracker.Models
 
                 else if(viewModel.DriverViewModel != null)
                 {
-
-
                     for (int i = 0; i < viewModel.DriverViewModel.DeliveryItems.Count; i++)
                     {
                         if (!viewModel.DriverViewModel.DeliveryItems[i].DeliveryStatus.Equals("Transit"))
@@ -104,6 +112,13 @@ namespace NatisTracker.Models
                                 contractnumbers.IsReceived = viewModel.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved;
                                 //contractnumbers.ContractNumber1 = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber;
                             }
+                            db.SaveChanges();
+
+                            string[] toArray = db.EmployeeDatas.Where(a => a.User_Type == "Admin").Select(a => a.Email).ToArray();
+                            
+                            string subject = "To whom it may concern";
+                            string body = "A new natis pack has been sent from " + viewModel.DriverViewModel.DeliveryItems[i].DealershipName;
+                            SystemEmailSender.SendMail(toArray, subject, body);
                         }
 
                     }
@@ -111,7 +126,13 @@ namespace NatisTracker.Models
 
                 else { }
 
-                db.SaveChanges();
+                //db.SaveChanges();
+
+                //string to = email;
+                //string subject = "To whom it may concern";
+                //string body = "A new ";
+                //SystemEmailSender.SendMail(to, subject, body);
+
                 return viewModel;
             }
         }
@@ -123,47 +144,61 @@ namespace NatisTracker.Models
             return contracts.Trim().Split(' ');
         }
 
-        public void SendEmail(string customerEmail, string subject, string boby)
+    }
+
+    public class SystemEmailSender
+    {
+        public static void SendMail(string to,
+                                    string subject,
+                                    string body,
+                                    Attachment[] attachments = null)
         {
-            //Set email user name - Change this as per your settings
-            const string username = "internleavesystem@gmail.com";
-            //Set the email password - Change this as per your settings
-            const string password = "Leave@2018";
-            SmtpClient smtpclient = new SmtpClient();
-            MailMessage mail = new MailMessage();
+            SendMail(new[] { to }, subject, body, attachments);
+        }
 
-            //Set the email from address of mail message -  Change this as per your settings
-            MailAddress fromaddress = new MailAddress("internleavesystem@gmail.com");
 
-            //Set the email smtp host -  Change this as per your settings
-            smtpclient.Host = "53.151.100.102";
+        public static void SendMail(string[] to,
+                                    string subject,
+                                    string body,
+                                    Attachment[] attachments = null)
+        {
+            //string defaultSenderAddress = GetSenderAddress(systemParams);
 
-            //Set the email client port -  Change this as per your settings
-            smtpclient.Port = 25;
-            mail.From = fromaddress;
+            //string defaultSmtpServer = GetSmtpServer(systemParams);
 
-            //Adding email id of receiver link
-            mail.To.Add(customerEmail);
+            //string defaultSmtpServerFallback = GetSmtpServerFallback(systemParams);
 
-            //Set the email subject
-            mail.Subject = subject;
-            mail.IsBodyHtml = false;
 
-            //Set the email body - Change this as per your logic
-            mail.Body = boby;
-            smtpclient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtpclient.Credentials = new System.Net.NetworkCredential(username, password);
+            //if (system == null)
+            //{
+                try
+                {
+                    var sender = new Comet.Email.EmailSender("141.113.103.104", 25);
+                    sender.SendMail(to, "mbfs_systems@daimler.com", subject, body, attachments);
+                }
+                catch (Comet.Email.EmailException)
+                {
 
-            try
-            {
-                //Sending Email
-                smtpclient.Send(mail);
+                    var sender = new Comet.Email.EmailSender("53.151.100.102", 25);
+                    sender.SendMail(to, "mbfs_systems@daimler.com", subject, body, attachments);
+                }
+            //}
+            //else
+            //{
+            //    try
+            //    {
+            //        var sender = new EmailSender(defaultSmtpServerFallback, 25);
+            //        sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
 
-            }
-            catch (Exception ex)
-            {
-                //Catch if any exception occurs
-            }
+            //    }
+            //    catch (EmailException)
+            //    {
+
+            //        var sender = new EmailSender(defaultSmtpServer, 25);
+            //        sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
+            //    }
+            //}
+
         }
     }
 }

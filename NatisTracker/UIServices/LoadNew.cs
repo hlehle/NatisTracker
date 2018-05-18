@@ -153,7 +153,7 @@ namespace NatisTracker.Models
                 //Console.WriteLine("Disconnected");
                 return description;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return null;
             }
@@ -234,7 +234,7 @@ namespace NatisTracker.Models
                 reader.Close();
                 return codeText;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return null;
             }
@@ -288,7 +288,7 @@ namespace NatisTracker.Models
                 //Console.WriteLine("Disconnected");
                 return contractInfo;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return null;
             }

@@ -33,8 +33,13 @@ namespace NatisTracker.Controllers
                     {
                         Session["ID"] = emp.UserId.ToString();
                         Session["Name"] = emp.ContactName.ToString();
-                        //Session["Surname"] = emp.Employee_Surname.ToString();
+                        Session["Email"] = emp.Email.ToString();
                         Session["Department"] = emp.Department.ToString();
+
+                        if ((bool)emp.IsChangePassword)
+                        {
+                            return RedirectToAction("ChangePassword");
+                        }
 
                         if (emp.User_Type == "Admin")
                         {
@@ -46,7 +51,7 @@ namespace NatisTracker.Controllers
                             // Origination, Remarketing, Fines & Licensing and The Driver don't
                             // Request for Natis document and hence they have special pages as End Users
 
-                            if (emp.Department.Equals("Origination"))
+                            if (emp.Department.Equals("Contracts Origination"))
                             {
                                 return RedirectToAction("OriginationView", "Users");
                             }
@@ -98,7 +103,6 @@ namespace NatisTracker.Controllers
 
             return View(objEmp);
         }
-
         public ActionResult LogOut()
         {
 
@@ -108,6 +112,40 @@ namespace NatisTracker.Controllers
 
             return RedirectToAction("Login", "Login");
 
+        }
+
+        public ActionResult ChangePassword()
+        {
+            var id = Session["ID"].ToString();
+            var view = new Intern_LeaveDBEntities().EmployeeDatas.Where(a => a.UserId == id).Select(a => a.UserId);
+            var changePassword = new ChangePasswordViewModel();
+            changePassword.UserId = id;
+            return View(changePassword);
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(int? i)
+        {
+            var changePassword = new ChangePasswordViewModel();
+            TryUpdateModel(changePassword);
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                if (changePassword.Password.Equals(changePassword.ConfirmPassword))
+                {
+                    var id = changePassword.UserId;
+                    var empData = db.EmployeeDatas.Where(a => a.UserId == id).FirstOrDefault();
+                    empData.Password = changePassword.Password;
+                    empData.IsChangePassword = false;
+                    db.SaveChanges();
+
+                    return RedirectToAction("Login", "Login");
+                }
+                else
+                {
+                    return View(changePassword);
+                }
+                
+            }
+            
         }
     }
 }

@@ -270,7 +270,7 @@ namespace NatisTracker.Controllers
                 //    return View(viewModel);
                 //}
 
-                new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString());
+                new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString(), Session["Email"].ToString());
                 viewModel = PopulateDeliveryViewModel(viewModel, db);
                 return View(viewModel);
             }
@@ -574,7 +574,7 @@ namespace NatisTracker.Controllers
                 //Console.WriteLine("Disconnected");
                 return vin;
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return null;
             }

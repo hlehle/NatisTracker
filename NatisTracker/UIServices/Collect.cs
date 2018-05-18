@@ -166,7 +166,7 @@ namespace NatisTracker.Models
                 //Console.WriteLine("Disconnected");
                 return contractInfo;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }
