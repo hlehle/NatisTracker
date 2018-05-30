@@ -14,21 +14,24 @@ namespace NatisTracker.Models
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
             
-            if (viewModel.WaybillNumber != null)// || view.DriverDetails != null)
+            if (viewModel.WaybillNumber != null || viewModel.DriverDetails != null)
             {
                 SentOUT_Delivery database = new SentOUT_Delivery();
                 NatisData data = new NatisData();
 
-                database.VinNumber = viewModel.ContractStrings;
+                var con = viewModel.ContractStrings;
+                var vin = db.ContractsDatas.Where(a => a.ContractNumber == con).Select(a => a.VinNumber).FirstOrDefault();
+
+                database.VinNumber = vin;
                 database.PackageNumber = viewModel.WaybillNumber;
                 database.PackageSender = name;
                 database.DateSent = DateTime.Now;
                 //database.CourierStatus = "Transit";
                 database.DeliveryChoice = viewModel.DeliveryChoice;
-                //database.DriverContacts = view.CourierViewModel.DeliveryItems[0].DriverContacts;
+                database.DriverContacts = viewModel.DriverContacts;
                 database.RecipientDetails = viewModel.Recipient;
                 database.RecipientContacts = viewModel.RecipientContacts;
-                //database.DriverDetails = view.CourierViewModel.DeliveryItems[0].DriverDetails;
+                database.DriverDetails = viewModel.DriverDetails;
                 database.Comments = viewModel.Comment;
 
                 db.SentOUT_Delivery.Add(database);
@@ -45,37 +48,46 @@ namespace NatisTracker.Models
         }
         public DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name, string email) { return new DeliveryViewModel(); }
 
-        public void SendToDriver(DriverPackage viewModel, string name)
+        public void SendNatis(TickBoxViewModelList viewModel, string name, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                if (viewModel.PackageItems != null)
+                if (viewModel.TickBoxList != null)
                 {
-                    for (int i = 0; i < viewModel.PackageItems.Count; i++)
+                    for (int i = 0; i < viewModel.TickBoxList.Count; i++)
                     {
-                        if (!viewModel.PackageItems[i].Confirmation.Equals("Transit"))
+                        if (!viewModel.TickBoxList[i].Reply.Equals("Transit"))
                         {
-                            var num = viewModel.PackageItems[i].DriverId;
-                            var delivery = db.DriverDatas.First(r => r.DriverId == num);
-                            delivery.DriverName = name;
-                            //delivery.DateReceived = DateTime.Now;
-                            //delivery.PackageRecipient = name;
+                            var num = viewModel.TickBoxList[i].DriverId;
+                            var delivery = db.TickBoxDatas.Where(r => r.TableId == num).FirstOrDefault();
+                            delivery.RecipientName = name;
+                            delivery.IsConfirmed = viewModel.IsConfirmed;
+                            delivery.RecipientDepartment = department;
+                            delivery.ReceivedDate = DateTime.Now;
 
-                            for (int j = 0; j < viewModel.PackageItems[i].ContractNumbers.Count(); j++)
+                            for (int j = 0; j < viewModel.TickBoxList[i].ContractsList.Count(); j++)
                             {
-                                var ContractViewModel = viewModel.PackageItems[i].ContractNumbers[j];
+                                var ContractViewModel = viewModel.TickBoxList[i].ContractsList[j];
                                 var driverId = ContractViewModel.DriverId;
-                                var deliverySentIn = db.DriverDatas.First(f => f.DriverId == driverId);
-                                var contractNumber = ContractViewModel.ContractNumber;
+                                var deliverySentIn = db.TickBoxDatas.First(f => f.TableId == driverId);
+                                var contractNumber = ContractViewModel.ContractNumber1;
                                 var contractnumbers = deliverySentIn.ContractNumbers.First(f => f.ContractNumber1 == contractNumber);
-                                contractnumbers.IsReceived = viewModel.PackageItems[i].ContractNumbers[j].IsReceived;
+                                contractnumbers.IsReceived = viewModel.TickBoxList[i].ContractsList[j].IsReceived;
 
                                 var natisContract = db.ContractsDatas.Where(a => a.ContractNumber == contractnumbers.ContractNumber1).FirstOrDefault();
                                 var natis = db.NatisDatas.Where(a => a.VinNumber == natisContract.VinNumber).FirstOrDefault();
 
-                                if (viewModel.IsConfirmed && (bool)contractnumbers.IsReceived && viewModel.PackageItems[i].Confirmation.Equals("Accepted"))
+                                if (viewModel.IsConfirmed && (bool)contractnumbers.IsReceived && viewModel.TickBoxList[i].Reply.Equals("Accepted"))
                                 {
-                                    natis.NatisLocation = "Driver: " + name;
+                                    if (delivery.RecipientType.Equals("Driver"))
+                                    {
+                                        natis.NatisLocation = "Fleet Services";
+                                    }
+                                    else
+                                    {
+                                        natis.NatisLocation = department;
+                                    }
+                                    
                                 }
                                 //contractnumbers.ContractNumber1 = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber;
                             }
@@ -99,8 +111,8 @@ namespace NatisTracker.Models
                         if (!viewModel.PackageItems[i].Confirmation.Equals("Transit"))
                         {
                             var num = viewModel.PackageItems[i].DriverId;
-                            var delivery = db.DriverDatas.First(r => r.DriverId == num);
-                            delivery.DriverName = name;
+                            var delivery = db.TickBoxDatas.First(r => r.TableId == num);
+                            delivery.RecipientName = name;
                             //delivery.DateReceived = DateTime.Now;
                             //delivery.PackageRecipient = name;
 
@@ -108,7 +120,7 @@ namespace NatisTracker.Models
                             {
                                 var ContractViewModel = viewModel.PackageItems[i].ContractNumbers[j];
                                 var driverId = ContractViewModel.DriverId;
-                                var deliverySentIn = db.DriverDatas.First(f => f.DriverId == driverId);
+                                var deliverySentIn = db.TickBoxDatas.First(f => f.TableId == driverId);
                                 var contractNumber = ContractViewModel.ContractNumber;
                                 var contractnumbers = deliverySentIn.ContractNumbers.First(f => f.ContractNumber1 == contractNumber);
                                 contractnumbers.IsReceived = viewModel.PackageItems[i].ContractNumbers[j].IsReceived;

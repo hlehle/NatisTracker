@@ -9,6 +9,7 @@ namespace NatisTracker.UIServices
 {
     interface Populate
     {
-        void PopulateData(Driver viewModel, string user);
+        void PopulateSendToDriver(DriverDocsViewModel viewModel, string user, string department);
+        void PopulateSendToUser(SendToUserViewModel viewModel, string user, string department);
     }
 }

@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatisTracker", "NatisTracke
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatisTracker.Tests", "NatisTracker.Tests\NatisTracker.Tests.csproj", "{A007193E-23DD-43AD-98B7-92DA32C59CA2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatisTrackerServiceTester", "NatisTrackerServiceTester\NatisTrackerServiceTester.csproj", "{F92950AD-10D4-47F4-8351-897B23C1A0EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatisTrackerServiceLib", "NatisTrackerServiceLib\NatisTrackerServiceLib.csproj", "{CADA1DC5-E82E-408A-B84C-152C42CC79CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NatisTrakerServices", "NatisTrakerServices\NatisTrakerServices.csproj", "{99E8AE30-629A-4389-A5B9-6D78C540A790}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{A007193E-23DD-43AD-98B7-92DA32C59CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A007193E-23DD-43AD-98B7-92DA32C59CA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A007193E-23DD-43AD-98B7-92DA32C59CA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F92950AD-10D4-47F4-8351-897B23C1A0EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F92950AD-10D4-47F4-8351-897B23C1A0EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F92950AD-10D4-47F4-8351-897B23C1A0EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F92950AD-10D4-47F4-8351-897B23C1A0EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CADA1DC5-E82E-408A-B84C-152C42CC79CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CADA1DC5-E82E-408A-B84C-152C42CC79CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CADA1DC5-E82E-408A-B84C-152C42CC79CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CADA1DC5-E82E-408A-B84C-152C42CC79CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E8AE30-629A-4389-A5B9-6D78C540A790}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E8AE30-629A-4389-A5B9-6D78C540A790}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E8AE30-629A-4389-A5B9-6D78C540A790}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E8AE30-629A-4389-A5B9-6D78C540A790}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

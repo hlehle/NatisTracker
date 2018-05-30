@@ -12,22 +12,23 @@ namespace NatisTracker.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class DriverData
+    public partial class TickBoxData
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DriverData()
+        public TickBoxData()
         {
             this.ContractNumbers = new HashSet<ContractNumber>();
         }
     
-        public string SentBy { get; set; }
+        public int TableId { get; set; }
+        public string SenderName { get; set; }
+        public string SenderDepartment { get; set; }
         public System.DateTime SentDate { get; set; }
+        public string RecipientName { get; set; }
+        public string RecipientDepartment { get; set; }
+        public Nullable<System.DateTime> ReceivedDate { get; set; }
         public int ItemQuantity { get; set; }
-        public string DriverName { get; set; }
-        public string DriverEmail { get; set; }
-        public string DriverDepartment { get; set; }
-        public string DriverContacts { get; set; }
-        public int DriverId { get; set; }
+        public string RecipientType { get; set; }
         public Nullable<bool> IsConfirmed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

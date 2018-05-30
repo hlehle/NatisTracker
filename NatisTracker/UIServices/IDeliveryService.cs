@@ -12,6 +12,6 @@ namespace NatisTracker.Models
         DeliveryitemViewModel sendDelivery(DeliveryitemViewModel view, string name);
         DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name, string email);
 
-        void SendToDriver(DriverPackage viewModel, string name);
+        void SendNatis(TickBoxViewModelList viewModel, string name, string department);
     }
 }

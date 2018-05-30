@@ -1,4 +1,4 @@
-﻿@model NatisTracker.ViewModels.DriverPackage
+﻿@model NatisTracker.ViewModels.DriverDataViewModelList
 
 <!DOCTYPE html>
 @{
@@ -50,9 +50,9 @@
             <div class="table-responsive table table-striped">
 
                 <br /><br />
-                @if (Model != null)
+                @if (Model.DriverPackagesList != null)
                 {
-                    <table class="table-responsive">
+                    <table id="table" class="table-responsive">
                         <thead>
                             <tr>
                                 <th>Sent By</th>
@@ -63,28 +63,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (int i = 0; i < Model.PackageItems.Count; i++)
+                            @for (int i = 0; i < Model.DriverPackagesList.Count; i++)
                             {
-                                var delivery = Model.PackageItems[i];
+                                var delivery = Model.DriverPackagesList[i];
                                 <tr>
                                     <td>@delivery.SentBy</td>
                                     <td>@delivery.SentDate</td>
                                     <td>@delivery.ItemQuantity</td>
                                     <td>
-                                        @for (int j = 0; j < Model.PackageItems[i].ContractNumbers.Count; j++)
+                                        @for (int j = 0; j < Model.DriverPackagesList[i].ContractsList.Count; j++)
                                         {
-                                            @Html.HiddenFor(a => Model.PackageItems[i].DriverId)
+                                            @Html.HiddenFor(a => Model.DriverPackagesList[i].DriverId)
                                             <div class="checkbox">
-                                                @Html.CheckBoxFor(a => Model.PackageItems[i].ContractNumbers[j].IsReceived)
-                                                @Model.PackageItems[i].ContractNumbers[j].ContractNumber<br />
-                                                @Html.HiddenFor(a => Model.PackageItems[i].ContractNumbers[j].ContractNumber)
-                                                @Html.HiddenFor(a => Model.PackageItems[i].ContractNumbers[j].DriverId)
+                                                @Html.CheckBoxFor(a => Model.DriverPackagesList[i].ContractsList[j].IsReceived)
+                                                @Model.DriverPackagesList[i].ContractsList[j].ContractNumber1<br />
+                                                @Html.HiddenFor(a => Model.DriverPackagesList[i].ContractsList[j].ContractNumber1)
+                                                @Html.HiddenFor(a => Model.DriverPackagesList[i].ContractsList[j].DriverId)
                                             </div>
                                         }
                                     </td>
 
                                     <td>
-                                        @Html.DropDownListFor(a => a.PackageItems[i].Confirmation, new List<SelectListItem>
+                                        @Html.DropDownListFor(a => a.DriverPackagesList[i].Reply, new List<SelectListItem>
                                                 {
                                                     new SelectListItem { Text="Reply", Value = "Transit"},
                                                     new SelectListItem { Text="Accept", Value = "Accepted"},
@@ -116,5 +116,13 @@
             <button class="btn btn-large btn-primary" type="submit">Send</button>
         </fieldset>
     }
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" class="init">
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+
+    </script>
 </body>
 </html>

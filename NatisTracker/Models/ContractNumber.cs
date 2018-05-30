@@ -18,9 +18,9 @@ namespace NatisTracker.Models
         public Nullable<int> RecordNumber { get; set; }
         public string ContractNumber1 { get; set; }
         public Nullable<bool> IsReceived { get; set; }
-        public Nullable<int> DriverId { get; set; }
+        public Nullable<int> TableId { get; set; }
     
-        public virtual DriverData DriverData { get; set; }
         public virtual SentIN_Delivery SentIN_Delivery { get; set; }
+        public virtual TickBoxData TickBoxData { get; set; }
     }
 }

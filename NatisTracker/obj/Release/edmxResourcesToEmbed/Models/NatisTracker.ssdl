@@ -131,8 +131,8 @@
     <Property Name="PackageNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="DriverDetails" Type="nvarchar" MaxLength="50" />
     <Property Name="DriverContacts" Type="nvarchar" MaxLength="50" />
-    <Property Name="RecipientDetails" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="RecipientContacts" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RecipientDetails" Type="nvarchar" MaxLength="50" />
+    <Property Name="RecipientContacts" Type="nvarchar" MaxLength="50" />
     <Property Name="Comments" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="sysdiagrams">

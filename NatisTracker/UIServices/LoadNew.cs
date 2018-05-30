@@ -13,7 +13,7 @@ namespace NatisTracker.Models
 {
     public class LoadNew : IScanNatis
     {
-        public bool Scan(NatisAndContractViewModel viewModel, string name, string department)
+        public bool Scan(NatisDataViewModel viewModel, string name, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
@@ -159,7 +159,7 @@ namespace NatisTracker.Models
             }
         }
 
-        public static string getContractNo(string vin)
+        public string getContractNo(string vin)
         {
             try
             {
@@ -170,9 +170,8 @@ namespace NatisTracker.Models
                 OracleConnection conn = new OracleConnection(connectionString);
                 conn.Open();
 
-                string query = "select a.application_no from prop.application a " +
-                                                       "join prop.app_form af on a.current_form_id = af.id and af.asset_chassis_no = :VIN " +
-                                                       " where rownum = 1 order by af.created_ts desc";
+                string query = "select max(a.application_no) from prop.application a " +
+                                                       "join prop.app_form af on a.current_form_id = af.id and af.asset_chassis_no = :VIN ";
 
                 OracleCommand cmd = new OracleCommand(query, conn);
                 cmd.Parameters.Add("VIN", vin);

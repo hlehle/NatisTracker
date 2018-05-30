@@ -1,4 +1,4 @@
-﻿@model NatisTracker.ViewModels.MasterViewModel
+﻿@model NatisTracker.ViewModels.LogInfoViewModel
 
 <!DOCTYPE html>
 @{
@@ -51,7 +51,7 @@
 
                 @using (Html.BeginForm("Scan_Back_To_Safe", "Process", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    if (Model.logInfo.contractNo != null)
+                    if (Model.contractNo != null)
                     {
                         <div class="table-responsive table table-striped">
                             <table class="table">
@@ -68,13 +68,13 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>@Model.logInfo.contractNo</td>
-                                        <td>@Model.logInfo.VIN</td>
-                                        <td>@Model.logInfo.Date</td>
-                                        <td>@Model.logInfo.user</td>
-                                        <td>@Model.logInfo.department</td>
-                                        <td>@Model.logInfo.status</td>
-                                        <td>@Model.logInfo.comment</td>
+                                        <td>@Model.contractNo</td>
+                                        <td>@Model.VIN</td>
+                                        <td>@Model.Date</td>
+                                        <td>@Model.user</td>
+                                        <td>@Model.department</td>
+                                        <td>@Model.status</td>
+                                        <td>@Model.comment</td>
                                     </tr>
                                 </tbody>
 
@@ -83,14 +83,14 @@
                         </div>
                     }
                     <br /><br />
-                    @Html.TextBoxFor(model => model.logInfo.file, new { type = "file", id = "File", accept = "image/bmp", capture = "camera" })<br>
+                    @Html.TextBoxFor(model => model.file, new { type = "file", id = "File", accept = "image/bmp", capture = "camera" })<br>
 
                     <br /><br />
                     <div class="form-group">
 
-                        @Html.LabelFor(model => model.logInfo.comment, "Comment", new { @class = "col-md-2 control-label" })
+                        @Html.LabelFor(model => model.comment, "Comment", new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.logInfo.comment)
+                            @Html.TextAreaFor(model => model.comment)
                         </div>
                     </div>
 

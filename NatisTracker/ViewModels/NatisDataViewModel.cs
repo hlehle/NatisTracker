@@ -5,8 +5,9 @@ using System.Web;
 
 namespace NatisTracker.ViewModels
 {
-    public class NatisAndContractViewModel
+    public class NatisDataViewModel
     {
+        public int RecordNumber { get; set; }
         public HttpPostedFileBase file { get; set; }
         public string vin { get; set; }
         public string contractNo { get; set; }
@@ -23,12 +24,13 @@ namespace NatisTracker.ViewModels
         public string Department { get; set; }
         public string ContractStatus { get; set; }
         public string StatusDescription { get; set; }
-        public IList<ContractInformation> contractInformation { get; set; }
+        public IList<ContractData> contractInformation { get; set; }
         public string ScanningUser { get; set; }
         public string Comment { get; set; }
+        public string VehicleStatus { get; set; }
     }
 
-    public class ContractInformation
+    public class ContractData
     {
         public int RecordNumber { get; set; }
         public string ContractNumber { get; set; }

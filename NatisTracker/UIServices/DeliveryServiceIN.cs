@@ -137,7 +137,7 @@ namespace NatisTracker.Models
             }
         }
 
-        public void SendToDriver(DriverPackage viewModel, string name) {}
+        public void SendNatis(TickBoxViewModelList viewModel, string name, string department){  }
 
         public string[] getContractsNo(string contracts)
         {
@@ -162,25 +162,27 @@ namespace NatisTracker.Models
                                     string body,
                                     Attachment[] attachments = null)
         {
-            //string defaultSenderAddress = GetSenderAddress(systemParams);
+            var systemParams = new Intern_LeaveDBEntities().SystemParams.FirstOrDefault();
 
-            //string defaultSmtpServer = GetSmtpServer(systemParams);
+            string defaultSenderAddress = systemParams.SenderAddress;
 
-            //string defaultSmtpServerFallback = GetSmtpServerFallback(systemParams);
+            string defaultSmtpServer = systemParams.SmtpServer;
+
+            string defaultSmtpServerFallback = systemParams.SmtpServerFallback;
 
 
             //if (system == null)
             //{
                 try
                 {
-                    var sender = new Comet.Email.EmailSender("141.113.103.104", 25);
-                    sender.SendMail(to, "mbfs_systems@daimler.com", subject, body, attachments);
+                    var sender = new Comet.Email.EmailSender(defaultSmtpServer, 25);
+                    sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
                 }
                 catch (Comet.Email.EmailException)
                 {
 
-                    var sender = new Comet.Email.EmailSender("53.151.100.102", 25);
-                    sender.SendMail(to, "mbfs_systems@daimler.com", subject, body, attachments);
+                    var sender = new Comet.Email.EmailSender(defaultSmtpServerFallback, 25);
+                    sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
                 }
             //}
             //else

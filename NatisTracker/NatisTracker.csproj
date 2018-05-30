@@ -224,9 +224,6 @@
     <Compile Include="Models\ContractsData.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DriverData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EmployeeData.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
@@ -269,26 +266,41 @@
     <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>NatisTracker.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SystemParam.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TickBoxData.cs">
+      <DependentUpon>NatisTracker.tt</DependentUpon>
+    </Compile>
     <Compile Include="UIServices\Collect.cs" />
+    <Compile Include="UIServices\PopulateViewModels.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
+    <Compile Include="ViewModels\ContractNumbersViewModel.cs" />
     <Compile Include="UIServices\DeliveryServiceIN.cs" />
     <Compile Include="UIServices\DeliveryServiceOUT.cs" />
     <Compile Include="UIServices\IDeliveryService.cs" />
     <Compile Include="UIServices\INatisRequest.cs" />
     <Compile Include="UIServices\LoadNew.cs" />
     <Compile Include="UIServices\IScanNatis.cs" />
-    <Compile Include="UIServices\PopulateDriverData.cs" />
+    <Compile Include="UIServices\PopulateTickBoxData.cs" />
     <Compile Include="UIServices\Populate.cs" />
+    <Compile Include="UIServices\IPopulateViewModels.cs" />
     <Compile Include="UIServices\Request.cs" />
     <Compile Include="UIServices\Respond.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
     <Compile Include="ViewModels\Delivery.cs" />
-    <Compile Include="ViewModels\Driver.cs" />
+    <Compile Include="ViewModels\DriverDataViewModel.cs" />
     <Compile Include="ViewModels\DriverPackage.cs" />
+    <Compile Include="ViewModels\EmployeeDataViewModel.cs" />
+    <Compile Include="ViewModels\EndUserViewModel.cs" />
     <Compile Include="ViewModels\LogInfoViewModel.cs" />
-    <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="ViewModels\NatisDataViewModel.cs" />
     <Compile Include="ViewModels\NatisRequests.cs" />
+    <Compile Include="ViewModels\RequestsDataViewModel.cs" />
+    <Compile Include="ViewModels\ScanLogsDataViewModel.cs" />
+    <Compile Include="ViewModels\SentIN_DeliveryViewModel.cs" />
+    <Compile Include="ViewModels\SentOUT_DeliveryViewModel.cs" />
     <Compile Include="ViewModels\UserDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -315,6 +327,7 @@
     <Content Include="Views\Users\_Details.cshtml" />
     <Content Include="Views\Users\DriverView.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
+    <Content Include="Views\Process\TickToCollect.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

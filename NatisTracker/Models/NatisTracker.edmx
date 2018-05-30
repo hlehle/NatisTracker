@@ -13,7 +13,7 @@
           <Property Name="RecordNumber" Type="int" />
           <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IsReceived" Type="bit" />
-          <Property Name="DriverId" Type="int" />
+          <Property Name="TableId" Type="int" />
         </EntityType>
         <EntityType Name="ContractsData">
           <Key>
@@ -24,20 +24,6 @@
           <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" />
           <Property Name="StatusDescription" Type="nvarchar(max)" />
           <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="DriverData">
-          <Key>
-            <PropertyRef Name="DriverId" />
-          </Key>
-          <Property Name="SentBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="SentDate" Type="datetime" Nullable="false" />
-          <Property Name="ItemQuantity" Type="int" Nullable="false" />
-          <Property Name="DriverName" Type="nvarchar" MaxLength="50" />
-          <Property Name="DriverEmail" Type="nvarchar" MaxLength="50" />
-          <Property Name="DriverDepartment" Type="nvarchar" MaxLength="50" />
-          <Property Name="DriverContacts" Type="nvarchar(max)" />
-          <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IsConfirmed" Type="bit" />
         </EntityType>
         <EntityType Name="EmployeeData">
           <Key>
@@ -136,8 +122,8 @@
           <Property Name="PackageNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="DriverDetails" Type="nvarchar" MaxLength="50" />
           <Property Name="DriverContacts" Type="nvarchar" MaxLength="50" />
-          <Property Name="RecipientDetails" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RecipientContacts" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RecipientDetails" Type="nvarchar" MaxLength="50" />
+          <Property Name="RecipientContacts" Type="nvarchar" MaxLength="50" />
           <Property Name="Comments" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -150,20 +136,31 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK_ContractNumbers_DriverData">
-          <End Role="DriverData" Type="Self.DriverData" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DriverData">
-              <PropertyRef Name="DriverId" />
-            </Principal>
-            <Dependent Role="ContractNumbers">
-              <PropertyRef Name="DriverId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="SystemParams">
+          <Key>
+            <PropertyRef Name="RecordNumber" />
+          </Key>
+          <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SenderAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SmtpServer" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SmtpServerFallback" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Port" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TickBoxData">
+          <Key>
+            <PropertyRef Name="TableId" />
+          </Key>
+          <Property Name="TableId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SenderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderDepartment" Type="nvarchar" MaxLength="50" />
+          <Property Name="SentDate" Type="datetime" Nullable="false" />
+          <Property Name="RecipientName" Type="nvarchar" MaxLength="50" />
+          <Property Name="RecipientDepartment" Type="nvarchar" MaxLength="50" />
+          <Property Name="ReceivedDate" Type="datetime" />
+          <Property Name="ItemQuantity" Type="int" Nullable="false" />
+          <Property Name="RecipientType" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsConfirmed" Type="bit" />
+        </EntityType>
         <Association Name="FK_ContractNumbers_SentIN_Delivery">
           <End Role="SentIN_Delivery" Type="Self.SentIN_Delivery" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -175,6 +172,20 @@
             </Principal>
             <Dependent Role="ContractNumbers">
               <PropertyRef Name="RecordNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContractNumbers_TickBoxData">
+          <End Role="TickBoxData" Type="Self.TickBoxData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TickBoxData">
+              <PropertyRef Name="TableId" />
+            </Principal>
+            <Dependent Role="ContractNumbers">
+              <PropertyRef Name="TableId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -226,7 +237,6 @@
         <EntityContainer Name="Intern_LeaveDBModelStoreContainer">
           <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumbers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContractsData" EntityType="Self.ContractsData" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DriverData" EntityType="Self.DriverData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NatisData" EntityType="Self.NatisData" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RequestsData" EntityType="Self.RequestsData" Schema="dbo" store:Type="Tables" />
@@ -234,12 +244,14 @@
           <EntitySet Name="SentIN_Delivery" EntityType="Self.SentIN_Delivery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SentOUT_Delivery" EntityType="Self.SentOUT_Delivery" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_ContractNumbers_DriverData" Association="Self.FK_ContractNumbers_DriverData">
-            <End Role="DriverData" EntitySet="DriverData" />
-            <End Role="ContractNumbers" EntitySet="ContractNumbers" />
-          </AssociationSet>
+          <EntitySet Name="SystemParams" EntityType="Self.SystemParams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TickBoxData" EntityType="Self.TickBoxData" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ContractNumbers_SentIN_Delivery" Association="Self.FK_ContractNumbers_SentIN_Delivery">
             <End Role="SentIN_Delivery" EntitySet="SentIN_Delivery" />
+            <End Role="ContractNumbers" EntitySet="ContractNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContractNumbers_TickBoxData" Association="Self.FK_ContractNumbers_TickBoxData">
+            <End Role="TickBoxData" EntitySet="TickBoxData" />
             <End Role="ContractNumbers" EntitySet="ContractNumbers" />
           </AssociationSet>
           <AssociationSet Name="FK_ContractsData_NatisData" Association="Self.FK_ContractsData_NatisData">
@@ -260,9 +272,9 @@
           <Property Name="RecordNumber" Type="Int32" />
           <Property Name="ContractNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="IsReceived" Type="Boolean" />
-          <Property Name="DriverId" Type="Int32" />
-          <NavigationProperty Name="DriverData" Relationship="Self.FK_ContractNumbers_DriverData" FromRole="ContractNumbers" ToRole="DriverData" />
+          <Property Name="TableId" Type="Int32" />
           <NavigationProperty Name="SentIN_Delivery" Relationship="Self.FK_ContractNumbers_SentIN_Delivery" FromRole="ContractNumbers" ToRole="SentIN_Delivery" />
+          <NavigationProperty Name="TickBoxData" Relationship="Self.FK_ContractNumbers_TickBoxData" FromRole="ContractNumbers" ToRole="TickBoxData" />
         </EntityType>
         <EntityType Name="ContractsData">
           <Key>
@@ -274,21 +286,6 @@
           <Property Name="StatusDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="NatisData" Relationship="Self.FK_ContractsData_NatisData" FromRole="ContractsData" ToRole="NatisData" />
-        </EntityType>
-        <EntityType Name="DriverData">
-          <Key>
-            <PropertyRef Name="DriverId" />
-          </Key>
-          <Property Name="SentBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ItemQuantity" Type="Int32" Nullable="false" />
-          <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DriverEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DriverDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DriverContacts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IsConfirmed" Type="Boolean" />
-          <NavigationProperty Name="ContractNumbers" Relationship="Self.FK_ContractNumbers_DriverData" FromRole="DriverData" ToRole="ContractNumbers" />
         </EntityType>
         <EntityType Name="EmployeeData">
           <Key>
@@ -389,8 +386,8 @@
           <Property Name="PackageNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DriverDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DriverContacts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RecipientDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RecipientContacts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RecipientDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecipientContacts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -403,20 +400,32 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_ContractNumbers_DriverData">
-          <End Role="DriverData" Type="Self.DriverData" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="ContractNumbers" Type="Self.ContractNumber" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DriverData">
-              <PropertyRef Name="DriverId" />
-            </Principal>
-            <Dependent Role="ContractNumbers">
-              <PropertyRef Name="DriverId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="SystemParam">
+          <Key>
+            <PropertyRef Name="RecordNumber" />
+          </Key>
+          <Property Name="RecordNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SenderAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SmtpServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SmtpServerFallback" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Port" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TickBoxData">
+          <Key>
+            <PropertyRef Name="TableId" />
+          </Key>
+          <Property Name="TableId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RecipientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RecipientDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+          <Property Name="ItemQuantity" Type="Int32" Nullable="false" />
+          <Property Name="RecipientType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsConfirmed" Type="Boolean" />
+          <NavigationProperty Name="ContractNumbers" Relationship="Self.FK_ContractNumbers_TickBoxData" FromRole="TickBoxData" ToRole="ContractNumbers" />
+        </EntityType>
         <Association Name="FK_ContractNumbers_SentIN_Delivery">
           <End Role="SentIN_Delivery" Type="Self.SentIN_Delivery" Multiplicity="0..1">
             <OnDelete Action="Cascade" />
@@ -428,6 +437,20 @@
             </Principal>
             <Dependent Role="ContractNumbers">
               <PropertyRef Name="RecordNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContractNumbers_TickBoxData">
+          <End Role="TickBoxData" Type="Self.TickBoxData" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ContractNumbers" Type="Self.ContractNumber" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TickBoxData">
+              <PropertyRef Name="TableId" />
+            </Principal>
+            <Dependent Role="ContractNumbers">
+              <PropertyRef Name="TableId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -448,7 +471,6 @@
         <EntityContainer Name="Intern_LeaveDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumber" />
           <EntitySet Name="ContractsDatas" EntityType="Self.ContractsData" />
-          <EntitySet Name="DriverDatas" EntityType="Self.DriverData" />
           <EntitySet Name="EmployeeDatas" EntityType="Self.EmployeeData" />
           <EntitySet Name="NatisDatas" EntityType="Self.NatisData" />
           <EntitySet Name="RequestsDatas" EntityType="Self.RequestsData" />
@@ -456,12 +478,14 @@
           <EntitySet Name="SentIN_Delivery" EntityType="Self.SentIN_Delivery" />
           <EntitySet Name="SentOUT_Delivery" EntityType="Self.SentOUT_Delivery" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <AssociationSet Name="FK_ContractNumbers_DriverData" Association="Self.FK_ContractNumbers_DriverData">
-            <End Role="DriverData" EntitySet="DriverDatas" />
-            <End Role="ContractNumbers" EntitySet="ContractNumbers" />
-          </AssociationSet>
+          <EntitySet Name="SystemParams" EntityType="Self.SystemParam" />
+          <EntitySet Name="TickBoxDatas" EntityType="Self.TickBoxData" />
           <AssociationSet Name="FK_ContractNumbers_SentIN_Delivery" Association="Self.FK_ContractNumbers_SentIN_Delivery">
             <End Role="SentIN_Delivery" EntitySet="SentIN_Delivery" />
+            <End Role="ContractNumbers" EntitySet="ContractNumbers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContractNumbers_TickBoxData" Association="Self.FK_ContractNumbers_TickBoxData">
+            <End Role="TickBoxData" EntitySet="TickBoxDatas" />
             <End Role="ContractNumbers" EntitySet="ContractNumbers" />
           </AssociationSet>
           <AssociationSet Name="FK_ContractsData_NatisData" Association="Self.FK_ContractsData_NatisData">
@@ -523,7 +547,7 @@
                 <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
                 <ScalarProperty Name="ContractNumber1" ColumnName="ContractNumber" />
                 <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
-                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -535,21 +559,6 @@
                 <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
                 <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
                 <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DriverDatas">
-            <EntityTypeMapping TypeName="Intern_LeaveDBModel.DriverData">
-              <MappingFragment StoreEntitySet="DriverData">
-                <ScalarProperty Name="SentBy" ColumnName="SentBy" />
-                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
-                <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
-                <ScalarProperty Name="DriverName" ColumnName="DriverName" />
-                <ScalarProperty Name="DriverEmail" ColumnName="DriverEmail" />
-                <ScalarProperty Name="DriverDepartment" ColumnName="DriverDepartment" />
-                <ScalarProperty Name="DriverContacts" ColumnName="DriverContacts" />
-                <ScalarProperty Name="DriverId" ColumnName="DriverId" />
-                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -668,6 +677,33 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemParams">
+            <EntityTypeMapping TypeName="Intern_LeaveDBModel.SystemParam">
+              <MappingFragment StoreEntitySet="SystemParams">
+                <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+                <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+                <ScalarProperty Name="SmtpServer" ColumnName="SmtpServer" />
+                <ScalarProperty Name="SmtpServerFallback" ColumnName="SmtpServerFallback" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TickBoxDatas">
+            <EntityTypeMapping TypeName="Intern_LeaveDBModel.TickBoxData">
+              <MappingFragment StoreEntitySet="TickBoxData">
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+                <ScalarProperty Name="SenderDepartment" ColumnName="SenderDepartment" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="RecipientName" ColumnName="RecipientName" />
+                <ScalarProperty Name="RecipientDepartment" ColumnName="RecipientDepartment" />
+                <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+                <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+                <ScalarProperty Name="RecipientType" ColumnName="RecipientType" />
+                <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

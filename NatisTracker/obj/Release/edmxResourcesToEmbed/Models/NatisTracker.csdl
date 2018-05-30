@@ -137,8 +137,8 @@
     <Property Name="PackageNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DriverDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="DriverContacts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="RecipientDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="RecipientContacts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="RecipientDetails" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RecipientContacts" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="sysdiagram">

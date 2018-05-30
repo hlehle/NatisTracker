@@ -48,42 +48,23 @@ namespace NatisTracker.Controllers
 
                         else if (emp.User_Type == "EndUser")
                         {
-                            // Origination, Remarketing, Fines & Licensing and The Driver don't
-                            // Request for Natis document and hence they have special pages as End Users
+                            //Origination is a special case and soon will be moved to SinBin
 
                             if (emp.Department.Equals("Contracts Origination"))
                             {
                                 return RedirectToAction("OriginationView", "Users");
                             }
 
-                            //else if (emp.Department.Equals("Remarketing"))
-                            //{
-                            //    return RedirectToAction("OriginationView", "Users");
-                            //}
-
-                            //else if (emp.Department.Equals("Fines & Licensing"))
-                            //{
-                            //    return RedirectToAction("OriginationView", "Users");
-                            //}
-
-                            else if (emp.Department.Equals("Driver"))
+                            else if (emp.Department.Equals("Fleet Services"))
                             {
                                 return RedirectToAction("DriverView", "Users");
                             }
 
                             else
                             {
-                                // Call Centre, Maturities and Legal Department catered here
-                                // Departments above can make request for the Natis docs
-
                                 return RedirectToAction("UserView", "Users");
                             }
                             
-                        }
-
-                        else if (emp.User_Type == "Dealership")
-                        {
-                            return RedirectToAction("DealershipView", "Users");
                         }
 
                         else

@@ -5,12 +5,12 @@ using System.Linq;
 using System.Web;
 using NatisTracker.ViewModels;
 using NatisTracker.Models;
+using NatisTracker.UIServices;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
 using System.Web.Mvc;
 using Aspose.BarCode.BarCodeRecognition;
 using System.Data;
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection;
 using System.Text;
 
@@ -22,14 +22,14 @@ namespace NatisTracker.Controllers
         [HttpGet]
         public ActionResult LoadNewNatis()
         {
-            var viewModel = new NatisAndContractViewModel();
+            var viewModel = new NatisDataViewModel();
             return View(viewModel);
         }
 
         [HttpPost]
         public ActionResult LoadNewNatis(FormCollection form)
         {
-            var viewModel = new NatisAndContractViewModel();
+            var viewModel = new NatisDataViewModel();
             TryUpdateModel(viewModel, form);
 
             if (ModelState.IsValid)
@@ -47,7 +47,7 @@ namespace NatisTracker.Controllers
 
                 else
                 {
-                    NatisAndContractViewModel p = null;
+                    NatisDataViewModel p = null;
                     return View(p);
                 }
             }
@@ -82,21 +82,21 @@ namespace NatisTracker.Controllers
         [HttpGet]
         public ActionResult Scan_Back_To_Safe()
         {
-            MasterViewModel view = new MasterViewModel();
-            view.logInfo = new LogInfoViewModel();
-            return View(view);
+            //MasterViewModel view = new MasterViewModel();
+            var viewModel = new LogInfoViewModel();
+            return View(viewModel);
         }
 
         public ActionResult Scan_To_Collect()
         {
-            var view = new NatisAndContractViewModel();
+            var view = new NatisDataViewModel();
             return View(view);
         }
 
         [HttpPost]
         public ActionResult Scan_To_Collect(FormCollection form)
         {
-            var viewModel = new NatisAndContractViewModel();
+            var viewModel = new NatisDataViewModel();
             TryUpdateModel(viewModel, form);
 
             if (ModelState.IsValid)
@@ -120,13 +120,14 @@ namespace NatisTracker.Controllers
         public ActionResult RequestNatis(FormCollection form)
         {
             var viewModel = new NatisRequests();
-            TryUpdateModel<NatisRequests>(viewModel, form);
+            TryUpdateModel(viewModel);
 
             if (ModelState.IsValid)
             {
                 viewModel = new Request().request(viewModel, Session["Name"].ToString(), Session["Department"].ToString(), Session["Email"].ToString());
                 ViewBag.Stored = "Yes";
                 ModelState.Clear();
+
             }
             else
             {
@@ -137,11 +138,44 @@ namespace NatisTracker.Controllers
 
         }
 
+        public ActionResult TickToCollect()
+        {
+            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            using (db)
+            {
+                var viewModel = new PopulateViewModels().PopulateTickBoxData(db);
+                viewModel.TickBoxList = viewModel.TickBoxList.Where(a => a.RecipientType.Equals("Internal User")).ToList();
+                return View(viewModel);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult TickToCollect(FormCollection f)
+        {
+            var viewModel = new TickBoxViewModelList();
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                TryUpdateModel(viewModel);
+
+                //if (ModelState.IsValid)
+                //{
+
+                new DeliveryServiceOUT().SendNatis(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
+                viewModel = new PopulateViewModels().PopulateTickBoxData(db);
+                viewModel.TickBoxList = viewModel.TickBoxList.Where(a => a.RecipientType.Equals("Internal User")).ToList();
+                ModelState.Clear();
+                return View(viewModel);
+
+                //}
+
+
+            }
+        }
+
         public ActionResult GenerateOneReports(FormCollection form)
         {
-            var contractNumber = form["a"];
+            var contractNumber = form["hidden"];
             var log = new Intern_LeaveDBEntities().ScanLogsDatas.Where(a => a.ContractNumber == contractNumber).ToList();
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)+@"\"+contractNumber+".csv";
             StringBuilder line = new StringBuilder();
             FileContentResult file = null;
 
@@ -232,7 +266,7 @@ namespace NatisTracker.Controllers
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                var department = form["b"];
+                var department = form["HiddenDepartment"];
                 var natis = db.NatisDatas.Where(a => a.NatisLocation == department).ToList();
                 var log = new List<ScanLogsData>();
 

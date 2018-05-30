@@ -54,7 +54,7 @@
                         
                         @Html.LabelFor(a => a.contractNo, "Enter Contract Number", new { @class = "col-md-2 control-label" })
                         <div class="col-md-10">
-                            @Html.TextBoxFor(a => a.contractNo)
+                            @Html.TextBoxFor(a => a.contractNo, new { @id="myInput"})
                         </div>
                     </div>
                     <button class="btn btn-large btn-primary" type="submit">Request</button>
@@ -74,6 +74,7 @@
             <text>
                 $(document).ready(function () {
                     alert("Document Requested");
+                    document.getElementById('myInput').value = '';
                 });
             </text>
         }

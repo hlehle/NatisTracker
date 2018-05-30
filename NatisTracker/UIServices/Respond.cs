@@ -36,8 +36,9 @@ namespace NatisTracker.Models
                         db.SaveChanges();
 
                         string to = email;
-                        string subject = "To whom it may concern";
-                        string body = "Your request has been Accepted";
+                        string subject = "Request Notification Update";
+                        string body = "Your request for the Natis document of contract Number "+response.ContractNo+
+                                      " has been Accepted and doucument is ready for collection";
                         SystemEmailSender.SendMail(to, subject, body);
                     }
                 }

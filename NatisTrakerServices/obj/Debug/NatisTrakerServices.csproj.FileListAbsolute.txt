@@ -1,0 +1,8 @@
+C:\Development\Projects\NatisTracker\NatisTrakerServices\bin\Debug\NatisTrakerServices.exe.config
+C:\Development\Projects\NatisTracker\NatisTrakerServices\bin\Debug\NatisTrakerServices.exe
+C:\Development\Projects\NatisTracker\NatisTrakerServices\bin\Debug\NatisTrakerServices.pdb
+C:\Development\Projects\NatisTracker\NatisTrakerServices\bin\Debug\NatisTrackerServiceLib.dll
+C:\Development\Projects\NatisTracker\NatisTrakerServices\bin\Debug\NatisTrackerServiceLib.pdb
+C:\Development\Projects\NatisTracker\NatisTrakerServices\obj\Debug\NatisTrakerServices.csprojResolveAssemblyReference.cache
+C:\Development\Projects\NatisTracker\NatisTrakerServices\obj\Debug\NatisTrakerServices.exe
+C:\Development\Projects\NatisTracker\NatisTrakerServices\obj\Debug\NatisTrakerServices.pdb
