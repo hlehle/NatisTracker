@@ -10,11 +10,12 @@ namespace NatisTracker.ViewModels
         public string SenderName { get; set; }
         public DateTime SentDate { get; set; }
         public int ItemQuantity { get; set; }
-        public string DriverName { get; set; }
+        public string RecipientName { get; set; }
         public string RecipientType { get; set; }
-        public string DriverDepartment { get; set; }
+        public string RecipientDepartment { get; set; }
         public string DriverContacts { get; set; }
-        public int DriverId { get; set; }
+        public int TableId { get; set; }
+        public string Comment { get; set; }
         public Nullable<bool> IsConfirmed { get; set; }
         public string Reply { get; set; }
         public List<ContractNumbersViewModel> ContractsList { get; set; }

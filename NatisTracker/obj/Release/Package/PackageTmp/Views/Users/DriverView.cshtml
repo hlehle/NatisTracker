@@ -1,4 +1,4 @@
-﻿@model NatisTracker.ViewModels.DriverDataViewModelList
+﻿@model NatisTracker.ViewModels.TickBoxViewModelList
 
 <!DOCTYPE html>
 @{
@@ -50,7 +50,7 @@
             <div class="table-responsive table table-striped">
 
                 <br /><br />
-                @if (Model.DriverPackagesList != null)
+                @if (Model.TickBoxList != null)
                 {
                     <table id="table" class="table-responsive">
                         <thead>
@@ -63,28 +63,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (int i = 0; i < Model.DriverPackagesList.Count; i++)
+                            @for (int i = 0; i < Model.TickBoxList.Count; i++)
                             {
-                                var delivery = Model.DriverPackagesList[i];
+                                var delivery = Model.TickBoxList[i];
                                 <tr>
-                                    <td>@delivery.SentBy</td>
+                                    <td>@delivery.SenderName</td>
                                     <td>@delivery.SentDate</td>
                                     <td>@delivery.ItemQuantity</td>
                                     <td>
-                                        @for (int j = 0; j < Model.DriverPackagesList[i].ContractsList.Count; j++)
+                                        @for (int j = 0; j < Model.TickBoxList[i].ContractsList.Count; j++)
                                         {
-                                            @Html.HiddenFor(a => Model.DriverPackagesList[i].DriverId)
+                                            @Html.HiddenFor(a => Model.TickBoxList[i].TableId)
                                             <div class="checkbox">
-                                                @Html.CheckBoxFor(a => Model.DriverPackagesList[i].ContractsList[j].IsReceived)
-                                                @Model.DriverPackagesList[i].ContractsList[j].ContractNumber1<br />
-                                                @Html.HiddenFor(a => Model.DriverPackagesList[i].ContractsList[j].ContractNumber1)
-                                                @Html.HiddenFor(a => Model.DriverPackagesList[i].ContractsList[j].DriverId)
+                                                @Html.CheckBoxFor(a => Model.TickBoxList[i].ContractsList[j].IsReceived)
+                                                @Model.TickBoxList[i].ContractsList[j].ContractNumber1<br />
+                                                @Html.HiddenFor(a => Model.TickBoxList[i].ContractsList[j].ContractNumber1)
+                                                @Html.HiddenFor(a => Model.TickBoxList[i].ContractsList[j].DriverId)
                                             </div>
                                         }
                                     </td>
 
                                     <td>
-                                        @Html.DropDownListFor(a => a.DriverPackagesList[i].Reply, new List<SelectListItem>
+                                        @Html.DropDownListFor(a => a.TickBoxList[i].Reply, new List<SelectListItem>
                                                 {
                                                     new SelectListItem { Text="Reply", Value = "Transit"},
                                                     new SelectListItem { Text="Accept", Value = "Accepted"},

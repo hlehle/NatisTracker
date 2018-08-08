@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using NatisTracker.ViewModels;
-using NatisTracker.Models;
-using NatisTracker.UIServices;
 using Oracle.DataAccess.Client;
 using Oracle.DataAccess.Types;
 using System.Web.Mvc;
@@ -13,6 +10,12 @@ using Aspose.BarCode.BarCodeRecognition;
 using System.Data;
 using System.Reflection;
 using System.Text;
+using EnatisRepository.Repo;
+using NatisTracker.ViewModels;
+using NatisTracker.Models;
+using EnatisRepository.Models;
+using NatisTracker.UIServices;
+using EnatisRepository.ViewModels;
 
 namespace NatisTracker.Controllers
 {
@@ -34,7 +37,7 @@ namespace NatisTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                var a = Request.Files.Count;
+                //var a = Request.Files.Count;
                 viewModel.file = Request.Files[0];
 
                 bool isPopulated = new LoadNew().Scan(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
@@ -140,11 +143,11 @@ namespace NatisTracker.Controllers
 
         public ActionResult TickToCollect()
         {
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
-            using (db)
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
                 var viewModel = new PopulateViewModels().PopulateTickBoxData(db);
-                viewModel.TickBoxList = viewModel.TickBoxList.Where(a => a.RecipientType.Equals("Internal User")).ToList();
+                var internalUser = Session["Name"].ToString();
+                viewModel.TickBoxList = viewModel.TickBoxList.Where(a => a.RecipientType.Equals("Internal User") && a.RecipientName.Equals(internalUser)).ToList();
                 return View(viewModel);
             }
         }
@@ -162,7 +165,8 @@ namespace NatisTracker.Controllers
 
                 new DeliveryServiceOUT().SendNatis(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
                 viewModel = new PopulateViewModels().PopulateTickBoxData(db);
-                viewModel.TickBoxList = viewModel.TickBoxList.Where(a => a.RecipientType.Equals("Internal User")).ToList();
+                var internalUser = Session["Name"].ToString();
+                viewModel.TickBoxList = viewModel.TickBoxList.Where(a => a.RecipientType.Equals("Internal User") && a.RecipientName.Equals(internalUser)).ToList();
                 ModelState.Clear();
                 return View(viewModel);
 

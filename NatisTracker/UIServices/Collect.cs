@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using NatisTracker.Models;
-using NatisTracker.ViewModels;
+using EnatisRepository.Repo;
 using System.IO;
 using Aspose.BarCode.BarCodeRecognition;
+using NatisTracker.ViewModels;
 using Oracle.DataAccess.Client;
 using System.Data;
+using NatisTracker.Models;
 
-namespace NatisTracker.Models
+namespace EnatisRepository.Models
 {
     public class Collect : IScanNatis
     {

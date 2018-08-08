@@ -47,13 +47,7 @@
         <li class="active"><a data-toggle="tab" href="#Menu">Menu</a></li>
         <li><a data-toggle="tab" href="#ViewRequests">View Requests</a></li>
         <li><a data-toggle="tab" href="#Search">Search Natis</a></li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown">Send Natis<span class="caret"></span></a>
-            <ul class="dropdown-menu" data-tabs="tabs" id="SendingOption">
-                <li><a data-toggle="tab" href="#SendToDriver">To Driver</a></li>
-                <li><a data-toggle="tab" href="#SendToCustomer">To Customer</a></li>
-            </ul>
-        </li>
+        <li><a data-toggle="tab" href="#SendToCustomer">Send To Customer</a></li>
     </ul>
 
     <div class="tab-content">
@@ -62,7 +56,7 @@
             <div class="container">
                 <ul class="list-item">
                     <li class="list-group-item"> <a href="@Url.Action("RequestNatis", "Process")" class="btn btn-default btn-block">Send Request</a></li>
-                    <li class="list-group-item"> <a href="@Url.Action("Scan_To_Collect", "Process")" class="btn btn-default btn-block">SCAN to Collect</a></li>
+                    <li class="list-group-item"> <a href="@Url.Action("TickToCollect", "Process")" class="btn btn-default btn-block">Collect Natis Documents</a></li>
                 </ul>
 
             </div>
@@ -274,35 +268,6 @@
 
         </div>
 
-        <div id="SendToDriver" class="tab-pane fade in">
-            @using (Html.BeginForm("UserView", "Users", FormMethod.Post))
-            {
-                if (Model.DriverViewModel != null)
-                {
-                    @Html.HiddenFor(a => a.DriverViewModel.ContractNumber)
-                    <fieldset>
-                        <br /><br />
-                        <div class="form-group">
-                            @Html.LabelFor(a => a.DriverViewModel.Quantity, "Item Quantity", new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(a => a.DriverViewModel.Quantity, new SelectList(Model.DriverViewModel.QuantityList, ""), "Select", new { @id = "Quantity2" })
-                            </div>
-                        </div>
-                        <br />
-
-                        <div class="form-group">
-                            @Html.LabelFor(a => a.DriverViewModel.Comment, "Comment", new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.TextAreaFor(a => a.DriverViewModel.Comment)
-                            </div>
-                        </div>
-
-                        <button class="btn btn-large btn-primary" id="btnSubmit2" type="submit">Send</button>
-                    </fieldset>
-                }
-            }
-        </div>
-
     </div>
 
     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
@@ -310,7 +275,7 @@
     <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
-    <script type="text/javascript">
+    @*<script type="text/javascript">
         $(function () {           
             $("#btnSubmit2").click(function () {
                 
@@ -338,7 +303,7 @@
 
            
         });
-    </script>
+    </script>*@
 
 
     <script type="text/javascript" class="init">

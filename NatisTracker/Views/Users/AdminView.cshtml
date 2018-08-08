@@ -12,7 +12,7 @@
 <head>
     <meta charset="utf-8">
     <title>Admin View &middot; FindMy Natis</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 maximum-scale=1, user-scalable=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -662,49 +662,86 @@
 
                 <div id="All_Logs" hidden>
 
-                    @if (Model.ScanLogsList != null)
+                    @if (Model.NatisDataList != null)
                     {
                         <div class="table-responsive table table-striped">
-                            <table id="allLogsTbl" class="table">
-                                <thead>
+                            <table id="allLogsTbl" class="table table-striped table-bordered">
+                                <thead class="thead-dark">
                                     <tr>
-                                        <th>Contract Number</th>
-                                        <th>VIN Number</th>
                                         <th>Date Scanned</th>
+                                        <th>Contract Numbers</th>
+                                        <th>VIN Number</th>
                                         <th>Scanned By</th>
+                                        @*<th>Registration Number</th>
+                                        <th>Engine Number</th>
+                                        <th>Car Make</th>
+                                        <th>Series Number</th>
+                                        <th>Description</th>
+                                        <th>Registration Date</th>
+                                        <th>Owner name</th>
+                                        <th>Owner ID</th>*@
                                         <th>Natis Location</th>
                                         <th>Contract Status</th>
-                                        <th>Contract Description</th>
-                                        <th>Comment</th>
+                                        @*<th>Status Description</th>*@
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    @foreach (var item in Model.ScanLogsList)
+                                    @for (int i = 0; i < Model.NatisDataList.Count; i++)
                                     {
+                                        string contractNumber = "";
+                                        string contractStatus = "";
+                                        //string statusDescription = "";
+
+                                        for (int j = 0; j < Model.NatisDataList[i].contractInformation.Count; j++)
+                                        {
+                                            if (Model.NatisDataList[i].contractInformation[j].VinNumber.Equals(Model.NatisDataList[i].vin))
+                                            {
+                                                contractNumber = Model.NatisDataList[i].contractInformation[j].ContractNumber;
+                                                contractStatus = Model.NatisDataList[i].contractInformation[j].ContractStatus;
+                                                //statusDescription = Model.NatisDataList[i].contractInformation[j].StatusDescription;
+                                            }
+
+                                        }
 
                                         <tr>
-                                            <td>@item.ContractNumber</td>
-                                            <td>@item.VinNumber</td>
-                                            <td>@item.DateScanned</td>
-                                            <td>@item.User</td>
-                                            <td>@item.Department</td>
-                                            <td>@item.ContractStatus</td>
-                                            <td>@item.ContractDescription</td>
-                                            <td>@item.Comment</td>
+                                            <td>@Model.NatisDataList[i].DateScanned</td>
+                                            <td>@contractNumber</td>
+                                            <td>@Model.NatisDataList[i].vin</td>
+                                            <td>@Model.NatisDataList[i].ScanningUser</td>
+                                            @*<td>@Model.NatisDataList[i].registrationNo</td>
+                                            <td>@Model.NatisDataList[i].engineNo</td>
+                                            <td>@Model.NatisDataList[i].carMake</td>
+                                            <td>@Model.NatisDataList[i].seriesNo</td>
+                                            <td>@Model.NatisDataList[i].description</td>
+                                            <td>@Model.NatisDataList[i].registrationDate</td>
+                                            <td>@Model.NatisDataList[i].OwnerName</td>
+                                            <td>@Model.NatisDataList[i].OwnerID</td>*@
+                                            <td>@Model.NatisDataList[i].natisLocation</td>
+                                            <td>@contractStatus</td>
+                                            @*<td>@statusDescription</td>*@
                                         </tr>
 
                                     }
                                 </tbody>
-                                <tfoot>
+
+                                <tfoot class="thead-dark">
                                     <tr>
-                                        <th>Contract Number</th>
-                                        <th>VIN Number</th>
                                         <th>Date Scanned</th>
+                                        <th>Contract Numbers</th>
+                                        <th>VIN Number</th>
                                         <th>Scanned By</th>
+                                        @*<th>Registration Number</th>
+                                        <th>Engine Number</th>
+                                        <th>Car Make</th>
+                                        <th>Series Number</th>
+                                        <th>Description</th>
+                                        <th>Registration Date</th>
+                                        <th>Owner name</th>
+                                        <th>Owner ID</th>*@
                                         <th>Natis Location</th>
                                         <th>Contract Status</th>
-                                        <th>Contract Description</th>
-                                        <th>Comment</th>
+                                        @*<th>Status Description</th>*@
                                     </tr>
                                 </tfoot>
                             </table>
@@ -779,49 +816,86 @@
 
                 <div id="DepartmentLogs" hidden>
 
-                    @if (Model.ScanLogsList != null)
+                    @if (Model.NatisDataList != null)
                     {
                         <div class="table-responsive table table-striped">
-                            <table id="DeptTbl" class="table">
-                                <thead>
+                            <table id="DeptTbl" class="table table-striped table-bordered">
+                                <thead class="thead-dark">
                                     <tr>
-                                        <th>Contract Number</th>
-                                        <th>VIN Number</th>
                                         <th>Date Scanned</th>
+                                        <th>Contract Numbers</th>
+                                        <th>VIN Number</th>
                                         <th>Scanned By</th>
+                                        @*<th>Registration Number</th>
+                    <th>Engine Number</th>
+                    <th>Car Make</th>
+                    <th>Series Number</th>
+                    <th>Description</th>
+                    <th>Registration Date</th>
+                    <th>Owner name</th>
+                    <th>Owner ID</th>*@
                                         <th>Natis Location</th>
                                         <th>Contract Status</th>
-                                        <th>Contract Description</th>
-                                        <th>Comment</th>
+                                        @*<th>Status Description</th>*@
                                     </tr>
                                 </thead>
+
                                 <tbody>
-                                    @foreach (var item in Model.ScanLogsList)
+                                    @for (int i = 0; i < Model.NatisDataList.Count; i++)
                                     {
+                                        string contractNumber = "";
+                                        string contractStatus = "";
+                                        //string statusDescription = "";
+
+                                        for (int j = 0; j < Model.NatisDataList[i].contractInformation.Count; j++)
+                                        {
+                                            if (Model.NatisDataList[i].contractInformation[j].VinNumber.Equals(Model.NatisDataList[i].vin))
+                                            {
+                                                contractNumber = Model.NatisDataList[i].contractInformation[j].ContractNumber;
+                                                contractStatus = Model.NatisDataList[i].contractInformation[j].ContractStatus;
+                                                //statusDescription = Model.NatisDataList[i].contractInformation[j].StatusDescription;
+                                            }
+
+                                        }
 
                                         <tr>
-                                            <td>@item.ContractNumber</td>
-                                            <td>@item.VinNumber</td>
-                                            <td>@item.DateScanned</td>
-                                            <td>@item.User</td>
-                                            <td>@item.Department</td>
-                                            <td>@item.ContractStatus</td>
-                                            <td>@item.ContractDescription</td>
-                                            <td>@item.Comment</td>
+                                            <td>@Model.NatisDataList[i].DateScanned</td>
+                                            <td>@contractNumber</td>
+                                            <td>@Model.NatisDataList[i].vin</td>
+                                            <td>@Model.NatisDataList[i].ScanningUser</td>
+                                            @*<td>@Model.NatisDataList[i].registrationNo</td>
+                        <td>@Model.NatisDataList[i].engineNo</td>
+                        <td>@Model.NatisDataList[i].carMake</td>
+                        <td>@Model.NatisDataList[i].seriesNo</td>
+                        <td>@Model.NatisDataList[i].description</td>
+                        <td>@Model.NatisDataList[i].registrationDate</td>
+                        <td>@Model.NatisDataList[i].OwnerName</td>
+                        <td>@Model.NatisDataList[i].OwnerID</td>*@
+                                            <td>@Model.NatisDataList[i].natisLocation</td>
+                                            <td>@contractStatus</td>
+                                            @*<td>@statusDescription</td>*@
                                         </tr>
 
                                     }
                                 </tbody>
-                                <tfoot>
+
+                                <tfoot class="thead-dark">
                                     <tr>
-                                        <th>Contract Number</th>
-                                        <th>VIN Number</th>
                                         <th>Date Scanned</th>
+                                        <th>Contract Numbers</th>
+                                        <th>VIN Number</th>
                                         <th>Scanned By</th>
+                                        @*<th>Registration Number</th>
+                    <th>Engine Number</th>
+                    <th>Car Make</th>
+                    <th>Series Number</th>
+                    <th>Description</th>
+                    <th>Registration Date</th>
+                    <th>Owner name</th>
+                    <th>Owner ID</th>*@
                                         <th>Natis Location</th>
                                         <th>Contract Status</th>
-                                        <th>Contract Description</th>
-                                        <th>Comment</th>
+                                        @*<th>Status Description</th>*@
                                     </tr>
                                 </tfoot>
                             </table>

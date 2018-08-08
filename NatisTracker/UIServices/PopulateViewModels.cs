@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using EnatisRepository.Repo;
 using NatisTracker.ViewModels;
 using NatisTracker.Models;
 
@@ -198,10 +199,10 @@ namespace NatisTracker.UIServices
                 driver.SenderName = item.SenderName;
                 driver.SentDate = item.SentDate;
                 driver.ItemQuantity = item.ItemQuantity;
-                driver.DriverName = item.RecipientName;
+                driver.RecipientName = item.RecipientName;
                 driver.RecipientType = item.RecipientType;
-                driver.DriverDepartment = item.RecipientDepartment;
-                driver.DriverId = item.TableId;
+                driver.RecipientDepartment = item.RecipientDepartment;
+                driver.TableId = item.TableId;
 
                 if (item.IsConfirmed != null)
                 {

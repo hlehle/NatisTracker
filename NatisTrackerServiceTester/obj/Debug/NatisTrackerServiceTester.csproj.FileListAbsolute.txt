@@ -1,10 +1,4 @@
-C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\bin\Debug\NatisTrackerServiceTester.exe.config
-C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\bin\Debug\NatisTrackerServiceTester.exe
-C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\bin\Debug\NatisTrackerServiceTester.pdb
-C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\bin\Debug\NatisTrackerServiceLib.dll
-C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\bin\Debug\NatisTrackerServiceLib.pdb
+C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\obj\Debug\NatisTrackerServiceTester.exe
 C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\obj\Debug\NatisTrackerServiceTester.csprojResolveAssemblyReference.cache
 C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\obj\Debug\NatisTrackerServiceTester.Properties.Resources.resources
 C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\obj\Debug\NatisTrackerServiceTester.csproj.GenerateResource.Cache
-C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\obj\Debug\NatisTrackerServiceTester.exe
-C:\Development\Projects\NatisTracker\NatisTrackerServiceTester\obj\Debug\NatisTrackerServiceTester.pdb

@@ -6,8 +6,10 @@ using NatisTracker.Models;
 using NatisTracker.ViewModels;
 using System.IO;
 using Oracle.DataAccess.Client;
+using EnatisRepository.Repo;
 using System.Data;
 using Aspose.BarCode.BarCodeRecognition;
+using Aspose.Pdf.Facades;
 
 namespace NatisTracker.Models
 {
@@ -47,7 +49,7 @@ namespace NatisTracker.Models
                         string contractNumber = getContractNo(natisData.VinNumber);
                         string[] contractInfo = GetContractStatus(contractNumber); 
                         ContractsData contractData = new ContractsData();
-                        //contractData.RecordNumber = natisData.RecordNumber;
+                        contractData.RecordNumber = natisData.RecordNumber;
                         contractData.VinNumber = natisData.VinNumber;
                         contractData.ContractNumber = contractNumber;
                         contractData.ContractStatus = contractInfo[0];
@@ -221,16 +223,31 @@ namespace NatisTracker.Models
         {
             try
             {
-                BarCodeReader reader = new BarCodeReader(barcodeLocation, DecodeType.Pdf417);
+                PdfExtractor pdfExtractor = new PdfExtractor();
+                pdfExtractor.BindPdf(barcodeLocation);
+                pdfExtractor.StartPage = 1;
+
+                pdfExtractor.EndPage = 2;
+                pdfExtractor.ExtractImage();
+
+                MemoryStream imageStream = new MemoryStream();
+
+                pdfExtractor.GetNextImage(imageStream);
+
+                imageStream.Position = 0;
+
+                BarCodeReader barcodeReader = new BarCodeReader(imageStream, DecodeType.Pdf417);
+
+                //BarCodeReader reader = new BarCodeReader(barcodeLocation, DecodeType.Pdf417);
 
                 string[] codeText = null;
-                while (reader.Read())
+                while (barcodeReader.Read())
                 {
-                    string str = reader.GetCodeText();
-                    str = reader.GetCodeText().Remove(str.Length - 1).Remove(0, 1);
+                    string str = barcodeReader.GetCodeText();
+                    str = barcodeReader.GetCodeText().Remove(str.Length - 1).Remove(0, 1);
                     codeText = str.Split('%');
                 }
-                reader.Close();
+                barcodeReader.Close();
                 return codeText;
             }
             catch (Exception )

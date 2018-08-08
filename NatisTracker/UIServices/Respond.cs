@@ -5,6 +5,8 @@ using System.Web;
 using NatisTracker.Models;
 using System.Web.Mvc;
 using NatisTracker.ViewModels;
+using EnatisRepository.Repo;
+using Comet.Email;
 
 namespace NatisTracker.Models
 {

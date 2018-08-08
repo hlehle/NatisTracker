@@ -4,19 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="4e42ed934739461299d90ce4f48aefa0" Name="Diagram1">
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.ContractNumber" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.ContractsData" Width="1.5" PointX="5" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.DriverData" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.EmployeeData" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisData" Width="1.5" PointX="2.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.RequestsData" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.ScanLogsData" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.SentIN_Delivery" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.SentOUT_Delivery" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractNumbers_DriverData" ManuallyRouted="false" />
+      <Diagram DiagramId="1c8bf60c40044362a0c5e5b28a16743b" Name="Diagram1">
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.ContractNumber" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.ContractsData" Width="1.5" PointX="8" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.EmployeeData" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisData" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.RequestsData" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.ScanLogsData" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.SentIN_Delivery" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.SentOUT_Delivery" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.sysdiagram" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.SystemParam" Width="1.5" PointX="6.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.TickBoxData" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
         <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractNumbers_SentIN_Delivery" ManuallyRouted="false" />
+        <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractNumbers_TickBoxData" ManuallyRouted="false" />
         <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractsData_NatisData" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

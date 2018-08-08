@@ -8,9 +8,9 @@
     <Property Name="RecordNumber" Type="Int32" />
     <Property Name="ContractNumber1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="IsReceived" Type="Boolean" />
-    <Property Name="DriverId" Type="Int32" />
-    <NavigationProperty Name="DriverData" Relationship="Self.FK_ContractNumbers_DriverData" FromRole="ContractNumbers" ToRole="DriverData" />
+    <Property Name="TableId" Type="Int32" />
     <NavigationProperty Name="SentIN_Delivery" Relationship="Self.FK_ContractNumbers_SentIN_Delivery" FromRole="ContractNumbers" ToRole="SentIN_Delivery" />
+    <NavigationProperty Name="TickBoxData" Relationship="Self.FK_ContractNumbers_TickBoxData" FromRole="ContractNumbers" ToRole="TickBoxData" />
   </EntityType>
   <EntityType Name="ContractsData">
     <Key>
@@ -22,21 +22,6 @@
     <Property Name="StatusDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="VinNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="NatisData" Relationship="Self.FK_ContractsData_NatisData" FromRole="ContractsData" ToRole="NatisData" />
-  </EntityType>
-  <EntityType Name="DriverData">
-    <Key>
-      <PropertyRef Name="DriverId" />
-    </Key>
-    <Property Name="SentBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="ItemQuantity" Type="Int32" Nullable="false" />
-    <Property Name="DriverName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DriverEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DriverDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-    <Property Name="DriverContacts" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="DriverId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IsConfirmed" Type="Boolean" />
-    <NavigationProperty Name="ContractNumbers" Relationship="Self.FK_ContractNumbers_DriverData" FromRole="DriverData" ToRole="ContractNumbers" />
   </EntityType>
   <EntityType Name="EmployeeData">
     <Key>
@@ -151,20 +136,32 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
-  <Association Name="FK_ContractNumbers_DriverData">
-    <End Role="DriverData" Type="Self.DriverData" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ContractNumbers" Type="Self.ContractNumber" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DriverData">
-        <PropertyRef Name="DriverId" />
-      </Principal>
-      <Dependent Role="ContractNumbers">
-        <PropertyRef Name="DriverId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="SystemParam">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SmtpServer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SmtpServerFallback" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Port" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TickBoxData">
+    <Key>
+      <PropertyRef Name="TableId" />
+    </Key>
+    <Property Name="TableId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SenderDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SentDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RecipientName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RecipientDepartment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ReceivedDate" Type="DateTime" Precision="3" />
+    <Property Name="ItemQuantity" Type="Int32" Nullable="false" />
+    <Property Name="RecipientType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <NavigationProperty Name="ContractNumbers" Relationship="Self.FK_ContractNumbers_TickBoxData" FromRole="TickBoxData" ToRole="ContractNumbers" />
+  </EntityType>
   <Association Name="FK_ContractNumbers_SentIN_Delivery">
     <End Role="SentIN_Delivery" Type="Self.SentIN_Delivery" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -176,6 +173,20 @@
       </Principal>
       <Dependent Role="ContractNumbers">
         <PropertyRef Name="RecordNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContractNumbers_TickBoxData">
+    <End Role="TickBoxData" Type="Self.TickBoxData" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContractNumbers" Type="Self.ContractNumber" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TickBoxData">
+        <PropertyRef Name="TableId" />
+      </Principal>
+      <Dependent Role="ContractNumbers">
+        <PropertyRef Name="TableId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -196,7 +207,6 @@
   <EntityContainer Name="Intern_LeaveDBEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumber" />
     <EntitySet Name="ContractsDatas" EntityType="Self.ContractsData" />
-    <EntitySet Name="DriverDatas" EntityType="Self.DriverData" />
     <EntitySet Name="EmployeeDatas" EntityType="Self.EmployeeData" />
     <EntitySet Name="NatisDatas" EntityType="Self.NatisData" />
     <EntitySet Name="RequestsDatas" EntityType="Self.RequestsData" />
@@ -204,12 +214,14 @@
     <EntitySet Name="SentIN_Delivery" EntityType="Self.SentIN_Delivery" />
     <EntitySet Name="SentOUT_Delivery" EntityType="Self.SentOUT_Delivery" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-    <AssociationSet Name="FK_ContractNumbers_DriverData" Association="Self.FK_ContractNumbers_DriverData">
-      <End Role="DriverData" EntitySet="DriverDatas" />
-      <End Role="ContractNumbers" EntitySet="ContractNumbers" />
-    </AssociationSet>
+    <EntitySet Name="SystemParams" EntityType="Self.SystemParam" />
+    <EntitySet Name="TickBoxDatas" EntityType="Self.TickBoxData" />
     <AssociationSet Name="FK_ContractNumbers_SentIN_Delivery" Association="Self.FK_ContractNumbers_SentIN_Delivery">
       <End Role="SentIN_Delivery" EntitySet="SentIN_Delivery" />
+      <End Role="ContractNumbers" EntitySet="ContractNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContractNumbers_TickBoxData" Association="Self.FK_ContractNumbers_TickBoxData">
+      <End Role="TickBoxData" EntitySet="TickBoxDatas" />
       <End Role="ContractNumbers" EntitySet="ContractNumbers" />
     </AssociationSet>
     <AssociationSet Name="FK_ContractsData_NatisData" Association="Self.FK_ContractsData_NatisData">

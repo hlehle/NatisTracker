@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using NatisTracker.Models;
-using NatisTracker.ViewModels;
+using EnatisRepository.Repo;
+using EnatisRepository.ViewModels;
 using System.Net.Mail;
 using System.Web.Security;
+using NatisTracker.ViewModels;
 
 namespace NatisTracker.Controllers
 {

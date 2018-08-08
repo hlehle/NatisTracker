@@ -8,7 +8,7 @@
     <Property Name="RecordNumber" Type="int" />
     <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="IsReceived" Type="bit" />
-    <Property Name="DriverId" Type="int" />
+    <Property Name="TableId" Type="int" />
   </EntityType>
   <EntityType Name="ContractsData">
     <Key>
@@ -19,20 +19,6 @@
     <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" />
     <Property Name="StatusDescription" Type="nvarchar(max)" />
     <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-  </EntityType>
-  <EntityType Name="DriverData">
-    <Key>
-      <PropertyRef Name="DriverId" />
-    </Key>
-    <Property Name="SentBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SentDate" Type="datetime" Nullable="false" />
-    <Property Name="ItemQuantity" Type="int" Nullable="false" />
-    <Property Name="DriverName" Type="nvarchar" MaxLength="50" />
-    <Property Name="DriverEmail" Type="nvarchar" MaxLength="50" />
-    <Property Name="DriverDepartment" Type="nvarchar" MaxLength="50" />
-    <Property Name="DriverContacts" Type="nvarchar(max)" />
-    <Property Name="DriverId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="IsConfirmed" Type="bit" />
   </EntityType>
   <EntityType Name="EmployeeData">
     <Key>
@@ -145,20 +131,31 @@
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
-  <Association Name="FK_ContractNumbers_DriverData">
-    <End Role="DriverData" Type="Self.DriverData" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="DriverData">
-        <PropertyRef Name="DriverId" />
-      </Principal>
-      <Dependent Role="ContractNumbers">
-        <PropertyRef Name="DriverId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="SystemParams">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SmtpServer" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SmtpServerFallback" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Port" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TickBoxData">
+    <Key>
+      <PropertyRef Name="TableId" />
+    </Key>
+    <Property Name="TableId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SenderDepartment" Type="nvarchar" MaxLength="50" />
+    <Property Name="SentDate" Type="datetime" Nullable="false" />
+    <Property Name="RecipientName" Type="nvarchar" MaxLength="50" />
+    <Property Name="RecipientDepartment" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReceivedDate" Type="datetime" />
+    <Property Name="ItemQuantity" Type="int" Nullable="false" />
+    <Property Name="RecipientType" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsConfirmed" Type="bit" />
+  </EntityType>
   <Association Name="FK_ContractNumbers_SentIN_Delivery">
     <End Role="SentIN_Delivery" Type="Self.SentIN_Delivery" Multiplicity="0..1">
       <OnDelete Action="Cascade" />
@@ -170,6 +167,20 @@
       </Principal>
       <Dependent Role="ContractNumbers">
         <PropertyRef Name="RecordNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContractNumbers_TickBoxData">
+    <End Role="TickBoxData" Type="Self.TickBoxData" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TickBoxData">
+        <PropertyRef Name="TableId" />
+      </Principal>
+      <Dependent Role="ContractNumbers">
+        <PropertyRef Name="TableId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -221,7 +232,6 @@
   <EntityContainer Name="Intern_LeaveDBModelStoreContainer">
     <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumbers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContractsData" EntityType="Self.ContractsData" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="DriverData" EntityType="Self.DriverData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="NatisData" EntityType="Self.NatisData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RequestsData" EntityType="Self.RequestsData" Schema="dbo" store:Type="Tables" />
@@ -229,12 +239,14 @@
     <EntitySet Name="SentIN_Delivery" EntityType="Self.SentIN_Delivery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SentOUT_Delivery" EntityType="Self.SentOUT_Delivery" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_ContractNumbers_DriverData" Association="Self.FK_ContractNumbers_DriverData">
-      <End Role="DriverData" EntitySet="DriverData" />
-      <End Role="ContractNumbers" EntitySet="ContractNumbers" />
-    </AssociationSet>
+    <EntitySet Name="SystemParams" EntityType="Self.SystemParams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TickBoxData" EntityType="Self.TickBoxData" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_ContractNumbers_SentIN_Delivery" Association="Self.FK_ContractNumbers_SentIN_Delivery">
       <End Role="SentIN_Delivery" EntitySet="SentIN_Delivery" />
+      <End Role="ContractNumbers" EntitySet="ContractNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContractNumbers_TickBoxData" Association="Self.FK_ContractNumbers_TickBoxData">
+      <End Role="TickBoxData" EntitySet="TickBoxData" />
       <End Role="ContractNumbers" EntitySet="ContractNumbers" />
     </AssociationSet>
     <AssociationSet Name="FK_ContractsData_NatisData" Association="Self.FK_ContractsData_NatisData">

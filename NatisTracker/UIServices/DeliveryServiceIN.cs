@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using EnatisRepository.Repo;
 using NatisTracker.ViewModels;
 using System.Web.Mvc;
-
 using System.Net.Mail;
-
 
 namespace NatisTracker.Models
 {
@@ -144,35 +143,33 @@ namespace NatisTracker.Models
             return contracts.Trim().Split(' ');
         }
 
-    }
-
-    public class SystemEmailSender
-    {
-        public static void SendMail(string to,
-                                    string subject,
-                                    string body,
-                                    Attachment[] attachments = null)
+        public class SystemEmailSender
         {
-            SendMail(new[] { to }, subject, body, attachments);
-        }
+            public static void SendMail(string to,
+                                        string subject,
+                                        string body,
+                                        Attachment[] attachments = null)
+            {
+                SendMail(new[] { to }, subject, body, attachments);
+            }
 
 
-        public static void SendMail(string[] to,
-                                    string subject,
-                                    string body,
-                                    Attachment[] attachments = null)
-        {
-            var systemParams = new Intern_LeaveDBEntities().SystemParams.FirstOrDefault();
+            public static void SendMail(string[] to,
+                                        string subject,
+                                        string body,
+                                        Attachment[] attachments = null)
+            {
+                var systemParams = new Intern_LeaveDBEntities().SystemParams.FirstOrDefault();
 
-            string defaultSenderAddress = systemParams.SenderAddress;
+                string defaultSenderAddress = systemParams.SenderAddress;
 
-            string defaultSmtpServer = systemParams.SmtpServer;
+                string defaultSmtpServer = systemParams.SmtpServer;
 
-            string defaultSmtpServerFallback = systemParams.SmtpServerFallback;
+                string defaultSmtpServerFallback = systemParams.SmtpServerFallback;
 
 
-            //if (system == null)
-            //{
+                //if (system == null)
+                //{
                 try
                 {
                     var sender = new Comet.Email.EmailSender(defaultSmtpServer, 25);
@@ -184,23 +181,26 @@ namespace NatisTracker.Models
                     var sender = new Comet.Email.EmailSender(defaultSmtpServerFallback, 25);
                     sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
                 }
-            //}
-            //else
-            //{
-            //    try
-            //    {
-            //        var sender = new EmailSender(defaultSmtpServerFallback, 25);
-            //        sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
+                //}
+                //else
+                //{
+                //    try
+                //    {
+                //        var sender = new EmailSender(defaultSmtpServerFallback, 25);
+                //        sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
 
-            //    }
-            //    catch (EmailException)
-            //    {
+                //    }
+                //    catch (EmailException)
+                //    {
 
-            //        var sender = new EmailSender(defaultSmtpServer, 25);
-            //        sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
-            //    }
-            //}
+                //        var sender = new EmailSender(defaultSmtpServer, 25);
+                //        sender.SendMail(to, defaultSenderAddress, subject, body, attachments);
+                //    }
+                //}
 
+            }
         }
     }
+
+    
 }

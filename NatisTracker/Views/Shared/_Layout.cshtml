@@ -20,60 +20,71 @@
             height: 100%;
             padding: 5px 5px 5px 5px;
             margin: auto;
-            width: 50%;
+            /*width: 50%;*/
         }
 
         ul {
             list-style-type: none;
             padding: 0 0;
             margin: auto;
-            
+
         }
-    </style>
-
-
+    </style> 
 
 </head>
 
 <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
+    @*<div  style="border-style:dashed;border-width:2px;border-color:white">*@
+        <div class="navbar navbar-inverse navbar-fixed-top" align="justify" style="border-style:dashed;border-width:2px;border-color:white">
+            <div class="navbar-header" style="border-style:dashed;border-width:2px;border-color:white">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
 
-                <img class="navbar-brand" src="~/fonts/logo2.png" />
-                @Html.ActionLink("FindMY Natis", "Login", "Login", new { area = "" }, new { @class = "navbar-brand" })
+                @*<img src="~/img/eNatis.png" style="vertical-align:middle; height:50px; width: 50px;" />
+                <span style="font-family:CorpoA;color:white;font-size:20px">
+                    Mercedes-Benz Financial Services
+                </span>*@
 
             </div>
 
-            @if (Session["Name"] != null)
-            {
-                <h5 class="navbar-text navbar-right" style="margin: 10px 10px 0px 20px">Welcome @Session["Name"] @Session["Surname"]</h5>
-            }
-
-            <div class="collapse navbar-collapse" >
+            @*<div class="navbar-nav navbar-right" style="border-style:dashed;border-width:2px;border-color:white">
+                <span style="font-family:CorpoA;color:white;font-size:20px;margin-right:3px">
+                    FindMY Natis
+                </span>
+                <img src="~/img/eNatis.jpg" style="vertical-align:middle;" />
+            </div>*@
+                    
                 @if (Session["Name"] != null)
                 {
-                    <ul class="navbar-nav navbar-right" >
-                        <li>@Html.ActionLink(" LogOut ", "LogOut", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-log-out" , @style = "margin: 0px 20px 0px 35px" })</li>
-                    </ul>
+                    <h5 class="navbar-text navbar-right" style="margin: 10px 10px 0px 20px">Welcome @Session["Name"] @Session["Surname"]</h5>
                 }
 
-                <ul class="navbar-nav navbar-right" style="margin: 0px 10px 0px 10px">
-                    <li>@Html.ActionLink(" About ", "Login", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-info-sign", @style = "margin: 0px 10px 0px 10px" })</li>
-                    <li>@Html.ActionLink(" Contact ", "Login", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-earphone", @style = "margin: 0px 10px 0px 10px" })</li>
-                </ul>
+                <div class="collapse navbar-collapse">
+                    @if (Session["Name"] != null)
+                    {
+                        <ul class="navbar-nav navbar-right">
+                            <li>@Html.ActionLink(" LogOut ", "LogOut", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-log-out", @style = "margin: 0px 20px 0px 35px" })</li>
+                        </ul>
+                    }
+
+                    @*<div class="navbar-nav navbar-right">
+
+                            @Html.ActionLink("FindMY Natis", "Login", "Login", new { area = "" }, new { @class = "navbar-brand", @style = "font-family:CorpoA;color:white" })
+                        </div>*@
+
+                    <ul class="navbar-nav navbar-right" style="margin: 0px 10px 0px 10px">
+                        <li>@Html.ActionLink(" About ", "Login", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-info-sign", @style = "margin: 0px 10px 0px 10px" })</li>
+                        <li>@Html.ActionLink(" Contact ", "Login", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-earphone", @style = "margin: 0px 10px 0px 10px" })</li>
+                    </ul>
 
 
-            </div>
-
+                </div>
         </div>
-    </div>
+    @*</div>*@
 
     <div class="container body-content">
         @RenderBody()
@@ -95,9 +106,6 @@
     <script src="~/Scripts/MicrosoftAjax.js"></script>
     <script src="~/Scripts/MicrosoftMvcAjax.js"></script>
 
-
-
-  
-
 </body>
+
 </html>

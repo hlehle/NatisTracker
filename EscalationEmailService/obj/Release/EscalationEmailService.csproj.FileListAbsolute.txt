@@ -1,0 +1,1 @@
+C:\Development\Projects\NatisTracker\EscalationEmailService\bin\Release\EscalationEmailService.exe.config

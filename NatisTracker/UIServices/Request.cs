@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using NatisTracker.Models;
 using NatisTracker.ViewModels;
+using EnatisRepository.Repo;
 using System.Web.Mvc;
 using Comet.Email;
 

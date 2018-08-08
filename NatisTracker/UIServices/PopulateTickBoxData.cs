@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using NatisTracker.UIServices;
 using NatisTracker.ViewModels;
-using NatisTracker.Models;
+using EnatisRepository.Repo;
 
 namespace NatisTracker.UIServices
 {
@@ -36,7 +36,6 @@ namespace NatisTracker.UIServices
             }
             
         }
-
         public void PopulateSendToUser(SendToUserViewModel ViewModel, string user, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
@@ -64,7 +63,6 @@ namespace NatisTracker.UIServices
             }
 
         }
-
         public string[] getContractsNo(string contracts)
         {
             return contracts.Trim().Split(' ');

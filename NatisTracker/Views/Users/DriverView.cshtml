@@ -73,7 +73,7 @@
                                     <td>
                                         @for (int j = 0; j < Model.TickBoxList[i].ContractsList.Count; j++)
                                         {
-                                            @Html.HiddenFor(a => Model.TickBoxList[i].DriverId)
+                                            @Html.HiddenFor(a => Model.TickBoxList[i].TableId)
                                             <div class="checkbox">
                                                 @Html.CheckBoxFor(a => Model.TickBoxList[i].ContractsList[j].IsReceived)
                                                 @Model.TickBoxList[i].ContractsList[j].ContractNumber1<br />

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace NatisTracker.ViewModels
+namespace EnatisRepository.ViewModels
 {
     public class LogInfoViewModel
     {

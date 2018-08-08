@@ -39,3 +39,6 @@ C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Mvc.xml
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Release\NatisTracker.csproj.ResolveComReference.cache
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Release\NatisTracker.dll
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Release\NatisTracker.pdb
+C:\Development\Projects\NatisTracker\NatisTracker\bin\img\Login2.jpg
+C:\Development\Projects\NatisTracker\NatisTracker\bin\img\logo.png
+C:\Development\Projects\NatisTracker\NatisTracker\bin\img\Login1.jpg

@@ -14,57 +14,56 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <style>
-        .container {
-            height: 100%;
-            padding: 0;
-            margin: auto;
-            width: 50%;
-        }
-    </style>
+    <link href="~/Content/login.css" rel="stylesheet" />
 
 </head>
 
 <body>
+    <div class="limiter">
+        <div class="container-login100">
 
-    <div class="container">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            {
+                <fieldset class="wrap-login100">
+                    <br />
 
-        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-        {
-            <fieldset>
-                <h3 class="form-signin-heading">Please Log in</h3>
-
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
-
-                @if (@ViewBag.Message != null)
-                {
-                    <div style="border :1px solid red">
-                        @ViewBag.Message
+                    <div class="login100-form-title" style="background-image: url(../../img/Login7.jpg);margin:10px">
+                        <span class="login100-form-title-1">
+                            Sign In
+                        </span>
                     </div>
-                }
 
-                <form class="form-signin">
+                    <br /><br />
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
 
-                    @Html.LabelFor(a => a.UserName, "User Name")
-                    @Html.TextBoxFor(a => a.UserName)
-                    @Html.ValidationMessageFor(a => a.UserName)
+                    <form class="validate-form">
+                        <div class="validate-input">
+                            @Html.LabelFor(a => a.UserName, "Username", new { @class = "col-md-2" })
+                            @Html.TextBoxFor(a => a.UserName, new { @placeholder = "Enter Username", @class = "col-md=10", @style = "width:100%" })
+                            
+                            @Html.ValidationMessageFor(a => a.UserName)
+                        </div>
+                        <br />
+                        <div class="form-group form-group-lg validate-input">
+                            @Html.LabelFor(a => a.Password, "Password", new { @class = "col-md-2" })
+                            @Html.PasswordFor(a => a.Password, new { @placeholder = "Enter Password", @class = "input-lg col-md=10", @style="width:100%"})
+                            @Html.ValidationMessageFor(a => a.Password)
+                        </div>
 
-                    @Html.LabelFor(a => a.Password, "Password")
-                    @Html.PasswordFor(a => a.Password)
-                    @Html.ValidationMessageFor(a => a.Password)
+                        @ViewBag.Message
+                        <br />
+                        <label class="checkbox">
+                            <input type="checkbox" value="remember-me"> Remember me
+                        </label>
+                        <br />
+                        <button class="btn btn-large btn-primary" type="submit">Sign in</button>
 
-                    @ViewBag.Message
+                    </form>
 
-                    <label class="checkbox">
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                    <button class="btn btn-large btn-primary" type="submit">Sign in</button>
-
-                </form>
-
-            </fieldset>
-        }
+                </fieldset>
+            }
+        </div>
     </div>
 
 </body>

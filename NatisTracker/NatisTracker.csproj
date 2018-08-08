@@ -48,6 +48,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Aspose.BarCode.dll</HintPath>
     </Reference>
+    <Reference Include="Aspose.Pdf">
+      <HintPath>lib\Aspose.Pdf.dll</HintPath>
+    </Reference>
     <Reference Include="Comet.Net, Version=3.8.225.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Comet.5.0.1.1\lib\Comet.Net.dll</HintPath>
       <Private>True</Private>
@@ -69,6 +72,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -157,22 +161,35 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\docs.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="img\Background.jpg" />
+    <Content Include="img\eNatis.jpg" />
+    <Content Include="img\enatis_logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\enatis_logo1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\Login7.jpg" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
-    <Content Include="fonts\logo2.png" />
+    <Content Include="img\Login2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
-    <Content Include="Models\NatisTracker.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NatisTracker.edmx</DependentUpon>
-      <LastGenOutput>NatisTracker.Context.cs</LastGenOutput>
+    <Content Include="img\Login1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Models\NatisTracker.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NatisTracker.edmx</DependentUpon>
-      <LastGenOutput>NatisTracker.cs</LastGenOutput>
-    </Content>
+    <Content Include="img\Login3.jpg" />
+    <Content Include="img\Login4.jpg" />
+    <Content Include="img\Login5.png" />
+    <Content Include="img\Login6.png" />
+    <Content Include="img\logo2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bootstrap-theme.css.map" />
@@ -182,13 +199,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Aspose.Total.lic">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Models\NatisTracker.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NatisTracker.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\NatisTracker.edmx.diagram">
-      <DependentUpon>NatisTracker.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\Local Filesystem.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -207,7 +217,9 @@
     <Content Include="Scripts\MicrosoftMvcAjax.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\moment.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -218,77 +230,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ContractNumber.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ContractsData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EmployeeData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NatisData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NatisTracker.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NatisTracker.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NatisTracker.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\NatisTracker.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NatisTracker.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RequestsData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ScanLogsData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SentIN_Delivery.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SentOUT_Delivery.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sp_helpdiagrams_Result.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SystemParam.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TickBoxData.cs">
-      <DependentUpon>NatisTracker.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIServices\Collect.cs" />
-    <Compile Include="UIServices\PopulateViewModels.cs" />
-    <Compile Include="ViewModels\AdminViewModel.cs" />
-    <Compile Include="ViewModels\ContractNumbersViewModel.cs" />
     <Compile Include="UIServices\DeliveryServiceIN.cs" />
     <Compile Include="UIServices\DeliveryServiceOUT.cs" />
     <Compile Include="UIServices\IDeliveryService.cs" />
     <Compile Include="UIServices\INatisRequest.cs" />
-    <Compile Include="UIServices\LoadNew.cs" />
-    <Compile Include="UIServices\IScanNatis.cs" />
-    <Compile Include="UIServices\PopulateTickBoxData.cs" />
-    <Compile Include="UIServices\Populate.cs" />
     <Compile Include="UIServices\IPopulateViewModels.cs" />
+    <Compile Include="UIServices\IScanNatis.cs" />
+    <Compile Include="UIServices\LoadNew.cs" />
+    <Compile Include="UIServices\Populate.cs" />
+    <Compile Include="UIServices\PopulateTickBoxData.cs" />
+    <Compile Include="UIServices\PopulateViewModels.cs" />
     <Compile Include="UIServices\Request.cs" />
     <Compile Include="UIServices\Respond.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModels\SystemEmailSender.cs" />
+    <Compile Include="ViewModels\ContractNumbersViewModel.cs" />
     <Compile Include="ViewModels\Delivery.cs" />
     <Compile Include="ViewModels\DriverDataViewModel.cs" />
     <Compile Include="ViewModels\DriverPackage.cs" />
@@ -323,7 +282,7 @@
     <Content Include="Views\Users\DealershipView.cshtml" />
     <Content Include="Views\Users\OriginationView.cshtml" />
     <Content Include="Views\Users\UserView.cshtml" />
-    <Content Include="Views\Shared\View.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Users\_Details.cshtml" />
     <Content Include="Views\Users\DriverView.cshtml" />
     <Content Include="Views\Login\ChangePassword.cshtml" />
@@ -369,6 +328,12 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EnatisRepository\EnatisRepository.csproj">
+      <Project>{f3ab8cf6-188b-43d3-a8bc-60c7e35014e0}</Project>
+      <Name>EnatisRepository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

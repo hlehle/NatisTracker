@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using Oracle.DataAccess.Client;
 using NatisTracker.UIServices;
+using EnatisRepository.Repo;
 using System.Data;
 
 namespace NatisTracker.Controllers

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using NatisTracker.Models;
 using System.Web.Mvc;
+using EnatisRepository.Repo;
 using NatisTracker.ViewModels;
 
 namespace NatisTracker.Models
@@ -47,7 +48,6 @@ namespace NatisTracker.Models
 
         }
         public DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name, string email) { return new DeliveryViewModel(); }
-
         public void SendNatis(TickBoxViewModelList viewModel, string name, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
@@ -58,7 +58,7 @@ namespace NatisTracker.Models
                     {
                         if (!viewModel.TickBoxList[i].Reply.Equals("Transit"))
                         {
-                            var num = viewModel.TickBoxList[i].DriverId;
+                            var num = viewModel.TickBoxList[i].TableId;
                             var delivery = db.TickBoxDatas.Where(r => r.TableId == num).FirstOrDefault();
                             delivery.RecipientName = name;
                             delivery.IsConfirmed = viewModel.IsConfirmed;
@@ -73,33 +73,50 @@ namespace NatisTracker.Models
                                 var contractNumber = ContractViewModel.ContractNumber1;
                                 var contractnumbers = deliverySentIn.ContractNumbers.First(f => f.ContractNumber1 == contractNumber);
                                 contractnumbers.IsReceived = viewModel.TickBoxList[i].ContractsList[j].IsReceived;
+                                
 
                                 var natisContract = db.ContractsDatas.Where(a => a.ContractNumber == contractnumbers.ContractNumber1).FirstOrDefault();
                                 var natis = db.NatisDatas.Where(a => a.VinNumber == natisContract.VinNumber).FirstOrDefault();
 
                                 if (viewModel.IsConfirmed && (bool)contractnumbers.IsReceived && viewModel.TickBoxList[i].Reply.Equals("Accepted"))
                                 {
+                                    //Adding a log
+                                    var log = new ScanLogsData();
+                                    var contractData = db.ContractsDatas.Where(a => a.ContractNumber.Equals(contractNumber)).FirstOrDefault();
+
+                                    log.ContractNumber = contractNumber;
+                                    log.VinNumber = contractData.VinNumber;
+                                    log.DateScanned = DateTime.Now;
+                                    log.User = name;
+                                    log.Comment = viewModel.TickBoxList[i].Comment;
+
+                                    log.ContractStatus = contractData.ContractStatus;
+                                    log.ContractDescription = contractData.StatusDescription;
+
                                     if (delivery.RecipientType.Equals("Driver"))
                                     {
+                                        log.Department = "Fleet Services";
+                                        db.ScanLogsDatas.Add(log);
+
                                         natis.NatisLocation = "Fleet Services";
                                     }
-                                    else
+                                    else if(delivery.RecipientType.Equals("Internal User"))
                                     {
+                                        log.Department = department;
+                                        db.ScanLogsDatas.Add(log);
+
                                         natis.NatisLocation = department;
                                     }
-                                    
                                 }
                                 //contractnumbers.ContractNumber1 = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber;
                             }
                         }
-
                     }
                 }
                 db.SaveChanges();
             }
 
         }
-
         public void ReceivePackage(DriverPackage viewModel, string name, string department)
         {
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())

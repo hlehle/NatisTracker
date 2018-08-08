@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c55d776e-86fa-44a0-ba35-9b0f25e6ffe3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://hubbleadqa.zarsa.corpintra.net/Services/DocumentUpload.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="DocumentUpload.xsd" MetadataType="Schema" ID="743d2850-4135-4a93-8792-87ea3f386bbe" SourceId="1" SourceUrl="http://hubbleadqa.zarsa.corpintra.net/Services/DocumentUpload.svc?xsd=xsd1" />
+    <MetadataFile FileName="DocumentUpload.wsdl" MetadataType="Wsdl" ID="091b8abf-3b32-4907-89cd-a14c4d2808ec" SourceId="1" SourceUrl="http://hubbleadqa.zarsa.corpintra.net/Services/DocumentUpload.svc?wsdl" />
+    <MetadataFile FileName="DocumentUpload1.xsd" MetadataType="Schema" ID="626399ae-c6aa-4e5b-bdd0-9c5ef326136f" SourceId="1" SourceUrl="http://hubbleadqa.zarsa.corpintra.net/Services/DocumentUpload.svc?xsd=xsd0" />
+    <MetadataFile FileName="DocumentUpload.disco" MetadataType="Disco" ID="d7a33c35-239d-4c0b-b006-1d6471c91920" SourceId="1" SourceUrl="http://hubbleadqa.zarsa.corpintra.net/Services/DocumentUpload.svc?disco" />
+    <MetadataFile FileName="DocumentUpload2.xsd" MetadataType="Schema" ID="908043c5-dee3-4251-8b06-18bc86ecd17c" SourceId="1" SourceUrl="http://hubbleadqa.zarsa.corpintra.net/Services/DocumentUpload.svc?xsd=xsd2" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

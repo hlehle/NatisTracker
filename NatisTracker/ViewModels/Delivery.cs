@@ -1,4 +1,4 @@
-﻿using NatisTracker.Models;
+﻿using EnatisRepository.Repo;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
