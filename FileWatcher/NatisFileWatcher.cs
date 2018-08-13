@@ -1,5 +1,4 @@
 ﻿using Aspose.BarCode.BarCodeRecognition;
-using Aspose.Pdf.Facades;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +13,9 @@ using EnatisRepository.BarcodeReader;
 using EnatisRepository.Repo;
 using Oracle.DataAccess.Client;
 using EnatisRepository.HubbleService;
+using System.Configuration;
+using Aspose.Pdf;
+using Aspose.Pdf.Facades;
 
 namespace FileWatcher
 {
@@ -26,7 +28,7 @@ namespace FileWatcher
 
         protected override void OnStart(string[] args)
         {
-            string path = @"C:\Development\Projects\NatisTracker\Temp";
+            string path = ConfigurationManager.AppSettings["WatchedFolder"];
             MonitorDirectory(path);
         }
 
@@ -45,91 +47,131 @@ namespace FileWatcher
             Console.WriteLine("File is created");
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
-                using (var fileStream = new FileStream(e.FullPath, FileMode.Open, FileAccess.Read))
+                var pdfDocument = new Document(e.FullPath);
+
+                try
                 {
-                    BarcodeReader reader = new BarcodeReader();
-                    string[] natis = reader.readBarCode(fileStream);
-
-                    if (natis != null)
+                    if (pdfDocument.Pages.Count == 1)
                     {
-                        // Filling Natis Doc Data
-                        NatisData natisData = new NatisData();
+                        FileStream fileStream = new FileStream(pdfDocument.FileName, FileMode.Open);
+                        DecryptBarcode(fileStream);
+                    }
 
-                        natisData.User = "Sihle Mdlalose";
-                        natisData.DateLoaded = DateTime.Now;
-                        natisData.VinNumber = natis[9];
-                        natisData.RegistrationNumber = natis[5];
-                        natisData.EngineNumber = natis[10];
-                        natisData.CarMake = natis[7];
-                        natisData.SeriesNumber = getDescription(getContractNo(natis[9]));
-                        natisData.Description = natis[6];
-                        natisData.RegistrationDate = Convert.ToDateTime(natis[12]);
-                        natisData.VehicleStatus = natis[11];
-                        natisData.OwnerName = natis[15];
-                        natisData.OwnerIdentityNumber = natis[14];
-                        natisData.NatisLocation = "Safe Vault";
-
-                        // Filling Contract Data
-                        string contractNumber = getContractNo(natisData.VinNumber);
-                        string[] contractInfo = GetContractStatus(contractNumber);
-                        ContractsData contractData = new ContractsData();
-                        contractData.RecordNumber = natisData.RecordNumber;
-                        contractData.VinNumber = natisData.VinNumber;
-                        contractData.ContractNumber = contractNumber;
-                        contractData.ContractStatus = contractInfo[0];
-                        contractData.StatusDescription = contractInfo[1];
-
-                        ScanLogsData log = new ScanLogsData();
-
-                        log.ContractNumber = getContractNo(natis[9]);
-                        log.VinNumber = natisData.VinNumber;
-                        log.DateScanned = DateTime.Now;
-                        log.User = natisData.User;
-                        log.Department = natisData.NatisLocation;
-                        log.ContractStatus = contractData.ContractStatus;
-                        log.ContractDescription = contractData.StatusDescription;
-
-                        if (!isExist(db, natisData))
+                    else
+                    {
+                        for (int pageNr = 1; pageNr <= pdfDocument.Pages.Count; pageNr++)
                         {
-                            log.Comment = "First time loaded to the Safe";
-
-                            db.NatisDatas.Add(natisData);
-                            db.ScanLogsDatas.Add(log);
-                            db.ContractsDatas.Add(contractData);
-                            db.SaveChanges();
-
-                            //Saving To Hubble
-                            using (MemoryStream ms = new MemoryStream())
+                            using (var pageDocument = new Document())
                             {
-                                fileStream.CopyTo(ms);
-                                DocumentUploadClient upload = new DocumentUploadClient();
-                                upload.UploadDocument(37, ms.ToArray(), contractNumber + ".pdf", contractNumber+"title", "author", "subject", "eNatis Documents", contractNumber, 1);
+                                pageDocument.Pages.Add(pdfDocument.Pages[pageNr]);
+                                pageDocument.Save("new" + pageNr + ".pdf", SaveFormat.Pdf);
+
+                                FileStream fileStream = new FileStream(Environment.CurrentDirectory + @"\new" + pageNr + ".pdf", FileMode.Open);
+                                DecryptBarcode(fileStream);
+                                fileStream.Close();
+                                string[] t = Directory.GetFiles(Environment.CurrentDirectory, "*.pdf");
+                                Array.ForEach(t, File.Delete);
                             }
-                        }
-
-                        else if (isExist(db, natisData) && !isInSafe(db, natisData))
-                        {
-                            log.Comment = "Back to Safe";
-
-                            var vin = natisData.VinNumber;
-                            var temp = db.NatisDatas.Where(a => a.VinNumber == vin).FirstOrDefault();
-                            temp.NatisLocation = natisData.NatisLocation;
-                            //db.NatisDatas.Add(natisData);
-                            db.ScanLogsDatas.Add(log);
-                            db.ContractsDatas.Add(contractData);
-                            db.SaveChanges();
-
-                            //return true;
-                        }
-
-                        else if (isExist(db, natisData) && isInSafe(db, natisData))
-                        {
-                            //return false;
                         }
                     }
                 }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+                
+                
             }
-        
+
+        }
+
+        public static void DecryptBarcode(FileStream fileStream)
+        {
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                BarcodeReader reader = new BarcodeReader();
+                string[] natis = reader.readBarCode(fileStream);
+
+                if (natis != null)
+                {
+                    // Filling Natis Doc Data
+                    NatisData natisData = new NatisData();
+
+                    natisData.User = "Sihle Mdlalose";
+                    natisData.DateLoaded = DateTime.Now;
+                    natisData.VinNumber = natis[9];
+                    natisData.RegistrationNumber = natis[5];
+                    natisData.EngineNumber = natis[10];
+                    natisData.CarMake = natis[7];
+                    natisData.SeriesNumber = getDescription(getContractNo(natis[9]));
+                    natisData.Description = natis[6];
+                    natisData.RegistrationDate = Convert.ToDateTime(natis[12]);
+                    natisData.VehicleStatus = natis[11];
+                    natisData.OwnerName = natis[15];
+                    natisData.OwnerIdentityNumber = natis[14];
+                    natisData.NatisLocation = "Safe Vault";
+
+                    // Filling Contract Data
+                    string contractNumber = getContractNo(natisData.VinNumber);
+                    string[] contractInfo = GetContractStatus(contractNumber);
+                    ContractsData contractData = new ContractsData();
+                    contractData.RecordNumber = natisData.RecordNumber;
+                    contractData.VinNumber = natisData.VinNumber;
+                    contractData.ContractNumber = contractNumber;
+                    contractData.ContractStatus = contractInfo[0];
+                    contractData.StatusDescription = contractInfo[1];
+
+                    ScanLogsData log = new ScanLogsData();
+
+                    log.ContractNumber = getContractNo(natis[9]);
+                    log.VinNumber = natisData.VinNumber;
+                    log.DateScanned = DateTime.Now;
+                    log.User = natisData.User;
+                    log.Department = natisData.NatisLocation;
+                    log.ContractStatus = contractData.ContractStatus;
+                    log.ContractDescription = contractData.StatusDescription;
+
+                    if (!isExist(db, natisData))
+                    {
+                        log.Comment = "First time loaded to the Safe";
+
+                        db.NatisDatas.Add(natisData);
+                        db.ScanLogsDatas.Add(log);
+                        db.ContractsDatas.Add(contractData);
+                        db.SaveChanges();
+
+                        //Saving To Hubble
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            fileStream.CopyTo(ms);
+                            DocumentUploadClient upload = new DocumentUploadClient();
+                            upload.UploadDocument(37, ms.ToArray(), contractNumber + ".pdf", contractNumber + "title", "author", "subject", "eNatis Documents", contractNumber, 1);
+                        }
+                    }
+
+                    else if (isExist(db, natisData) && !isInSafe(db, natisData))
+                    {
+                        log.Comment = "Back to Safe";
+
+                        var vin = natisData.VinNumber;
+                        var temp = db.NatisDatas.Where(a => a.VinNumber == vin).FirstOrDefault();
+                        temp.NatisLocation = natisData.NatisLocation;
+                        //db.NatisDatas.Add(natisData);
+                        db.ScanLogsDatas.Add(log);
+                        db.ContractsDatas.Add(contractData);
+                        db.SaveChanges();
+
+                        //return true;
+                    }
+
+                    else if (isExist(db, natisData) && isInSafe(db, natisData))
+                    {
+                        //return false;
+                    }
+                }
+            }
+
         }
 
         public static string getDescription(string contractNo)

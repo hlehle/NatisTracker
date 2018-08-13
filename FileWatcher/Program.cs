@@ -14,6 +14,12 @@ namespace FileWatcher
         /// </summary>
         static void Main()
         {
+
+            var BarCodeLicense = new Aspose.BarCode.License();
+            BarCodeLicense.SetLicense("Aspose.Total.lic");
+            var PdfLicence = new Aspose.Pdf.License();
+            PdfLicence.SetLicense("Aspose.Total.lic");
+
 #if (DEBUG)
             Console.WriteLine("FileWatcher Service");
             NatisFileWatcher Watcher = new NatisFileWatcher();

@@ -1,3 +1,6 @@
+C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.dll
+C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csprojResolveAssemblyReference.cache
+C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csproj.ResolveComReference.cache
 C:\Development\Projects\NatisTracker\NatisTracker\bin\roslyn\csc.exe
 C:\Development\Projects\NatisTracker\NatisTracker\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
 C:\Development\Projects\NatisTracker\NatisTracker\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
@@ -44,7 +47,4 @@ C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Webpages.Deploy
 C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.xml
 C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Helpers.xml
 C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Mvc.xml
-C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csprojResolveAssemblyReference.cache
-C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csproj.ResolveComReference.cache
-C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.dll
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.pdb

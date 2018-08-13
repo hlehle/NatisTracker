@@ -81,10 +81,7 @@ namespace EscalationEmailService
                         SystemEmailSender.SendMail(to_Admin, subject_Admin, body_Admin);
                     }
                 }
-            }
-                
-
-            
+            }  
 
         }
         protected override void OnStart(string[] args)

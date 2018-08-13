@@ -32,10 +32,11 @@
   <ItemGroup>
     <Reference Include="Aspose.BarCode, Version=16.12.0.0, Culture=neutral, PublicKeyToken=716fcc553a201e56, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Aspose.BarCode.dll</HintPath>
+      <HintPath>bin\Debug\Aspose.BarCode.dll</HintPath>
     </Reference>
-    <Reference Include="Aspose.Pdf">
-      <HintPath>..\NatisTracker\lib\Aspose.Pdf.dll</HintPath>
+    <Reference Include="Aspose.Pdf, Version=11.7.0.0, Culture=neutral, PublicKeyToken=6947866647e416ec, processorArchitecture=MSIL">
+      <HintPath>..\packages\Aspose.Pdf.11.7.0\lib\net40-client\Aspose.Pdf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0-beta1\lib\net45\EntityFramework.dll</HintPath>
@@ -143,7 +144,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="Aspose.Total.lic">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

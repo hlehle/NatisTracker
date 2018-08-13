@@ -17,24 +17,12 @@ namespace EnatisRepository.BarcodeReader
     {
         public BarcodeReader()
         {
-            SetLicenses();
+            //SetLicenses();
         }
         public string[] readBarCode(Stream barcodeLocation)
         {
             try
             {
-                string dataDir = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\SampleTest.pdf";
-                var pdfDocument = new Document(dataDir);
-
-                for(int pageNr = 1; pageNr <= pdfDocument.Pages.Count; pageNr++)
-                {
-                    using (var pageDocument = new Document())
-                    {
-                        pageDocument.Pages.Add(pdfDocument.Pages[pageNr]);
-                        pageDocument.Save(dataDir + " " + pageNr + ".pdf");
-                    }
-                }
-                
                 PdfExtractor pdfExtractor = new PdfExtractor();
                 pdfExtractor.BindPdf(barcodeLocation);
                 pdfExtractor.StartPage = 1;
@@ -46,8 +34,6 @@ namespace EnatisRepository.BarcodeReader
                 pdfExtractor.GetNextImage(imageStream);
                 imageStream.Position = 0;
                 BarCodeReader barcodeReader = new BarCodeReader(imageStream, DecodeType.Pdf417);
-
-                //BarCodeReader reader = new BarCodeReader(barcodeLocation, DecodeType.Pdf417);
 
                 string[] codeText = null;
                 while (barcodeReader.Read())
@@ -68,7 +54,7 @@ namespace EnatisRepository.BarcodeReader
         {
             var BarCodeLicense = new Aspose.BarCode.License();
             BarCodeLicense.SetLicense("Aspose.Total.lic");
-            var PdfLicence = new Aspose.BarCode.License();
+            var PdfLicence = new Aspose.Pdf.License();
             PdfLicence.SetLicense("Aspose.Total.lic");
         }
     }
