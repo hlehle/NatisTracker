@@ -7,7 +7,7 @@ using NatisTracker.ViewModels;
 using System.Web.Mvc;
 using System.Net.Mail;
 
-namespace NatisTracker.Models
+namespace NatisTracker.Deliveries
 {
     public class DeliveryServiceIN : IDeliveryService
     {

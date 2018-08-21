@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace NatisTracker.Models
+namespace NatisTracker.Requests
 {
     public interface INatisRequest
     {

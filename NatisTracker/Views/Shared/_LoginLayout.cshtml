@@ -24,7 +24,7 @@
         }
 
         .box {
-            position: absolute
+            position: absolute;
         }
 
         .box-MBFS-logo {
@@ -35,6 +35,8 @@
 
         .box-ENatis-logo {
             right: 2%;
+            margin: 20px 10px 20px 0px;
+            padding: 2px 10px 2px 10px;
         }
 
         .box-toggle {
@@ -50,10 +52,10 @@
 
 </head>
 
-<body> 
+<body style="background-color:#2b2a2a">
 
     <div class="navbar navbar-inverse navbar-fixed-top" align="justify" @*style="border-style:dashed;border-width:2px;border-color:red"*@>
-        <div class="container" align="justify" style="border-style:dashed;border-width:2px;border-color:red">
+        <div class="container">
             <div class="navbar-header box-toggle" style="margin:auto">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MyCollapsed">
                     <span class="icon-bar"></span>
@@ -68,17 +70,16 @@
                     Mercedes-Benz Financial Services
                 </span>
             </div>
-            
 
             <div class="navbar-nav navbar-right box box-ENatis-logo">
-                <span style="font-family:CorpoA;color:white;font-size:20px;margin-right:3px">
+                <span style="font-family:CorpoA;color:white;font-size:20px">
                     FindMY Natis
                 </span>
                 @*<img src="~/img/eNatis.jpg" style="vertical-align:middle;" />*@
             </div>
 
             <div class="collapse navbar-collapse box box-toggle" id="MyCollapsed">
-                <ul class="navbar-nav navbar-right" style="margin: 0px 10px 0px 10px">
+                <ul class="navbar-nav navbar-right" style="margin: 2px 10px 2px 10px;padding: 2px 10px 2px 10px">
                     <li>@Html.ActionLink(" About ", "Login", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-info-sign", @style = "margin: 0px 10px 0px 10px" })</li>
                     <li>@Html.ActionLink(" Contact ", "Login", "Login", new { area = "" }, new { @class = "glyphicon glyphicon-earphone", @style = "margin: 0px 10px 0px 10px" })</li>
                 </ul>

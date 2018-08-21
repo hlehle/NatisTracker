@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using NatisTracker.Models;
 using System.Web.Mvc;
 using NatisTracker.ViewModels;
 using EnatisRepository.Repo;
 using Comet.Email;
 
-namespace NatisTracker.Models
+namespace NatisTracker.Requests
 {
     public class Respond : INatisRequest
     {

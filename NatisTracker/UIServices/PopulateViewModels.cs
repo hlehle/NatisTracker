@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using EnatisRepository.Repo;
 using NatisTracker.ViewModels;
-using NatisTracker.Models;
 
 namespace NatisTracker.UIServices
 {
@@ -119,8 +118,13 @@ namespace NatisTracker.UIServices
                 {
                     req.ReplyDate = (DateTime)item.ReplyDate;
                 }
-                                
+                               
                 req.Responder = item.Responder;
+
+                if (item.CollectionDate != null)
+                {
+                    req.CollectionDate = (DateTime)item.CollectionDate;
+                }
 
                 viewModel.Add(req);
             }

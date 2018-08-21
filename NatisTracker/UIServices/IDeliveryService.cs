@@ -5,7 +5,7 @@ using System.Web;
 using NatisTracker.ViewModels;
 using System.Web.Mvc;
 
-namespace NatisTracker.Models
+namespace NatisTracker.Deliveries
 {
     public interface IDeliveryService
     {

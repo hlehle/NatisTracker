@@ -163,6 +163,7 @@
     <Content Include="Content\docs.css" />
     <Content Include="Content\login.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\util.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="img\Background.jpg" />
     <Content Include="img\eNatis.jpg" />

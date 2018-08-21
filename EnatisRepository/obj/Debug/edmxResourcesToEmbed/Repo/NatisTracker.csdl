@@ -75,6 +75,7 @@
     <Property Name="ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="ReplyDate" Type="DateTime" Precision="3" />
     <Property Name="Responder" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CollectionDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="ScanLogsData">
     <Key>

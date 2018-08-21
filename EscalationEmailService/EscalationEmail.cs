@@ -36,20 +36,20 @@ namespace EscalationEmailService
                         string to = db.EmployeeDatas.Where(a => a.ContactName.Equals(item.PackageRecipient)).Select(a => a.Email).FirstOrDefault();
                         string subject = "Natis Document(s) Due";
 
-                        string body = "Hi, \n Please note that the natis document(s) for Package " + item.PackageNumber +
-                                      " with " + item.Quantity + " Document(s) are due to be submitted to the admin. \n Thank you";
+                        string body = "Hi,\n Please note that the natis document(s) for Package " + item.PackageNumber +
+                                      " with " + item.Quantity + " Document(s) are due to be submitted to the admin.\n Thank you";
 
                         SystemEmailSender.SendMail(to, subject, body);
                     }
                 }
 
                 // This is to notify a user(Legal) that natis document must be submitted back to the admin
-                var requests = db.RequestsDatas.Where(a => a.ReplyDate.HasValue && a.RequesterDepartment.Equals("Legal"));
-                var replyDates = requests.Select(a => a.ReplyDate).ToList();
+                var requests = db.RequestsDatas.Where(a => a.CollectionDate.HasValue && a.RequesterDepartment.Equals("Legal"));
+                var CollectionDates = requests.Select(a => a.CollectionDate).ToList();
                 var requesterContractNumbers = requests.Select(a => a.ContractNo).ToList();
                 var requesterNames = requests.Select(a => a.RequesterName).ToList();
 
-                for (int i = 0; i < replyDates.Count; i++)
+                for (int i = 0; i < CollectionDates.Count; i++)
                 {
                     var contractNumber = requesterContractNumbers[i];
                     var ContractData = db.ContractsDatas.Where(a => a.ContractNumber == contractNumber).FirstOrDefault();
@@ -58,7 +58,7 @@ namespace EscalationEmailService
                     var name = requesterNames[i];
                     var requsterEmail = db.EmployeeDatas.Where(a => a.ContactName == name).Select(a => a.Email).FirstOrDefault();
 
-                    var days = DateTime.Now.Subtract(replyDates[i].Value).Days;
+                    var days = DateTime.Now.Subtract(CollectionDates[i].Value).Days;
                     if (days > 3 && natis.NatisLocation == "Legal")
                     {
                         // Send to user

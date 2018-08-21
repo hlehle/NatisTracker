@@ -85,7 +85,9 @@
                         </div>
                     }
                     <br /><br />
-                    @Html.TextBoxFor(model => model.file, new { type = "file", id = "File", accept = "image/bmp", capture = "camera" })<br>
+                    <button class="btn btn-large btn-primary" type="submit">Scan</button>
+
+                    @Html.TextBoxFor(model => model.ScannedString, new { type = "string", id = "File", accept = "", capture = "camera" })<br>
 
                     <br /><br />
                             <div class="form-group">
@@ -97,7 +99,7 @@
                             </div>
 
                             <br /><br>
-                            <button class="btn btn-large btn-primary" type="submit">Scan</button>
+                            
 
                             <p align="right">
 

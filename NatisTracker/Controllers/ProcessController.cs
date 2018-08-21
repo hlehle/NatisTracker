@@ -12,10 +12,11 @@ using System.Reflection;
 using System.Text;
 using EnatisRepository.Repo;
 using NatisTracker.ViewModels;
-using NatisTracker.Models;
-using EnatisRepository.Models;
+using NatisTracker.Requests;
+using NatisTracker.Deliveries;
+using EnatisRepository.ScanNatis;
 using NatisTracker.UIServices;
-using EnatisRepository.ViewModels;
+using NatisTracker.ScanNatis;
 
 namespace NatisTracker.Controllers
 {
@@ -43,7 +44,8 @@ namespace NatisTracker.Controllers
                 bool isPopulated = new LoadNew().Scan(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
 
                 if (isPopulated)
-                {
+                { 
+
                     //viewModel.natis = new NatisDataViewModel();
                     return View(viewModel);
                 }
@@ -67,7 +69,8 @@ namespace NatisTracker.Controllers
         public ActionResult RequestResponse()
         {
             Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
-            return View(from requests in db.RequestsDatas select requests);
+            var requests = new PopulateViewModels().PopulateRequestsData(db);
+            return View(requests);
         }
 
         [HttpPost]
@@ -78,18 +81,34 @@ namespace NatisTracker.Controllers
                 new Respond().respond(form, @Session["Name"].ToString(), Session["Email"].ToString());
             }
 
-            Intern_LeaveDBEntities database = new Intern_LeaveDBEntities();
-            return View(from requests in database.RequestsDatas select requests);
+            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            var requests = new PopulateViewModels().PopulateRequestsData(db);
+            return View(requests);
 
         }
         [HttpGet]
         public ActionResult Scan_Back_To_Safe()
         {
             //MasterViewModel view = new MasterViewModel();
-            var viewModel = new LogInfoViewModel();
+            var viewModel = new NatisDataViewModel();
             return View(viewModel);
         }
+        [HttpPost]
+        public ActionResult Scan_Back_To_Safe(FormCollection form)
+        {
+            var viewModel = new NatisDataViewModel();
+            TryUpdateModel(viewModel, form);
 
+            if (ModelState.IsValid)
+            {
+                var a = Request.Files.Count;
+                viewModel.file = Request.Files[0];
+
+                new Collect().Scan(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
+            }
+
+            return View(viewModel);
+        }
         public ActionResult Scan_To_Collect()
         {
             var view = new NatisDataViewModel();

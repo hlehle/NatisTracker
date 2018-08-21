@@ -16,5 +16,7 @@ namespace NatisTracker.ViewModels
         public string ContractNo { get; set; }
         public Nullable<DateTime> ReplyDate { get; set; }
         public string Responder { get; set; }
+        public Nullable<DateTime> CollectionDate { get; set; }
+
     }
 }

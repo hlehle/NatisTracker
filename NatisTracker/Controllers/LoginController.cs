@@ -4,10 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EnatisRepository.Repo;
-using EnatisRepository.ViewModels;
+using NatisTracker.ViewModels;
 using System.Net.Mail;
 using System.Web.Security;
-using NatisTracker.ViewModels;
 
 namespace NatisTracker.Controllers
 {
@@ -20,8 +19,7 @@ namespace NatisTracker.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Login(EmployeeData objEmp)
+        public ActionResult Login(EmployeeDataViewModel objEmp)
         {
             if (ModelState.IsValid)
             {

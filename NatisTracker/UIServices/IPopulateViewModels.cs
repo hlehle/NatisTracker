@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using NatisTracker.ViewModels;
 using EnatisRepository.Repo;
-using NatisTracker.Models;
 
 namespace NatisTracker.UIServices
 {

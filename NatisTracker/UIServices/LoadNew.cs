@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using NatisTracker.Models;
 using NatisTracker.ViewModels;
 using System.IO;
 using Oracle.DataAccess.Client;
@@ -11,7 +10,7 @@ using System.Data;
 using Aspose.BarCode.BarCodeRecognition;
 using Aspose.Pdf.Facades;
 
-namespace NatisTracker.Models
+namespace NatisTracker.ScanNatis
 {
     public class LoadNew : IScanNatis
     {
@@ -223,22 +222,20 @@ namespace NatisTracker.Models
         {
             try
             {
-                PdfExtractor pdfExtractor = new PdfExtractor();
-                pdfExtractor.BindPdf(barcodeLocation);
-                pdfExtractor.StartPage = 1;
+                //PdfExtractor pdfExtractor = new PdfExtractor();
+                //pdfExtractor.BindPdf(barcodeLocation);
+                //pdfExtractor.StartPage = 1;
 
-                pdfExtractor.EndPage = 2;
-                pdfExtractor.ExtractImage();
+                //pdfExtractor.EndPage = 2;
+                //pdfExtractor.ExtractImage();
 
-                MemoryStream imageStream = new MemoryStream();
+                //MemoryStream imageStream = new MemoryStream();
 
-                pdfExtractor.GetNextImage(imageStream);
+                //pdfExtractor.GetNextImage(imageStream);
 
-                imageStream.Position = 0;
+                //imageStream.Position = 0;
 
-                BarCodeReader barcodeReader = new BarCodeReader(imageStream, DecodeType.Pdf417);
-
-                //BarCodeReader reader = new BarCodeReader(barcodeLocation, DecodeType.Pdf417);
+                BarCodeReader barcodeReader = new BarCodeReader(barcodeLocation, DecodeType.Pdf417);
 
                 string[] codeText = null;
                 while (barcodeReader.Read())

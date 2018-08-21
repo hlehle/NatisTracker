@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using NatisTracker.Models;
 using System.Web.Mvc;
 using EnatisRepository.Repo;
 using NatisTracker.ViewModels;
 
-namespace NatisTracker.Models
+namespace NatisTracker.Deliveries
 {
     public class DeliveryServiceOUT : IDeliveryService
     {
@@ -77,6 +76,8 @@ namespace NatisTracker.Models
 
                                 var natisContract = db.ContractsDatas.Where(a => a.ContractNumber == contractnumbers.ContractNumber1).FirstOrDefault();
                                 var natis = db.NatisDatas.Where(a => a.VinNumber == natisContract.VinNumber).FirstOrDefault();
+                                var collectionDate = db.RequestsDatas.Where(a => a.ContractNo == contractNumber).Select(a => a.CollectionDate).FirstOrDefault();
+                                collectionDate = DateTime.Now;
 
                                 if (viewModel.IsConfirmed && (bool)contractnumbers.IsReceived && viewModel.TickBoxList[i].Reply.Equals("Accepted"))
                                 {
@@ -102,6 +103,7 @@ namespace NatisTracker.Models
                                     }
                                     else if(delivery.RecipientType.Equals("Internal User"))
                                     {
+                                        
                                         log.Department = department;
                                         db.ScanLogsDatas.Add(log);
 

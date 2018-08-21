@@ -66,6 +66,7 @@
     <EntitySetMapping Name="RequestsDatas">
       <EntityTypeMapping TypeName="Intern_LeaveDBModel.RequestsData">
         <MappingFragment StoreEntitySet="RequestsData">
+          <ScalarProperty Name="CollectionDate" ColumnName="CollectionDate" />
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
           <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />

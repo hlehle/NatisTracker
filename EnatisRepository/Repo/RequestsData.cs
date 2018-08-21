@@ -23,5 +23,6 @@ namespace EnatisRepository.Repo
         public string ContractNo { get; set; }
         public Nullable<System.DateTime> ReplyDate { get; set; }
         public string Responder { get; set; }
+        public Nullable<System.DateTime> CollectionDate { get; set; }
     }
 }

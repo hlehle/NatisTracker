@@ -8,6 +8,7 @@ namespace NatisTracker.ViewModels
     public class NatisDataViewModel
     {
         public int RecordNumber { get; set; }
+        public string ScannedString { get; set; }
         public HttpPostedFileBase file { get; set; }
         public string vin { get; set; }
         public string contractNo { get; set; }

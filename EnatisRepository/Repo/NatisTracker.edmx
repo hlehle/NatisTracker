@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Intern_LeaveDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Intern_LeaveDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ContractNumbers">
           <Key>
             <PropertyRef Name="ID" />
@@ -76,6 +76,7 @@
           <Property Name="ContractNo" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ReplyDate" Type="datetime" />
           <Property Name="Responder" Type="nvarchar" MaxLength="50" />
+          <Property Name="CollectionDate" Type="datetime" />
         </EntityType>
         <EntityType Name="ScanLogsData">
           <Key>
@@ -217,8 +218,7 @@
             <End Role="ContractsData" EntitySet="ContractsData" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Intern_LeaveDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -297,6 +297,7 @@
           <Property Name="ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ReplyDate" Type="DateTime" Precision="3" />
           <Property Name="Responder" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CollectionDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ScanLogsData">
           <Key>
@@ -511,6 +512,7 @@
           <EntitySetMapping Name="RequestsDatas">
             <EntityTypeMapping TypeName="Intern_LeaveDBModel.RequestsData">
               <MappingFragment StoreEntitySet="RequestsData">
+                <ScalarProperty Name="CollectionDate" ColumnName="CollectionDate" />
                 <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
                 <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
                 <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />

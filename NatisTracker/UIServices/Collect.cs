@@ -6,11 +6,11 @@ using EnatisRepository.Repo;
 using System.IO;
 using Aspose.BarCode.BarCodeRecognition;
 using NatisTracker.ViewModels;
+using NatisTracker.ScanNatis;
 using Oracle.DataAccess.Client;
 using System.Data;
-using NatisTracker.Models;
 
-namespace EnatisRepository.Models
+namespace EnatisRepository.ScanNatis
 {
     public class Collect : IScanNatis
     {

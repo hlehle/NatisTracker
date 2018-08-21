@@ -11,5 +11,6 @@ namespace NatisTracker.UIServices
     {
         void PopulateSendToDriver(DriverDocsViewModel viewModel, string user, string department);
         void PopulateSendToUser(SendToUserViewModel viewModel, string user, string department);
+
     }
 }

@@ -3,7 +3,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using NatisTracker.ViewModels;
-using NatisTracker.Models;
+using NatisTracker.Deliveries;
+using NatisTracker.Requests;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -30,7 +31,7 @@ namespace NatisTracker.Controllers
                 viewModel.DriverViewModel.QuantityList = GetQuantity();
                 viewModel.SendToUserView = new SendToUserViewModel();
                 viewModel.SendToUserView.QuantityList = GetQuantity();
-                viewModel.SendToUserView.PeopleList = db.EmployeeDatas.Select(a => a.ContactName).ToList();
+                viewModel.SendToUserView.PeopleList = viewModel.RequestsList.Where(a => a.RequestStatus == "Accepted").Select(a => a.RequesterName).Distinct().ToList();
                 viewModel.SentIN_Delivery = new PopulateViewModels().PopulateSentIN_Deliveries(db);
                 viewModel.Maturities = new PopulateViewModels().PopulateNatisData(db).Where(a => a.natisLocation.Equals("Contracts Maturities")).ToList();
                 viewModel.Call_Centre = new PopulateViewModels().PopulateNatisData(db).Where(a => a.natisLocation.Contains("Call Centre")).ToList();
@@ -41,7 +42,7 @@ namespace NatisTracker.Controllers
                 viewModel.Remarketing = new PopulateViewModels().PopulateNatisData(db).Where(a => a.natisLocation.Equals("Remarketing")).ToList();
 
                 return View(viewModel);
-            }            
+            }
         }
 
         [HttpPost]
@@ -72,7 +73,7 @@ namespace NatisTracker.Controllers
                 viewModel.DriverViewModel.QuantityList = GetQuantity();
                 viewModel.SendToUserView = new SendToUserViewModel();
                 viewModel.SendToUserView.QuantityList = GetQuantity();
-                viewModel.SendToUserView.PeopleList = db.EmployeeDatas.Select(a => a.ContactName).ToList();
+                viewModel.SendToUserView.PeopleList = viewModel.RequestsList.Where(a => a.RequestStatus == "Accepted").Select(a => a.RequesterName).Distinct().ToList();
                 viewModel.Maturities = new PopulateViewModels().PopulateNatisData(db).Where(a => a.natisLocation.Equals("Contracts Maturities")).ToList();
                 viewModel.Call_Centre = new PopulateViewModels().PopulateNatisData(db).Where(a => a.natisLocation.Contains("Call Centre")).ToList();
                 viewModel.Legal = new PopulateViewModels().PopulateNatisData(db).Where(a => a.natisLocation.Equals("Legal")).ToList();
@@ -110,21 +111,24 @@ namespace NatisTracker.Controllers
 
             //if (ModelState.IsValid)
             //{
-                
-                if (viewModel.viewModel != null)
-                {
-                    viewModel.viewModel.QuantityList = GetQuantity();
-                    new DeliveryServiceOUT().sendDelivery(viewModel.viewModel, Session["Name"].ToString());
-                }
 
-                //if (viewMaster._DriverPackage != null)
-                //{
-                //    new DeliveryServiceOUT().ReceivePackage(viewMaster._DriverPackage, Session["Name"].ToString(), Session["Department"].ToString());
-                //    viewMaster._DriverPackage = PopulateDriverPackage1(db);
-                //}
-
-                viewModel.viewModel = new DeliveryitemViewModel();
+            if (viewModel.viewModel != null)
+            {
                 viewModel.viewModel.QuantityList = GetQuantity();
+                new DeliveryServiceOUT().sendDelivery(viewModel.viewModel, Session["Name"].ToString());
+            }
+
+            //if (viewMaster._DriverPackage != null)
+            //{
+            //    new DeliveryServiceOUT().ReceivePackage(viewMaster._DriverPackage, Session["Name"].ToString(), Session["Department"].ToString());
+            //    viewMaster._DriverPackage = PopulateDriverPackage1(db);
+            //}
+
+            string name = Session["Name"].ToString();
+
+            viewModel.RequestsList = new PopulateViewModels().PopulateRequestsData(db).Where(a => a.RequesterName.Equals(name)).ToList();
+            viewModel.viewModel = new DeliveryitemViewModel();
+            viewModel.viewModel.QuantityList = GetQuantity();
             //}
             return View(viewModel);
         }
@@ -180,8 +184,10 @@ namespace NatisTracker.Controllers
 
         }
         [HttpGet]
-        public ActionResult OriginationView()
+        public ActionResult OriginationView(string Firstname, string Surname, string EmailAddress, string Mobile)
         {
+            Session["Name"] = Firstname;
+            Session["Surname"] = Surname;
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
                 DeliveryViewModel viewModel = new DeliveryViewModel();
@@ -484,40 +490,7 @@ namespace NatisTracker.Controllers
             }
             return list;
         }
-        public string getVin(string contractNo)
-        {
-            try
-            {
-                //using connection string attributes to connect to Oracle Database
-                string connectionString = "Data Source=GALAXI;User ID=enatis_user;Password=Galaxi2017";
 
-
-                OracleConnection conn = new OracleConnection(connectionString);
-                conn.Open();
-
-                string query = "select af.asset_chassis_no from prop.application a " +
-                                                           "join prop.app_form af on af.id = a.current_form_id " +
-                                                           "where a.application_no = :contractNo";
-
-                OracleCommand cmd = new OracleCommand(query, conn);
-                cmd.Parameters.Add("contractNo", contractNo);
-                cmd.CommandType = CommandType.Text;
-
-                OracleDataReader dr = cmd.ExecuteReader();
-                dr.Read();
-
-                string vin = dr.GetString(0);
-                // Close and Dispose OracleConnection object
-                conn.Close();
-                conn.Dispose();
-                //Console.WriteLine("Disconnected");
-                return vin;
-            }
-            catch (Exception )
-            {
-                return null;
-            }
-        }
 
         public DeliveryViewModel PopulateDeliveryViewModel(DeliveryViewModel viewModel, Intern_LeaveDBEntities db)
         {
@@ -598,7 +571,7 @@ namespace NatisTracker.Controllers
             return viewModel;
         }
 
-        public DriverPackage PopulateDriverPackage(Intern_LeaveDBEntities db) 
+        public DriverPackage PopulateDriverPackage(Intern_LeaveDBEntities db)
         {
             DriverPackage driverPackage = new DriverPackage();
             var driver = db.TickBoxDatas.Where(a => a.RecipientName == null);
