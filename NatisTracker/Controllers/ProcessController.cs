@@ -101,10 +101,22 @@ namespace NatisTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                var a = Request.Files.Count;
-                viewModel.file = Request.Files[0];
+                viewModel.ScannedString = viewModel.ScannedString.Remove(viewModel.ScannedString.Length - 1).Remove(0, 1);
+                string[] arr = viewModel.ScannedString.Split('%');
 
-                new Collect().Scan(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
+                var load = new LoadNew();
+                viewModel.contractNo = load.getContractNo(arr[9]);
+                viewModel.vin = arr[9];
+                viewModel.registrationNo = arr[5];
+                viewModel.engineNo = arr[10];
+                viewModel.carMake = arr[7];
+                viewModel.seriesNo = load.getDescription(viewModel.contractNo);
+                viewModel.description = arr[6];
+                viewModel.registrationDate = Convert.ToDateTime(arr[12]);
+                viewModel.VehicleStatus = arr[11];
+                viewModel.OwnerName = arr[15];
+                viewModel.OwnerID = arr[14];
+                viewModel.natisLocation = "Safe Vault";
             }
 
             return View(viewModel);

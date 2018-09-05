@@ -140,6 +140,7 @@ namespace NatisTracker.Controllers
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
                 DeliveryitemViewModel viewModel = new DeliveryitemViewModel();
+                viewModel.NatisDataList = new PopulateViewModels().PopulateNatisData(db);
                 viewModel.CourierDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Courier")).ToList();
                 viewModel.DriverDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Driver")).ToList();
                 viewModel.ContractsDisplay = db.ContractNumbers.ToList();
@@ -171,6 +172,7 @@ namespace NatisTracker.Controllers
                     {
                         ModelState.Clear();
                         viewModel = new DeliveryitemViewModel();
+                        viewModel.NatisDataList = new PopulateViewModels().PopulateNatisData(db);
                         viewModel.CourierDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Courier")).ToList();
                         viewModel.DriverDeliveryDisplay = db.SentIN_Delivery.Where(a => a.DeliveryChoice.Equals("Driver")).ToList();
                         viewModel.ContractsDisplay = db.ContractNumbers.ToList();
@@ -188,6 +190,8 @@ namespace NatisTracker.Controllers
         {
             Session["Name"] = Firstname;
             Session["Surname"] = Surname;
+            Session["Email"] = EmailAddress;
+            Session["MobileNumber"] = Mobile;
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
                 DeliveryViewModel viewModel = new DeliveryViewModel();
@@ -212,7 +216,11 @@ namespace NatisTracker.Controllers
                 //    return View(viewModel);
                 //}
 
-                new DeliveryServiceIN().receiveDelivery(viewModel, Session["Name"].ToString(), Session["Email"].ToString());
+                var recipient = Session["Name"].ToString() + " " + Session["Surname"].ToString();
+                var email = Session["Email"].ToString();
+                var mobileNumber = Session["MobileNumber"].ToString();
+
+                new DeliveryServiceIN().receiveDelivery(viewModel, recipient, email);
                 viewModel = PopulateDeliveryViewModel(viewModel, db);
                 return View(viewModel);
             }
@@ -491,7 +499,6 @@ namespace NatisTracker.Controllers
             return list;
         }
 
-
         public DeliveryViewModel PopulateDeliveryViewModel(DeliveryViewModel viewModel, Intern_LeaveDBEntities db)
         {
             viewModel.CourierViewModel = new DeliveryCourierViewModel();
@@ -512,7 +519,9 @@ namespace NatisTracker.Controllers
                 itemViewModel.DealershipName = item.DealershipName;
                 itemViewModel.WaybillNumber = item.PackageNumber;
                 itemViewModel.PackageSender = item.PackageSender;
-                itemViewModel.Recipient = item.PackageRecipient;
+                itemViewModel.Recipient = Session["Name"].ToString()+" "+ Session["Surname"].ToString();
+                itemViewModel.RecipientContacts = Session["MobileNumber"].ToString();
+                itemViewModel.RecipientEmail = Session["Email"].ToString();
                 itemViewModel.DateSent = item.DateSent;
                 itemViewModel.DateRecieved = new DateTime();
                 itemViewModel.DeliveryStatus = item.CourierStatus;
@@ -543,7 +552,9 @@ namespace NatisTracker.Controllers
                 itemViewModel.DealershipName = item.DealershipName;
                 itemViewModel.WaybillNumber = item.PackageNumber;
                 itemViewModel.PackageSender = item.PackageSender;
-                itemViewModel.Recipient = item.PackageRecipient;
+                itemViewModel.Recipient = Session["Name"].ToString() + " " + Session["Surname"].ToString();
+                itemViewModel.RecipientContacts = Session["MobileNumber"].ToString();
+                itemViewModel.RecipientEmail = Session["Email"].ToString();
                 itemViewModel.DateSent = item.DateSent;
                 itemViewModel.DateRecieved = new DateTime();
                 itemViewModel.DriverContacts = item.DriverContact;
@@ -626,6 +637,15 @@ namespace NatisTracker.Controllers
             }
 
             return driverPackage;
+        }
+
+        public ActionResult ViewNatis(int id, string contractNo)
+        {
+            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            {
+                var natisData = db.NatisDatas.Where(m => m.RecordNumber == id).FirstOrDefault();
+                return File(natisData.eNatisPDF, "application/pdf", contractNo + ".pdf"); 
+            }
         }
     }
 }

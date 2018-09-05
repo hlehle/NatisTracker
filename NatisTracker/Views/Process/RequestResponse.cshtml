@@ -106,7 +106,12 @@
     <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" class="init">
         $(document).ready(function () {
-            $('#PackageTable').DataTable();
+            $('#PackageTable').DataTable({
+                "dom": '<"top"if>rt<"clear"><"bottom"lp>', language: {
+                    search: "_INPUT_", //To remove Search Label
+                    searchPlaceholder: "Search..."
+                }
+            });
         });
 
     </script>

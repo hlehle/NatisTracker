@@ -18,10 +18,9 @@
     <link href="~/Content/login.css" rel="stylesheet" />
 </head>
 
-
 <body>
-    <div class="limiter">
-        <div class="container-login100">
+    <div class="limiter" @*style="border-style:dashed;border-width:2px;border-color:red"*@>
+        <div class="container-login100" @*style="border-style:dashed;border-width:2px;border-color:red"*@>
             <div class="wrap-login100" style="background-color:#b2b2b2">
 
                 <div class="login100-form-title" style="background-image: url(../../img/Login7.jpg)">
@@ -36,7 +35,7 @@
                 @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "login100-form validate-form" }))
                 {
                     <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-                        <span class="label-input100">Username</span>
+                        <span class="label-input100" for="MyTextbox">Username</span>
                         @Html.TextBoxFor(a => a.UserName, new { @placeholder = "Enter Username", @class = "input100" })
                         <span class="focus-input100"></span>
                         @Html.ValidationMessageFor(a => a.UserName)

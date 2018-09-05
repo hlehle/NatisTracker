@@ -34,6 +34,7 @@ namespace EnatisRepository.Repo
         public string DriverContact { get; set; }
         public string DeliveryChoice { get; set; }
         public string SenderEmail { get; set; }
+        public string RecipientEmail { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContractNumber> ContractNumbers { get; set; }

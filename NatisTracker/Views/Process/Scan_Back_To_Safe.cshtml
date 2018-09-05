@@ -2,27 +2,19 @@
 
 <!DOCTYPE html>
 @{
-    ViewBag.Title = "Scan Back To Safe";
+    ViewBag.Title = "LoadNewNatis";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Scan Back to Safe &middot; FindMy Natis</title>
+    <title>Load New Natis &middot; FindMy Natis</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <style type="text/css">
-        .container {
-            height: 100%;
-            padding: 5px 5px 5px 5px;
-            margin-left: 1%;
-            margin-right: 1%;
-            width: 98%;
-        }
-
         table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -39,73 +31,109 @@
             background-color: #dddddd;
         }
 
+        .container {
+            height: 100%;
+            padding: 5px 5px 5px 5px;
+            margin-left: 1%;
+            margin-right: 1%;
+            width: 98%;
+        }
     </style>
 
 </head>
 
 <body>
-    <h3>Please scan Natis</h3>
+
+    <h3>Please Scan Natis</h3>
+
     <div class="container">
         <div class="tab-content">
-            <div id="Menu" class="tab-pane fade in active">
+            <div id="Scan" class="tab-pane fade in active">
 
                 @using (Html.BeginForm("Scan_Back_To_Safe", "Process", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    if (Model.contractNo != null)
+                    if (Model == null)
+                    {
+                        <h3>Barcode not clearly captured or Natis already in the Safe, please try again</h3>
+                    }
+
+                    else if (Model.engineNo != null)
                     {
                         <div class="table-responsive table table-striped">
                             <table class="table">
-                                <thead>
+                                <thead style="color:black; background-color:white">
                                     <tr>
-                                        <th>Contract Number</th>
+                                        <th>Contracts Number</th>
                                         <th>VIN Number</th>
-                                        <th>Date Scanned</th>
-                                        <th>User</th>
+                                        <th>Registration Number</th>
+                                        <th>Engine Number</th>
+                                        <th>Car Make</th>
+                                        <th>Series Number</th>
+                                        <th>Description</th>
+                                        <th>Registration Date</th>
+                                        <th>Owner name</th>
+                                        <th>Owner ID</th>
                                         <th>Natis Location</th>
-                                        <th>Contract Status</th>
-                                        <th>Comment</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>@Model.contractNo</td>
-                                        <td>@Model.VIN</td>
-                                        <td>@Model.Date</td>
-                                        <td>@Model.user</td>
-                                        <td>@Model.department</td>
-                                        <td>@Model.status</td>
-                                        <td>@Model.comment</td>
+                                        <td>@Model.vin</td>
+                                        <td>@Model.registrationNo</td>
+                                        <td>@Model.engineNo</td>
+                                        <td>@Model.carMake</td>
+                                        <td>@Model.seriesNo</td>
+                                        <td>@Model.description</td>
+                                        <td>@Model.registrationDate</td>
+                                        <td>@Model.OwnerName</td>
+                                        <td>@Model.OwnerID</td>
+                                        <td>@Model.natisLocation</td>
                                     </tr>
                                 </tbody>
-
 
                             </table>
                         </div>
                     }
-                    <br /><br />
-                    @Html.TextBoxFor(model => model.file, new { type = "file", id = "File", accept = "image/bmp", capture = "camera" })<br>
+
 
                     <br /><br />
-                    <div class="form-group">
-
-                        @Html.LabelFor(model => model.comment, "Comment", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextAreaFor(model => model.comment)
-                        </div>
-                    </div>
-
+                    @Html.TextAreaFor(model => model.ScannedString, new { @id="ScannerInput" ,@cols = 50, @rows = 5 })
                     <br /><br>
-                    <button class="btn btn-large btn-primary" type="submit">Scan</button>
 
+                    <button align="left" class="btn btn-large btn-primary" type="submit">Process Results</button>
                     <p align="right">
 
                         @Html.ActionLink("Back to previous page", "AdminView", "Users", null, null)
                     </p>
                 }
+
+
             </div>
         </div>
 
     </div>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var scannerInput = $("#ScannerInput");
+            scannerInput.blur();
+
+            scannerInput.keydown(function (ev) {
+               debugger;
+                if (ev === KeyboardEvent) {
+                    alert("Input from the Scanner or Shift key");
+                    return true;
+                }
+                else {
+                    alert("Input from the keyboard");
+                    return false;
+                }
+            });
+        });
+    </script>
+
 
 
 </body>

@@ -65,7 +65,8 @@ namespace NatisTracker.Deliveries
                             delivery.CourierStatus = viewModel.CourierViewModel.DeliveryItems[i].DeliveryStatus;
                             delivery.DateReceived = DateTime.Now;
                             delivery.PackageRecipient = name;
-                            
+                            delivery.RecipientEmail = email;
+
                             for (int j = 0; j < viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems.Count(); j++)
                             {
                                 var ContractViewModel = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j];
@@ -100,6 +101,7 @@ namespace NatisTracker.Deliveries
                             delivery.CourierStatus = viewModel.DriverViewModel.DeliveryItems[i].DeliveryStatus;
                             delivery.DateReceived = DateTime.Now;
                             delivery.PackageRecipient = name;
+                            delivery.RecipientEmail = email;
 
                             for (int j = 0; j < viewModel.DriverViewModel.DeliveryItems[i].ContractNumberItems.Count(); j++)
                             {
@@ -111,6 +113,7 @@ namespace NatisTracker.Deliveries
                                 contractnumbers.IsReceived = viewModel.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved;
                                 //contractnumbers.ContractNumber1 = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber;
                             }
+
                             db.SaveChanges();
 
                             string[] toArray = db.EmployeeDatas.Where(a => a.User_Type == "Admin").Select(a => a.Email).ToArray();

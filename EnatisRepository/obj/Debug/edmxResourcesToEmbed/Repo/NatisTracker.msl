@@ -46,6 +46,7 @@
     <EntitySetMapping Name="NatisDatas">
       <EntityTypeMapping TypeName="Intern_LeaveDBModel.NatisData">
         <MappingFragment StoreEntitySet="NatisData">
+          <ScalarProperty Name="eNatisPDF" ColumnName="eNatisPDF" />
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="User" ColumnName="User" />
           <ScalarProperty Name="DateLoaded" ColumnName="DateLoaded" />
@@ -97,6 +98,7 @@
     <EntitySetMapping Name="SentIN_Delivery">
       <EntityTypeMapping TypeName="Intern_LeaveDBModel.SentIN_Delivery">
         <MappingFragment StoreEntitySet="SentIN_Delivery">
+          <ScalarProperty Name="RecipientEmail" ColumnName="RecipientEmail" />
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="DealershipName" ColumnName="DealershipName" />
           <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />

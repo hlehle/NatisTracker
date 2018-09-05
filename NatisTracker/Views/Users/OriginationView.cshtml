@@ -49,6 +49,7 @@
 
     <div class="container">
         <div class="tab-content">
+            
             <div id="Courier" class="tab-pane fade in active">
                 @using (Html.BeginForm("OriginationView", "Users", FormMethod.Post))
                 {
@@ -75,6 +76,11 @@
                                 @for (int i = 0; i < Model.CourierViewModel.DeliveryItems.Count; i++)
                                 {
                                     var delivery = Model.CourierViewModel.DeliveryItems[i];
+                                    @Html.HiddenFor(a => delivery.Recipient, "Recipient")
+                                    @Html.HiddenFor(a => delivery.RecipientEmail, "RecipientEmail")
+                                    @Html.HiddenFor(a => delivery.RecipientContacts, "RecipientContacts")
+
+                                    
                                         <tr>
                                             <td>@delivery.DealershipName</td>
                                             <td>
@@ -144,6 +150,9 @@
                                 @for (int i = 0; i < Model.DriverViewModel.DeliveryItems.Count; i++)
                                 {
                                     var delivery = Model.DriverViewModel.DeliveryItems[i];
+                                    @Html.HiddenFor(a => delivery.Recipient, "Recipient")
+                                    @Html.HiddenFor(a => delivery.RecipientEmail, "RecipientEmail")
+                                    @Html.HiddenFor(a => delivery.RecipientContacts, "RecipientContacts")
                                         <tr>
                                             <td>@delivery.DealershipName</td>
                                             <td>

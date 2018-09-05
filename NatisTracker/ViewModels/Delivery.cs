@@ -33,6 +33,7 @@ namespace NatisTracker.ViewModels
         public string LName { get; set; }
         public string Recipient { get; set; }
         public string RecipientContacts { get; set; }
+        public string RecipientEmail { get; set; }
         public DateTime DateSent { get; set; }
         public DateTime DateRecieved { get; set; }
         public string DeliveryStatus { get; set; }
@@ -54,6 +55,8 @@ namespace NatisTracker.ViewModels
         public IList<SentIN_Delivery> DriverDeliveryDisplay { get; set; }
         //Contract Display view model is just to display the Deliveries from the db
         public IList<ContractNumber> ContractsDisplay { get; set; }
+
+        public IList<NatisDataViewModel> NatisDataList { get; set; }
     }
     public class DeliveryItemContractViewModel
     {

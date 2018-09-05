@@ -34,6 +34,7 @@ namespace NatisTracker.Controllers
                         Session["Name"] = emp.ContactName.ToString();
                         Session["Email"] = emp.Email.ToString();
                         Session["Department"] = emp.Department.ToString();
+                        
 
                         if ((bool)emp.IsChangePassword)
                         {

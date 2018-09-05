@@ -34,6 +34,7 @@ namespace EnatisRepository.Repo
         public string OwnerName { get; set; }
         public string OwnerIdentityNumber { get; set; }
         public string NatisLocation { get; set; }
+        public byte[] eNatisPDF { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContractsData> ContractsDatas { get; set; }

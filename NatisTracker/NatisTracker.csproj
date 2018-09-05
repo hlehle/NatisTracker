@@ -274,7 +274,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
-    <Content Include="Views\Process\LoadNewNatis.cshtml" />
+    <Content Include="Views\Process\ScanBack.cshtml" />
     <Content Include="Views\Process\RequestNatis.cshtml" />
     <Content Include="Views\Process\RequestResponse.cshtml" />
     <Content Include="Views\Process\Scan_Back_To_Safe.cshtml" />

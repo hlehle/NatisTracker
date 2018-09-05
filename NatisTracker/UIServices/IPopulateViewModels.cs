@@ -9,7 +9,6 @@ namespace NatisTracker.UIServices
 {
     public interface IPopulateViewModels
     {
-        
         List<EmployeeDataViewModel> PopulateEmployees(Intern_LeaveDBEntities db);
         List<NatisDataViewModel> PopulateNatisData(Intern_LeaveDBEntities db);
         List<ScanLogsDataViewModel> PopulateScanLogs(Intern_LeaveDBEntities db);

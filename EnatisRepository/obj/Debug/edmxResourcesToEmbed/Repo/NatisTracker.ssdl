@@ -57,6 +57,7 @@
     <Property Name="OwnerName" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="OwnerIdentityNumber" Type="nvarchar" MaxLength="13" Nullable="false" />
     <Property Name="NatisLocation" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="eNatisPDF" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="RequestsData">
     <Key>
@@ -105,6 +106,7 @@
     <Property Name="DriverContact" Type="nvarchar" MaxLength="50" />
     <Property Name="DeliveryChoice" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="SenderEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RecipientEmail" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SentOUT_Delivery">
     <Key>

@@ -61,6 +61,7 @@
     <Property Name="OwnerIdentityNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="NatisLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="ContractsDatas" Relationship="Self.FK_ContractsData_NatisData" FromRole="NatisData" ToRole="ContractsData" />
+    <Property Name="eNatisPDF" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="RequestsData">
     <Key>
@@ -110,6 +111,7 @@
     <Property Name="DeliveryChoice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="SenderEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="ContractNumbers" Relationship="Self.FK_ContractNumbers_SentIN_Delivery" FromRole="SentIN_Delivery" ToRole="ContractNumbers" />
+    <Property Name="RecipientEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="SentOUT_Delivery">
     <Key>

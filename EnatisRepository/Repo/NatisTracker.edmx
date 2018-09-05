@@ -62,6 +62,7 @@
           <Property Name="OwnerName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="OwnerIdentityNumber" Type="nvarchar" MaxLength="13" Nullable="false" />
           <Property Name="NatisLocation" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="eNatisPDF" Type="varbinary(max)" />
         </EntityType>
         <EntityType Name="RequestsData">
           <Key>
@@ -110,6 +111,7 @@
           <Property Name="DriverContact" Type="nvarchar" MaxLength="50" />
           <Property Name="DeliveryChoice" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SenderEmail" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="RecipientEmail" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="SentOUT_Delivery">
           <Key>
@@ -283,6 +285,7 @@
           <Property Name="OwnerIdentityNumber" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="NatisLocation" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ContractsDatas" Relationship="Self.FK_ContractsData_NatisData" FromRole="NatisData" ToRole="ContractsData" />
+          <Property Name="eNatisPDF" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="RequestsData">
           <Key>
@@ -332,6 +335,7 @@
           <Property Name="DeliveryChoice" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SenderEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="ContractNumbers" Relationship="Self.FK_ContractNumbers_SentIN_Delivery" FromRole="SentIN_Delivery" ToRole="ContractNumbers" />
+          <Property Name="RecipientEmail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SentOUT_Delivery">
           <Key>
@@ -492,6 +496,7 @@
           <EntitySetMapping Name="NatisDatas">
             <EntityTypeMapping TypeName="Intern_LeaveDBModel.NatisData">
               <MappingFragment StoreEntitySet="NatisData">
+                <ScalarProperty Name="eNatisPDF" ColumnName="eNatisPDF" />
                 <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
                 <ScalarProperty Name="User" ColumnName="User" />
                 <ScalarProperty Name="DateLoaded" ColumnName="DateLoaded" />
@@ -543,6 +548,7 @@
           <EntitySetMapping Name="SentIN_Delivery">
             <EntityTypeMapping TypeName="Intern_LeaveDBModel.SentIN_Delivery">
               <MappingFragment StoreEntitySet="SentIN_Delivery">
+                <ScalarProperty Name="RecipientEmail" ColumnName="RecipientEmail" />
                 <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
                 <ScalarProperty Name="DealershipName" ColumnName="DealershipName" />
                 <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
