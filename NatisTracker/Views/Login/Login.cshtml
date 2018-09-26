@@ -30,23 +30,23 @@
                 </div>
 
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
+                @Html.ValidationSummary(true, "", new { @class="text-danger"})
 
                 @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "login100-form validate-form" }))
                 {
-                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                    <div class="wrap-input100 validate-input m-b-26">
                         <span class="label-input100" for="MyTextbox">Username</span>
                         @Html.TextBoxFor(a => a.UserName, new { @placeholder = "Enter Username", @class = "input100" })
-                        <span class="focus-input100"></span>
-                        @Html.ValidationMessageFor(a => a.UserName)
+                        <span class="focus-input"100"></span>
+                        <span>@Html.ValidationMessageFor(a => a.UserName, "", new { @class="text-danger"})</span>
 
                     </div>
 
-                    <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                    <div class="wrap-input100 validate-input m-b-18">
                         <span class="label-input100">Password</span>
                         @Html.PasswordFor(a => a.Password, new { @placeholder = "Enter Password", @class = "input100" })
                         <span class="focus-input100"></span>
-                        @Html.ValidationMessageFor(a => a.Password)
+                        <span>@Html.ValidationMessageFor(a => a.Password,"", new { @class="text-danger"})</span>
                     </div>
 
                     @ViewBag.Message

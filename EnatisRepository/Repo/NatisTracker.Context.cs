@@ -29,11 +29,11 @@ namespace EnatisRepository.Repo
         public virtual DbSet<ContractsData> ContractsDatas { get; set; }
         public virtual DbSet<EmployeeData> EmployeeDatas { get; set; }
         public virtual DbSet<NatisData> NatisDatas { get; set; }
-        public virtual DbSet<RequestsData> RequestsDatas { get; set; }
         public virtual DbSet<ScanLogsData> ScanLogsDatas { get; set; }
         public virtual DbSet<SentIN_Delivery> SentIN_Delivery { get; set; }
         public virtual DbSet<SentOUT_Delivery> SentOUT_Delivery { get; set; }
         public virtual DbSet<SystemParam> SystemParams { get; set; }
         public virtual DbSet<TickBoxData> TickBoxDatas { get; set; }
+        public virtual DbSet<RequestsData> RequestsDatas { get; set; }
     }
 }

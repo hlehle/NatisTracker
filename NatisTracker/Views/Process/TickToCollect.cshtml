@@ -46,6 +46,8 @@
 
     @using (Html.BeginForm("TickToCollect", "Process", FormMethod.Post))
     {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class="text-danger"})
         <fieldset>
             <div class="table-responsive table table-striped">
 
@@ -88,11 +90,11 @@
                                     <td>@Html.TextAreaFor(a => a.TickBoxList[i].Comment, new {@cols = 30, @rows = 5 })</td>
                                     <td>
                                         @Html.DropDownListFor(a => a.TickBoxList[i].Reply, new List<SelectListItem>
-                                                {
-                                                    new SelectListItem { Text="Reply", Value = "Transit"},
-                                                    new SelectListItem { Text="Accept", Value = "Accepted"},
-                                                    new SelectListItem { Text="Deny", Value = "Denied"},
-                                                })
+                                        {
+                                            new SelectListItem { Text="Reply", Value = "Transit"},
+                                            new SelectListItem { Text="Accept", Value = "Accepted"},
+                                            new SelectListItem { Text="Deny", Value = "Denied"},
+                                        })
 
                                     </td>
                                 </tr>
@@ -108,6 +110,7 @@
                     @Html.HiddenFor(a => Model.PackageId)
 
                     <p>I confirm that I have received the above checked natis documents</p>
+                    <span class="col-md-4">@Html.ValidationMessageFor(a => a.IsConfirmed, "", new { @class = "text-danger" })</span>
                 </div>
 
             </div>

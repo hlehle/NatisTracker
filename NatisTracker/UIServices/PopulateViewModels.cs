@@ -57,6 +57,7 @@ namespace NatisTracker.UIServices
                 natis.OwnerID = item.OwnerIdentityNumber;
                 natis.OwnerName = item.OwnerName;
                 natis.natisLocation = item.NatisLocation;
+                natis.eNatisPDF = item.eNatisPDF;
 
                 natis.contractInformation = new List<ContractData>();
                 foreach (var contract in db.ContractsDatas)
@@ -120,11 +121,6 @@ namespace NatisTracker.UIServices
                 }
                                
                 req.Responder = item.Responder;
-
-                if (item.CollectionDate != null)
-                {
-                    req.CollectionDate = (DateTime)item.CollectionDate;
-                }
 
                 viewModel.Add(req);
             }

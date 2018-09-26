@@ -92,6 +92,16 @@
                         </tbody>
                             }
                         }
+                        <tfoot>
+                            <tr>
+                                <th>Request Status</th>
+                                <th>Request Date</th>
+                                <th>Contract Number</th>
+                                <th>Reply Date</th>
+                                <th>Responder Name</th>
+                                <th>Collection Date</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
@@ -121,6 +131,7 @@
                                 <th>Natis Location</th>
                                 <th>Contract Status</th>
                                 <th>Status Description</th>
+                                <th>eNatis PDF</th>
                             </tr>
                         </thead>
 
@@ -157,6 +168,7 @@
                                 <td>@Model.NatisDataList[i].natisLocation</td>
                                 <td>@contractStatus</td>
                                 <td>@statusDescription</td>
+                                <td>@Html.ActionLink("View Natis", "ViewNatis", new { id = Model.NatisDataList[i].RecordNumber, contractNo = contractNumber }, new { target = "_blank" })</td>
                             </tr>
 
                                     }
@@ -178,6 +190,7 @@
                                 <th>Natis Location</th>
                                 <th>Contract Status</th>
                                 <th>Status Description</th>
+                                <th>eNatis PDF</th>
                             </tr>
                         </tfoot>
                     </table>

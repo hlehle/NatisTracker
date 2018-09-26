@@ -1,4 +1,5 @@
-﻿@model NatisTracker.ViewModels.DeliveryitemViewModel
+﻿@using NatisTracker.ViewModels
+@model DeliveryitemViewModel
 
 <!DOCTYPE html>
 @{
@@ -53,16 +54,18 @@
 
         <div class="tab-content">
             <div id="SendPackage" class="tab-pane fade in active">
-
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <h3>Send Package Form</h3>
                 <br /><br />
 
                 @using (Html.BeginForm("DealershipView", "Users", FormMethod.Post))
                 {
-                    @Html.HiddenFor(model => model.DealershipName)
-                    @Html.HiddenFor(model => model.SenderEmail)
-                    @Html.HiddenFor(model => model.FName)
-                    @Html.HiddenFor(model => model.LName)
+                    @Html.HiddenFor(model => model.DealershipName, new { @id = "dealerID" })
+                    @Html.HiddenFor(model => model.SenderEmail, new { @id = "senderEmailID" })
+                    @Html.HiddenFor(model => model.FName, new { @id="fnameID"})
+                    @Html.HiddenFor(model => model.LName, new { @id = "lnameID" })
+                    @Html.HiddenFor(model => model.PackageSender, new { @id = "senderID" })
+                    @Html.HiddenFor(model => model.DeliveryStatus)
 
                     @Html.HiddenFor(model => model.ContractStrings)
 
@@ -71,59 +74,49 @@
                     <fieldset>
                         
                         <div class="form-group">
-                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
                             @Html.LabelFor(a => a.DeliveryChoice, "Delivery Choice", new { @class = "col-md-2 control-label" })
                             <div class="col-md-2">
-                                @using (Html.BeginForm("DealershipView", "Users", FormMethod.Post))
+                                @Html.DropDownListFor(a => a.DeliveryChoice, new List<SelectListItem>
                                 {
-                                    @Html.DropDownListFor(a => a.DeliveryChoice, new List<SelectListItem>
-                                    {
-                                        new SelectListItem { Text="Courier Company", Value = "Courier"},
-                                        new SelectListItem { Text="Physical Driver", Value = "Driver"},
-                                    }, "---Select one---", new { onchange = "this.form.submit()" })
-                                }
-                                @Html.ValidationMessageFor(model => model.DeliveryChoice, "", new { @class = "text-danger" })
+                                    new SelectListItem { Text="Courier Company", Value = "Courier"},
+                                    new SelectListItem { Text="Physical Driver", Value = "Driver"}
+                                }, "---Select one---", new { @id = "choice", @onchange = "deliveryChoice(this.value)"})
+                            </div>
+                            <span class="col-md-2">@Html.ValidationMessageFor(model => model.DeliveryChoice, "", new { @class = "text-danger" })</span>
+                        </div>
+                        <br /><br />
+                   
+                        <div class="form-group" id="courierDiv">
+                            @Html.LabelFor(a => a.WaybillNumber, "Waybill Number", new { @class = "col-md-2 control-label"})
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(a => a.WaybillNumber, new {@id="waybillId", disabled = "disabled" })
+                            </div>
+                        </div>
+                        <br /><br />
+                    
+                        <div class="form-group" id="driverDiv">
+                            @Html.LabelFor(a => a.DriverDetails, "Driver Details", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextAreaFor(a => a.DriverDetails, new { @id = "detailId", disabled = "disabled" })
                             </div>
                         </div>
                         <br /><br />
 
-                        @if (Model.DeliveryChoice != null && Model.DeliveryChoice.Equals("Courier"))
-                        {
-                            <div class="form-group">
-                                @Html.LabelFor(a => a.WaybillNumber, "Waybill Number", new { @class = "col-md-2 control-label" })
-                                <div class="col-md-2">
-                                    @Html.TextBoxFor(a => a.WaybillNumber)
-                                </div>
+                        <div class="form-group">
+                            @Html.LabelFor(a => a.DriverContacts, "Driver Contacts", new { @class = "col-md-2 control-label" })
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(a => a.DriverContacts, new { @id = "contactsId", disabled = "disabled" })
                             </div>
-                            <br /><br />
-                        }
-
-                        else if (Model.DeliveryChoice != null && Model.DeliveryChoice.Equals("Driver"))
-                        {
-                            <div class="form-group">
-                                @Html.LabelFor(a => a.DriverDetails, "Driver Details", new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextAreaFor(a => a.DriverDetails)
-                                </div>
-                            </div>
-                            <br /><br />
-
-                            <div class="form-group">
-                                @Html.LabelFor(a => a.DriverContacts, "Driver Contacts", new { @class = "col-md-2 control-label" })
-                                <div class="col-md-2">
-                                    @Html.TextBoxFor(a => a.DriverContacts)
-                                </div>
-                            </div>
-                            <br /><br />
-                        }
+                        </div>
+                        <br /><br />
 
                         <div class="form-group">
                             @Html.LabelFor(a => a.Quantity, "Item Quantity", new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
+                            <div class="col-md-2">
                                 @Html.DropDownListFor(a => a.Quantity, new SelectList(Model.QuantityList, ""), "---Select one---", new { @id = "Quantity" })
                             </div>
-                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+
+                            <span class="col-md-2">@Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })</span>
                         </div>
 
                         <br /><br />
@@ -154,7 +147,7 @@
                     @if (Model.CourierDeliveryDisplay != null)
                     {
                     <h3>Packages Sent By Courier Company</h3>
-                    <table class="table">
+                    <table class="table" id="courierTable">
                         <thead style="color:black; background-color:white">
                             <tr>
                                 <th>Waybill Number</th>
@@ -217,7 +210,7 @@
                     @if (Model.DriverDeliveryDisplay != null)
                     {
                     <h3>Packages Sent By Driver</h3>
-                    <table class="table">
+                    <table class="table" id="driverTable">
                         <thead style="color:black; background-color:white">
                             <tr>
                                 <th>Driver Details</th>
@@ -367,7 +360,7 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 
     <script type="text/javascript">
-        $(function () {
+        $(document).ready(function () {
             $("#btnSubmit").click(function () {
 
                 var contracts = "";
@@ -376,7 +369,7 @@
                     debugger;
                     var con = prompt("Please enter Proposal Number " + i + " of " + q, "");
                     var length = con.length;
-                    var IsNotNumber = isNaN(con);                        
+                    var IsNotNumber = isNaN(con);
 
                     //while invalid entry
                     while (length < 6 || IsNotNumber) {
@@ -392,69 +385,58 @@
 
             });
 
-            $('#searchTable').DataTable({
+            $('#searchTable, #driverTable, #courierTable').DataTable({
                 "dom": '<"top"if>rt<"clear"><"bottom"lp>', language: {
                     search: "_INPUT_", //To remove Search Label
                     searchPlaceholder: "Search..."
                 }
             });
         });
-    </script>
 
+        function deliveryChoice(choice) {
+            //debugger;
 
-    @*<div id='myModal' class='modal'>
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div id='myModalContent'></div>
-            </div>
-        </div>
+            $.ajax({
+                type: "GET",
+                url: "/Users/DealershipView",
+                data: {
+                    'DealershipName': '@Model.DealershipName',
+                    'FName': $('#fnameID').val(),
+                    'LName': $('#lnameID').val(),
+                    'EmailAddress': '@Model.SenderEmail',
+                    'choice': choice
+                },
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        var object = JSON.parse(v);
 
-    </div>
+                        if (object.DeliveryChoice === "Courier") {
+                            document.getElementById("waybillId").disabled = false;
 
-    @section scripts
-{
-        <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-        <script src="~/Scripts/bootstrap.js"></script>
-        <script src="~/Scripts/bootstrap.min.js"></script>
-        <script>
-
-            var TeamDetailPostBackURL = '/Users/Details';
-            $(function () {
-                $("#btnSubmit").click(function () {
-                    console.log(5 + 6);
-                    debugger;
-                    var id = $("#Quantity").val();
-                    var options = { "backdrop": "static", keyboard: true };
-                    $.ajax({
-                        type: "GET",
-                        url: TeamDetailPostBackURL,
-                        contentType: "application/json; charset=utf-8",
-                        data: { "Id": id },
-                        datatype: "json",
-                        success: function (data) {
-                            debugger;
-                            $('#myModalContent').html(data);
-                            $('#myModal').modal(options);
-                            $('#myModal').modal('show');
-
-                        },
-                        error: function () {
-                            debugger;
-                            alert("Dynamic content load failed.");
+                            document.getElementById("detailId").disabled = true;
+                            document.getElementById("contactsId").disabled = true;
                         }
-                    });
-                });
-                //$("#closebtn").on('click',function(){
-                //    $('#myModal').modal('hide');
+                        else if (object.DeliveryChoice === "Driver") {
+                            document.getElementById("waybillId").disabled = true;
 
-                $("#closbtn").click(function () {
-                    $('#myModal').modal('hide');
-                });
+                            document.getElementById("detailId").disabled = false;
+                            document.getElementById("contactsId").disabled = false;
+                        }
+                        else {
+                            document.getElementById("waybillId").disabled = false;
+                            document.getElementById("detailId").disabled = false;
+                            document.getElementById("contactsId").disabled = false;
+                        }
+
+                        //alert(object.DeliveryChoice + " Choice");
+                    })
+                },
+                error:function (data) {
+                    alert("Error Choice");
+                }
             });
-
-        </script>
-
-    }*@
+        };
+    </script>
 
 </body>
 

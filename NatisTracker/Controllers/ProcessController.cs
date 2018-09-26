@@ -76,6 +76,8 @@ namespace NatisTracker.Controllers
         [HttpPost]
         public ActionResult RequestResponse(FormCollection form)
         {
+            
+
             if (ModelState.IsValid)
             {
                 new Respond().respond(form, @Session["Name"].ToString(), Session["Email"].ToString());
@@ -107,6 +109,7 @@ namespace NatisTracker.Controllers
                 var load = new LoadNew();
                 viewModel.contractNo = load.getContractNo(arr[9]);
                 viewModel.vin = arr[9];
+                var vin = viewModel.vin;
                 viewModel.registrationNo = arr[5];
                 viewModel.engineNo = arr[10];
                 viewModel.carMake = arr[7];
@@ -117,6 +120,13 @@ namespace NatisTracker.Controllers
                 viewModel.OwnerName = arr[15];
                 viewModel.OwnerID = arr[14];
                 viewModel.natisLocation = "Safe Vault";
+
+                using (var db = new Intern_LeaveDBEntities())
+                {
+                    var natis = db.NatisDatas.Where(a => a.VinNumber == vin).FirstOrDefault();
+                    natis.NatisLocation = viewModel.natisLocation;
+                    db.SaveChanges();
+                }
             }
 
             return View(viewModel);
@@ -135,10 +145,31 @@ namespace NatisTracker.Controllers
 
             if (ModelState.IsValid)
             {
-                var a = Request.Files.Count;
-                viewModel.file = Request.Files[0];
+                viewModel.ScannedString = viewModel.ScannedString.Remove(viewModel.ScannedString.Length - 1).Remove(0, 1);
+                string[] arr = viewModel.ScannedString.Split('%');
 
-                new Collect().Scan(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
+                var load = new LoadNew();
+                viewModel.contractNo = load.getContractNo(arr[9]);
+                viewModel.vin = arr[9];
+                var vin = viewModel.vin;
+                viewModel.registrationNo = arr[5];
+                viewModel.engineNo = arr[10];
+                viewModel.carMake = arr[7];
+                viewModel.seriesNo = load.getDescription(viewModel.contractNo);
+                viewModel.description = arr[6];
+                viewModel.registrationDate = Convert.ToDateTime(arr[12]);
+                viewModel.VehicleStatus = arr[11];
+                viewModel.OwnerName = arr[15];
+                viewModel.OwnerID = arr[14];
+                viewModel.natisLocation = Session["Department"].ToString();
+
+                using (var db = new Intern_LeaveDBEntities())
+                {
+                    var natis = db.NatisDatas.Where(a => a.VinNumber == vin).FirstOrDefault();
+                    natis.NatisLocation = viewModel.natisLocation;
+                    db.SaveChanges();
+                }
+
             }
 
             return View(viewModel);
@@ -190,20 +221,18 @@ namespace NatisTracker.Controllers
             using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
             {
                 TryUpdateModel(viewModel);
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+                if (ModelState.IsValid && viewModel.IsConfirmed)
+                {
+                    new DeliveryServiceOUT().SendNatis(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
+                    ModelState.Clear();
+                }
 
-                //if (ModelState.IsValid)
-                //{
-
-                new DeliveryServiceOUT().SendNatis(viewModel, Session["Name"].ToString(), Session["Department"].ToString());
                 viewModel = new PopulateViewModels().PopulateTickBoxData(db);
                 var internalUser = Session["Name"].ToString();
                 viewModel.TickBoxList = viewModel.TickBoxList.Where(a => a.RecipientType.Equals("Internal User") && a.RecipientName.Equals(internalUser)).ToList();
-                ModelState.Clear();
+               
                 return View(viewModel);
-
-                //}
-
-
             }
         }
 

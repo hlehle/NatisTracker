@@ -29,6 +29,7 @@ namespace NatisTracker.ViewModels
         public string ScanningUser { get; set; }
         public string Comment { get; set; }
         public string VehicleStatus { get; set; }
+        public byte[] eNatisPDF { get; set; }
     }
 
     public class ContractData

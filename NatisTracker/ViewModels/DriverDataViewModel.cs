@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -24,6 +25,7 @@ namespace NatisTracker.ViewModels
     public class TickBoxViewModelList
     {
         public int PackageId { get; set; }
+        [Required, Range(typeof(bool), "true", "true", ErrorMessage = "The field Is Confirmed must be checked.")]
         public bool IsConfirmed { get; set; }
         public List<TickBoxViewModel> TickBoxList { get; set; }
     }

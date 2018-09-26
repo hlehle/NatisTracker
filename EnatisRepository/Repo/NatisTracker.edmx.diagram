@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="Intern_LeaveDBModel.ContractsData" Width="1.5" PointX="8" PointY="1.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Intern_LeaveDBModel.EmployeeData" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Intern_LeaveDBModel.NatisData" Width="1.5" PointX="5.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Intern_LeaveDBModel.RequestsData" Width="1.5" PointX="4.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Intern_LeaveDBModel.ScanLogsData" Width="1.5" PointX="6.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Intern_LeaveDBModel.SentIN_Delivery" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="Intern_LeaveDBModel.SentOUT_Delivery" Width="1.5" PointX="8.75" PointY="5.75" IsExpanded="true" />
@@ -18,6 +17,7 @@
         <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractNumbers_SentIN_Delivery" ManuallyRouted="false" />
         <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractNumbers_TickBoxData" ManuallyRouted="false" />
         <AssociationConnector Association="Intern_LeaveDBModel.FK_ContractsData_NatisData" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Intern_LeaveDBModel.RequestsData" Width="1.5" PointX="4.625" PointY="6.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -43,8 +43,8 @@
 </head>
 <body>
     <ul class="nav nav-tabs nav-pills" data-tabs="tabs" id="myTab">
-        <li class="active"><a data-toggle="tab" href="#Courier">Sent By Courier</a></li>
-        <li><a data-toggle="tab" href="#Driver">Sent By Driver</a></li>
+        <li class="active" id="CourierTab"><a data-toggle="tab" href="#Courier">Sent By Courier</a></li>
+        <li id="DriverTab"><a data-toggle="tab" href="#Driver">Sent By Driver</a></li>
     </ul>
 
     <div class="container">
@@ -55,6 +55,7 @@
                 {
                     <div class="table-responsive table table-striped">
                         <h3>Sent By Courier</h3>
+
                         <br /><br />
                         @if (Model.CourierViewModel != null)
                         {
@@ -80,37 +81,46 @@
                                     @Html.HiddenFor(a => delivery.RecipientEmail, "RecipientEmail")
                                     @Html.HiddenFor(a => delivery.RecipientContacts, "RecipientContacts")
 
-                                    
-                                        <tr>
-                                            <td>@delivery.DealershipName</td>
-                                            <td>
-                                                @for (int j = 0; j < Model.CourierViewModel.DeliveryItems[i].ContractNumberItems.Count; j++)
-                                                {
-                                                    @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].RecordNumber)
-                                                    <div class="checkbox">
-                                                        @Html.CheckBoxFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved)
-                                                        @Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber<br />
-                                                        @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber)
-                                                        @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].RecordNumber)
-                                                    </div>
-                                                }
-                                            </td>
-                                            <td>@delivery.WaybillNumber</td>
-                                            <td>@delivery.Quantity</td>
-                                            <td>@delivery.PackageSender</td>
-                                            <td>@delivery.DateSent</td>
-                                            <td>@delivery.DeliveryStatus</td>
-                                            <td>@delivery.Comment</td>
-                                            <td>
+                                    <tr>
+                                        <td>@delivery.DealershipName</td>
+                                        <td>
+                                            @for (int j = 0; j < Model.CourierViewModel.DeliveryItems[i].ContractNumberItems.Count; j++)
+                                            {
+                                                @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].RecordNumber)
+                                                @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].DealershipName)
+                                                @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].DeliveryChoice)
+                                                @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].Quantity)
+
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved)
+                                                    @Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber<br />
+                                                    @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber)
+                                                    @Html.HiddenFor(a => Model.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].RecordNumber)
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>@delivery.WaybillNumber</td>
+                                        <td>@delivery.Quantity</td>
+                                        <td>@delivery.PackageSender</td>
+                                        <td>@delivery.DateSent</td>
+                                        <td>@delivery.DeliveryStatus</td>
+                                        <td>@delivery.Comment</td>
+                                        <td>
+                                            <div class="form-group">
+                                                @Html.AntiForgeryToken()
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    
+
                                                 @Html.DropDownListFor(a => a.CourierViewModel.DeliveryItems[i].DeliveryStatus, new List<SelectListItem>
                                                 {
-                                                    new SelectListItem { Text="Reply", Value = "Transit"},
                                                     new SelectListItem { Text="Received", Value = "Received"},
                                                     new SelectListItem { Text="Not Received", Value = "Not Received"},
-                                                })
+                                                },"Reply", new { @class= "col-md-8" })
+                                                <span class="col-md-2">@Html.ValidationMessageFor(model => model.CourierViewModel.DeliveryItems[i].DeliveryStatus, "", new { @class = "text-danger" })</span>
+                                            </div>
 
-                                            </td>
-                                        </tr>
+                                        </td>
+                                    </tr>
                                 }
                                     </tbody>
                             </table>
@@ -119,7 +129,7 @@
                     </div>
                     <br /><br />
 
-                    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-large btn-primary" type="submit" id="CourierBtn">Submit</button>
                 }
             </div>
 
@@ -128,6 +138,7 @@
                 {
                     <div class="table-responsive table table-striped">
                         <h3>Sent By Driver</h3>
+
                         <br /><br />
                         @if (Model.DriverViewModel != null)
                         {
@@ -159,6 +170,10 @@
                                                 @for (int j = 0; j < Model.DriverViewModel.DeliveryItems[i].ContractNumberItems.Count; j++)
                                                 {
                                                     @Html.HiddenFor(a => Model.DriverViewModel.DeliveryItems[i].RecordNumber)
+                                                    @Html.HiddenFor(a => Model.DriverViewModel.DeliveryItems[i].DealershipName)
+                                                    @Html.HiddenFor(a => Model.DriverViewModel.DeliveryItems[i].DeliveryChoice)
+                                                    @Html.HiddenFor(a => Model.DriverViewModel.DeliveryItems[i].Quantity)
+
                                                     <div class="checkbox">
                                                         @Html.CheckBoxFor(a => Model.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].IsRecieved)
                                                         @Model.DriverViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber<br />
@@ -176,12 +191,18 @@
                                             <td>@delivery.DeliveryStatus</td>
                                             <td>@delivery.Comment</td>
                                             <td>
-                                                @Html.DropDownListFor(a => a.DriverViewModel.DeliveryItems[i].DeliveryStatus, new List<SelectListItem>
+                                                <div class="form-group">
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    @Html.AntiForgeryToken()
+
+                                                    @Html.DropDownListFor(a => a.DriverViewModel.DeliveryItems[i].DeliveryStatus, new List<SelectListItem>
                                                     {
-                                                        new SelectListItem { Text="Reply", Value = "Transit"},
                                                         new SelectListItem { Text="Received", Value = "Received"},
                                                         new SelectListItem { Text="Not Received", Value = "Not Received"},
-                                                    })
+                                                    },"Reply", new { @class="col-md-10"})
+                                                    <span class="col-md-2">@Html.ValidationMessageFor(model => model.DriverViewModel.DeliveryItems[i].DeliveryStatus, "", new { @class = "text-danger" })</span>
+                                                </div>
+                                                
 
                                             </td>
                                         </tr>
@@ -193,9 +214,10 @@
                     </div>
                     <br /><br />
 
-                    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                    <button class="btn btn-large btn-primary" type="submit" id="DriverBtn">Submit</button>
                 }
             </div>
+
         </div>
     </div>
 
@@ -207,6 +229,18 @@
         $(document).ready(function () {
             $('#CourierTable').DataTable();
             $('#DriverTable').DataTable();
+
+            $("#DriverBtn").click(function () {
+                debugger;
+                $("#CourierTab").removeClass("active");  // this deactivates the home tab
+                $("#DriverTab").addClass("active");  // this activates the profile tab
+            });
+
+            $("#CourierBtn").click(function () {
+                debugger;
+                $("#DriverTab").removeClass("active");  // this deactivates the home tab
+                $("#CourierTab").addClass("active");  // this activates the profile tab
+            }); 
         });
 
     </script>

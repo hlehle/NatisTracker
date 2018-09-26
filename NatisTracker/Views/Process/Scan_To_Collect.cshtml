@@ -45,70 +45,154 @@
 
 <body>
 
+    <h3>Please Scan Natis</h3>
+
     <div class="container">
         <div class="tab-content">
-            <div id="Menu" class="tab-pane fade in active">
+            <div id="Scan" class="tab-pane fade in active">
 
                 @using (Html.BeginForm("Scan_To_Collect", "Process", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    if (Model.contractNo != null)
+                    if (Model == null)
+                    {
+                        <h3>Barcode not clearly captured or Natis already in the Safe, please try again</h3>
+                    }
+
+                    else if (Model.engineNo != null)
                     {
                         <div class="table-responsive table table-striped">
                             <table class="table">
-                                <thead>
+                                <thead style="color:black; background-color:white">
                                     <tr>
-                                        <th>Contract Number</th>
+                                        <th>Contracts Number</th>
                                         <th>VIN Number</th>
-                                        <th>Date Scanned</th>
-                                        <th>User</th>
+                                        <th>Registration Number</th>
+                                        <th>Engine Number</th>
+                                        <th>Car Make</th>
+                                        <th>Series Number</th>
+                                        <th>Description</th>
+                                        <th>Registration Date</th>
+                                        <th>Owner name</th>
+                                        <th>Owner ID</th>
                                         <th>Natis Location</th>
-                                        <th>Contract Status</th>
-                                        <th>Status Description</th>
-                                        <th>Comment</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>@Model.contractNo</td>
                                         <td>@Model.vin</td>
-                                        <td>@Model.DateScanned</td>
-                                        <td>@Model.ScanningUser</td>
-                                        <td>@Model.Department</td>
-                                        <td>@Model.ContractStatus</td>
-                                        <td>@Model.StatusDescription</td>
-                                        <td>@Model.Comment</td>
+                                        <td>@Model.registrationNo</td>
+                                        <td>@Model.engineNo</td>
+                                        <td>@Model.carMake</td>
+                                        <td>@Model.seriesNo</td>
+                                        <td>@Model.description</td>
+                                        <td>@Model.registrationDate</td>
+                                        <td>@Model.OwnerName</td>
+                                        <td>@Model.OwnerID</td>
+                                        <td>@Model.natisLocation</td>
                                     </tr>
                                 </tbody>
-
 
                             </table>
                         </div>
                     }
-                    <br /><br />
-                    <button class="btn btn-large btn-primary" type="submit">Scan</button>
 
-                    @Html.TextBoxFor(model => model.ScannedString, new { type = "string", id = "File", accept = "", capture = "camera" })<br>
 
                     <br /><br />
-                            <div class="form-group">
+                    @Html.TextAreaFor(model => model.ScannedString, new { @class = "barcodeinput", @id = "ScannerInput", @cols = 50, @rows = 5 })
+                    <br /><br>
 
-                                @Html.LabelFor(model => model.Comment, "Comment", new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextAreaFor(model => model.Comment)
-                                </div>
-                            </div>
+                    <h3 id="msg" />
 
-                            <br /><br>
-                            
+                    <button align="left" class="btn btn-large btn-primary nextcontrol" type="submit">Process Results</button>
+                    <p align="right">
 
-                            <p align="right">
-
-                                @Html.ActionLink("Back to previous page", "AdminView", "Users", null, null)
-                            </p>
+                        @Html.ActionLink("Back to previous page", "AdminView", "Users", null, null)
+                    </p>
                 }
+
+
             </div>
         </div>
+
     </div>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var scannerInput = $("#ScannerInput");
+            scannerInput.blur();
+            var inputLength = 0;
+            var elapsed = 0;
+
+            scannerInput.keydown(function (ev) {
+                //start = new Date().getTime();
+                //elapsed = elapsed + start;
+                //inputLength++;
+                //var inputType = "";
+
+                //if (inputLength === 2 && elapsed > 3074711694840) {
+                //    //debugger;
+                //    inputType = "keyboard";
+                //    alert("Input from the keyboard");
+
+                //    this.value = '';
+                //}
+
+                //else {
+                //    //debugger;
+                //    //alert("Scanner Input");
+                //    inputType = "scanner";
+                //}
+
+                //if (inputType === "keyboard") {
+                //    debugger;
+                //    document.onkeydown = function (e) {
+                //        return false;
+                //    }
+                //}
+
+                //debugger;
+                //document.onkeydown = function (e) { return true; }
+                //if (ev.key !== "Shift") {
+                //    debugger;
+                //    document.onkeydown = function (e) {
+                //        return false;
+                //    }
+                //}
+                //else {
+                //    debugger;
+                //    document.onkeydown = function (e) { return true;}
+                //}
+            })
+
+
+            // bind an event listener to the keydown event on the window
+            //window.addEventListener('keydown', function (event) {
+            //    //debugger
+            //    // if the keyCode is 16 ( shift key was pressed )
+            //    if (event.keyCode === 16) {
+
+            //        // prevent default behaviour
+            //        event.preventDefault();
+
+            //        return false;
+            //    }
+                //debugger;
+                //var e = e || event;
+
+                //if (e.shiftKey === true) {
+                //    return true;
+                //}
+
+
+            //});
+
+
+
+        });
+    </script>
+
 
 
 </body>

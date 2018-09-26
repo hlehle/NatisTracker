@@ -127,14 +127,6 @@ namespace NatisTracker.Deliveries
                 }
 
                 else { }
-
-                //db.SaveChanges();
-
-                //string to = email;
-                //string subject = "To whom it may concern";
-                //string body = "A new ";
-                //SystemEmailSender.SendMail(to, subject, body);
-
                 return viewModel;
             }
         }

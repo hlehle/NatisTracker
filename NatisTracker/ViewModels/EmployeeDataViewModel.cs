@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -9,9 +10,11 @@ namespace NatisTracker.ViewModels
     {
         public int RecordNumber { get; set; }
         public string UserId { get; set; }
+        [Required]
         public string UserName { get; set; }
         public string Employee_Surname { get; set; }
         public string ContactName { get; set; }
+        [Required]
         public string Password { get; set; }
         public string Department { get; set; }
         public string User_Type { get; set; }

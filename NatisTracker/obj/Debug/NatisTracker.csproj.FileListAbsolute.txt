@@ -48,3 +48,5 @@ C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Webpages.Razor.
 C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Helpers.xml
 C:\Development\Projects\NatisTracker\NatisTracker\bin\System.Web.Mvc.xml
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.pdb
+C:\Development\Projects\NatisTracker\NatisTracker\bin\Newtonsoft.Json.dll
+C:\Development\Projects\NatisTracker\NatisTracker\bin\Newtonsoft.Json.xml

@@ -36,6 +36,7 @@ namespace NatisTracker.ViewModels
         public string RecipientEmail { get; set; }
         public DateTime DateSent { get; set; }
         public DateTime DateRecieved { get; set; }
+        [Required]
         public string DeliveryStatus { get; set; }
         [Required]
         public string DeliveryChoice { get; set; }

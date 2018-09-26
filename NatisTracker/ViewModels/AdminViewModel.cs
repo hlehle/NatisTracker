@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using NatisTracker.ViewModels;
+using System.ComponentModel.DataAnnotations;
 
 namespace NatisTracker.ViewModels
 {
@@ -25,6 +26,7 @@ namespace NatisTracker.ViewModels
 
     public class DriverDocsViewModel
     {
+        [Required]
         public int Quantity { get; set; }
         public List<int> QuantityList { get; set; }
         public string ContractNumber { get; set; }
@@ -34,12 +36,14 @@ namespace NatisTracker.ViewModels
 
     public class SendToUserViewModel
     {
+        [Required]
         public int Quantity { get; set; }
         public List<int> QuantityList { get; set; }
         public string ContractNumber { get; set; }
         public List<string> ContractList { get; set; }
         public string Comment { get; set; }
         public List<string> PeopleList { get; set; }
+        [Required]
         public string RecipientName { get; set; }
     }
 }

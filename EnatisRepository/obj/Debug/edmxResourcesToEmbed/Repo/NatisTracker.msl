@@ -64,22 +64,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="RequestsDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.RequestsData">
-        <MappingFragment StoreEntitySet="RequestsData">
-          <ScalarProperty Name="CollectionDate" ColumnName="CollectionDate" />
-          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
-          <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
-          <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />
-          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
-          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-          <ScalarProperty Name="Vin" ColumnName="Vin" />
-          <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
-          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
-          <ScalarProperty Name="Responder" ColumnName="Responder" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="ScanLogsDatas">
       <EntityTypeMapping TypeName="Intern_LeaveDBModel.ScanLogsData">
         <MappingFragment StoreEntitySet="ScanLogsData">
@@ -157,6 +141,21 @@
           <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
           <ScalarProperty Name="RecipientType" ColumnName="RecipientType" />
           <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestsDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.RequestsData">
+        <MappingFragment StoreEntitySet="RequestsData">
+          <ScalarProperty Name="Responder" ColumnName="Responder" />
+          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+          <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+          <ScalarProperty Name="Vin" ColumnName="Vin" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+          <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />
+          <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -76,8 +76,8 @@ namespace NatisTracker.Deliveries
 
                                 var natisContract = db.ContractsDatas.Where(a => a.ContractNumber == contractnumbers.ContractNumber1).FirstOrDefault();
                                 var natis = db.NatisDatas.Where(a => a.VinNumber == natisContract.VinNumber).FirstOrDefault();
-                                var collectionDate = db.RequestsDatas.Where(a => a.ContractNo == contractNumber).Select(a => a.CollectionDate).FirstOrDefault();
-                                collectionDate = DateTime.Now;
+                                //var collectionDate = db.RequestsDatas.Where(a => a.ContractNo == contractNumber).Select(a => a.CollectionDate).FirstOrDefault();
+                                //collectionDate = DateTime.Now;
 
                                 if (viewModel.IsConfirmed && (bool)contractnumbers.IsReceived && viewModel.TickBoxList[i].Reply.Equals("Accepted"))
                                 {
@@ -110,6 +110,8 @@ namespace NatisTracker.Deliveries
                                         natis.NatisLocation = department;
                                     }
                                 }
+
+
                                 //contractnumbers.ContractNumber1 = viewModel.CourierViewModel.DeliveryItems[i].ContractNumberItems[j].ContractNumber;
                             }
                         }

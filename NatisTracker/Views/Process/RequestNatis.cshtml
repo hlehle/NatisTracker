@@ -49,19 +49,25 @@
         <br /><br />
         <div class="container">
             <div class="tab-content">
-                <fieldset>
-                    <div class="form-group">
-                        
+                <fieldset @*style="border:dashed;border-color:red;border-width:2px;padding:10px"*@>
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    <div class="form-group" @*style="border:dashed;border-color:white;border-width:2px"*@>
                         @Html.LabelFor(a => a.contractNo, "Enter Contract Number", new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(a => a.contractNo, new { @id="myInput"})
+                        <div class="col-md-2">
+                            @Html.TextBoxFor(a => a.contractNo, new { @id = "myInput" })
                         </div>
+                        <span class="col-md-2">@Html.ValidationMessageFor(a => a.contractNo, "", new { @class = "text-danger" })</span>
                     </div>
+                    
+                    <br /><br /><br />
                     <button class="btn btn-large btn-primary" type="submit">Request</button>
+
                     <p align="right">
-                        
                         @Html.ActionLink("Back to previous page", "UserView", "Users", null, null)
                     </p>
+
                 </fieldset>
             </div>
         </div>

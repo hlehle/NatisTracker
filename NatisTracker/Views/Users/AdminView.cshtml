@@ -623,7 +623,7 @@
                 }
 
 
-            </div>
+            </div> 
 
             <div id="logs" class="tab-pane fade in">
                 <br />
@@ -950,6 +950,16 @@
                             }
                         </tbody>
                         }
+                        <tfoot style="color:black; background-color:white">
+                            <tr>
+                                <th>Requester Name</th>
+                                <th>Request Status</th>
+                                <th>Request Date</th>
+                                <th>Contract Number</th>
+                                <th>Reply Date</th>
+                                <th>Responder Name</th>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
 
@@ -961,34 +971,39 @@
             <div id="SubmitNatis_User" class="tab-pane fade in">
                 @using (Html.BeginForm("AdminView", "Users", FormMethod.Post))
                 {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true,"", new { @class="text-danger"})
                     if (Model.SendToUserView != null)
                     {
                         @Html.HiddenFor(a => a.SendToUserView.ContractNumber, new { @id="UserId"})
                         <fieldset>
                             <br /><br />
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
                                 @Html.LabelFor(a => a.SendToUserView.Quantity, "Item Quantity", new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
+                                <div class="col-md-2">
                                     @Html.DropDownListFor(a => a.SendToUserView.Quantity, new SelectList(Model.SendToUserView.QuantityList, ""), "Select", new { @id = "UserQuantity" })
                                 </div>
+                                <span class="col-md-2">@Html.ValidationMessageFor(a => a.SendToUserView.Quantity,"",new { @class="text-danger"})</span>
                             </div>
                             <br />
 
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
                                 @Html.LabelFor(a => a.SendToUserView.RecipientName, "Recipient Name", new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
+                                <div class="col-md-2">
                                     @Html.DropDownListFor(a => a.SendToUserView.RecipientName, new SelectList(Model.SendToUserView.PeopleList, ""), "Select")
                                 </div>
+                                <span class="col-md-2">@Html.ValidationMessageFor(a => a.SendToUserView.RecipientName, "", new { @class = "text-danger" })</span>
                             </div>
                             <br />
 
-                            <div class="form-group">
+                            <div class="form-group col-md-12">
                                 @Html.LabelFor(a => a.SendToUserView.Comment, "Comment", new { @class = "col-md-2 control-label" })
                                 <div class="col-md-10">
                                     @Html.TextAreaFor(a => a.SendToUserView.Comment)
                                 </div>
                             </div>
 
+                            <br /><br />
                             <button class="btn btn-large btn-primary" id="Userbtn" type="submit">Send</button>
                         </fieldset>
                     }

@@ -72,7 +72,6 @@
     <Property Name="ContractNo" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ReplyDate" Type="datetime" />
     <Property Name="Responder" Type="nvarchar" MaxLength="50" />
-    <Property Name="CollectionDate" Type="datetime" />
   </EntityType>
   <EntityType Name="ScanLogsData">
     <Key>
