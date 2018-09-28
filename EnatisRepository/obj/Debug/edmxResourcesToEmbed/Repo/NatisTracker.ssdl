@@ -84,7 +84,7 @@
     <Property Name="User" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Department" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="ContractDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContractDescription" Type="nvarchar(max)" />
     <Property Name="Comment" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SentIN_Delivery">

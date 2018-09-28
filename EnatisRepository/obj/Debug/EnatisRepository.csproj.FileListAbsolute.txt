@@ -2,11 +2,11 @@ C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\Aspose.Total.lic
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\EnatisRepository.dll.config
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\EnatisRepository.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\EnatisRepository.pdb
+C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\Aspose.Pdf.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\EntityFramework.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\Oracle.DataAccess.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\EntityFramework.xml
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\EntityFramework.SqlServer.xml
 C:\Development\Projects\NatisTracker\EnatisRepository\obj\Debug\EnatisRepository.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\obj\Debug\EnatisRepository.pdb
-C:\Development\Projects\NatisTracker\EnatisRepository\obj\Debug\EnatisRepository.csprojResolveAssemblyReference.cache
-C:\Development\Projects\NatisTracker\EnatisRepository\bin\Debug\Aspose.Pdf.dll

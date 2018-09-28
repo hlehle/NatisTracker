@@ -11,6 +11,7 @@ using System.Data;
 using System.Reflection;
 using System.Text;
 using EnatisRepository.Repo;
+using EnatisRepository.OracleDataRetrieval;
 using NatisTracker.ViewModels;
 using NatisTracker.Requests;
 using NatisTracker.Deliveries;
@@ -107,13 +108,15 @@ namespace NatisTracker.Controllers
                 string[] arr = viewModel.ScannedString.Split('%');
 
                 var load = new LoadNew();
-                viewModel.contractNo = load.getContractNo(arr[9]);
+                var conn = new OracleDataConnections();
+
+                viewModel.contractNo = conn.getContractNo(arr[9]);
                 viewModel.vin = arr[9];
                 var vin = viewModel.vin;
                 viewModel.registrationNo = arr[5];
                 viewModel.engineNo = arr[10];
                 viewModel.carMake = arr[7];
-                viewModel.seriesNo = load.getDescription(viewModel.contractNo);
+                viewModel.seriesNo = conn.getDescription(viewModel.contractNo);
                 viewModel.description = arr[6];
                 viewModel.registrationDate = Convert.ToDateTime(arr[12]);
                 viewModel.VehicleStatus = arr[11];
@@ -149,13 +152,15 @@ namespace NatisTracker.Controllers
                 string[] arr = viewModel.ScannedString.Split('%');
 
                 var load = new LoadNew();
-                viewModel.contractNo = load.getContractNo(arr[9]);
+                var conn = new OracleDataConnections();
+
+                viewModel.contractNo = conn.getContractNo(arr[9]);
                 viewModel.vin = arr[9];
                 var vin = viewModel.vin;
                 viewModel.registrationNo = arr[5];
                 viewModel.engineNo = arr[10];
                 viewModel.carMake = arr[7];
-                viewModel.seriesNo = load.getDescription(viewModel.contractNo);
+                viewModel.seriesNo = conn.getDescription(viewModel.contractNo);
                 viewModel.description = arr[6];
                 viewModel.registrationDate = Convert.ToDateTime(arr[12]);
                 viewModel.VehicleStatus = arr[11];

@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NatisTracker</RootNamespace>
     <AssemblyName>NatisTracker</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -83,9 +83,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
@@ -338,6 +338,14 @@
     <ProjectReference Include="..\EnatisRepository\EnatisRepository.csproj">
       <Project>{f3ab8cf6-188b-43d3-a8bc-60c7e35014e0}</Project>
       <Name>EnatisRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EscalationEmailService\EscalationEmailService.csproj">
+      <Project>{2be50ddf-18ef-450e-a987-57bb7a8bee70}</Project>
+      <Name>EscalationEmailService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FileWatcher\FileWatcher.csproj">
+      <Project>{6c1141dd-e3ce-48b9-aa28-8d61b17de423}</Project>
+      <Name>FileWatcher</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

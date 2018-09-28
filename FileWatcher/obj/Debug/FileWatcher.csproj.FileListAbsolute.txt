@@ -1,8 +1,11 @@
+C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\Aspose.Total.lic
+C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\FileWatcher.exe.config
+C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\FileWatcher.exe
 C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\FileWatcher.pdb
+C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\Aspose.BarCode.dll
 C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\EnatisRepository.dll
 C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\EntityFramework.dll
 C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\EntityFramework.SqlServer.dll
-C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\Aspose.BarCode.dll
 C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\Oracle.DataAccess.dll
 C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\EnatisRepository.pdb
 C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\EntityFramework.xml
@@ -13,6 +16,3 @@ C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.ProjectIn
 C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.csproj.GenerateResource.Cache
 C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.exe
 C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.pdb
-C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\FileWatcher.exe.config
-C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\Aspose.Total.lic
-C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\FileWatcher.exe

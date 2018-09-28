@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using EnatisRepository.Repo;
+using EnatisRepository.OracleDataRetrieval;
+using EnatisRepository.BarcodeReader;
 using System.IO;
 using Aspose.BarCode.BarCodeRecognition;
 using NatisTracker.ViewModels;
@@ -25,23 +27,24 @@ namespace EnatisRepository.ScanNatis
                     viewModel.file.InputStream.Read(byteArr, 0, viewModel.file.ContentLength);
                     Stream stream = new MemoryStream(byteArr);
 
-                    var load = new LoadNew();
-                    string[] natis = load.readBarCode(stream);
+                    var conn = new OracleDataConnections();
+                    BarcodeReader.BarcodeReader reader = new BarcodeReader.BarcodeReader();
+                    string[] natis = reader.readBarCode(stream);
 
-                    string contractNumber = load.getContractNo(natis[9]);
+                    string contractNumber = conn.getContractNo(natis[9]);
 
                     ScanLogsData log = new ScanLogsData();
                     NatisData data = new NatisData();
 
-                    string[] contactInfo = load.GetContractStatus(contractNumber);
+                    string contactInfo = conn.GetContractStatus(contractNumber);
 
                     log.ContractNumber = contractNumber;
                     log.VinNumber = natis[9];
                     log.DateScanned = DateTime.Now;
                     log.User = name;
                     log.Department = department;
-                    log.ContractStatus = contactInfo[0];
-                    log.ContractDescription = contactInfo[1];
+                    log.ContractStatus = contactInfo;
+                    //log.ContractDescription = contactInfo[1];
                     log.Comment = viewModel.Comment;
 
                     data = db.NatisDatas.FirstOrDefault(u => u.VinNumber == log.VinNumber);
