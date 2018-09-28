@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Intern_LeaveDBModelStoreContainer" CdmEntityContainer="Intern_LeaveDBEntities">
+    <EntitySetMapping Name="ContractNumbers">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ContractNumber">
+        <MappingFragment StoreEntitySet="ContractNumbers">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="ContractNumber1" ColumnName="ContractNumber" />
+          <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+          <ScalarProperty Name="TableId" ColumnName="TableId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContractsDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ContractsData">
+        <MappingFragment StoreEntitySet="ContractsData">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+          <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
+          <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+          <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.EmployeeData">
+        <MappingFragment StoreEntitySet="EmployeeData">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Employee_Surname" ColumnName="Employee_Surname" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="User_Type" ColumnName="User_Type" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="DCXKIM" ColumnName="DCXKIM" />
+          <ScalarProperty Name="DCXLDOMAIL" ColumnName="DCXLDOMAIL" />
+          <ScalarProperty Name="LocationCode" ColumnName="LocationCode" />
+          <ScalarProperty Name="IsChangePassword" ColumnName="IsChangePassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NatisDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.NatisData">
+        <MappingFragment StoreEntitySet="NatisData">
+          <ScalarProperty Name="eNatisPDF" ColumnName="eNatisPDF" />
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="DateLoaded" ColumnName="DateLoaded" />
+          <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+          <ScalarProperty Name="RegistrationNumber" ColumnName="RegistrationNumber" />
+          <ScalarProperty Name="EngineNumber" ColumnName="EngineNumber" />
+          <ScalarProperty Name="CarMake" ColumnName="CarMake" />
+          <ScalarProperty Name="SeriesNumber" ColumnName="SeriesNumber" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+          <ScalarProperty Name="VehicleStatus" ColumnName="VehicleStatus" />
+          <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+          <ScalarProperty Name="OwnerIdentityNumber" ColumnName="OwnerIdentityNumber" />
+          <ScalarProperty Name="NatisLocation" ColumnName="NatisLocation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ScanLogsDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ScanLogsData">
+        <MappingFragment StoreEntitySet="ScanLogsData">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
+          <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+          <ScalarProperty Name="DateScanned" ColumnName="DateScanned" />
+          <ScalarProperty Name="User" ColumnName="User" />
+          <ScalarProperty Name="Department" ColumnName="Department" />
+          <ScalarProperty Name="ContractStatus" ColumnName="ContractStatus" />
+          <ScalarProperty Name="ContractDescription" ColumnName="ContractDescription" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SentIN_Delivery">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.SentIN_Delivery">
+        <MappingFragment StoreEntitySet="SentIN_Delivery">
+          <ScalarProperty Name="RecipientEmail" ColumnName="RecipientEmail" />
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="DealershipName" ColumnName="DealershipName" />
+          <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+          <ScalarProperty Name="PackageSender" ColumnName="PackageSender" />
+          <ScalarProperty Name="PackageRecipient" ColumnName="PackageRecipient" />
+          <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+          <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+          <ScalarProperty Name="CourierStatus" ColumnName="CourierStatus" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="DriverDetails" ColumnName="DriverDetails" />
+          <ScalarProperty Name="DriverContact" ColumnName="DriverContact" />
+          <ScalarProperty Name="DeliveryChoice" ColumnName="DeliveryChoice" />
+          <ScalarProperty Name="SenderEmail" ColumnName="SenderEmail" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SentOUT_Delivery">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.SentOUT_Delivery">
+        <MappingFragment StoreEntitySet="SentOUT_Delivery">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
+          <ScalarProperty Name="DeliveryChoice" ColumnName="DeliveryChoice" />
+          <ScalarProperty Name="DateSent" ColumnName="DateSent" />
+          <ScalarProperty Name="PackageSender" ColumnName="PackageSender" />
+          <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
+          <ScalarProperty Name="DriverDetails" ColumnName="DriverDetails" />
+          <ScalarProperty Name="DriverContacts" ColumnName="DriverContacts" />
+          <ScalarProperty Name="RecipientDetails" ColumnName="RecipientDetails" />
+          <ScalarProperty Name="RecipientContacts" ColumnName="RecipientContacts" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SystemParams">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.SystemParam">
+        <MappingFragment StoreEntitySet="SystemParams">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
+          <ScalarProperty Name="SmtpServer" ColumnName="SmtpServer" />
+          <ScalarProperty Name="SmtpServerFallback" ColumnName="SmtpServerFallback" />
+          <ScalarProperty Name="Port" ColumnName="Port" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TickBoxDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.TickBoxData">
+        <MappingFragment StoreEntitySet="TickBoxData">
+          <ScalarProperty Name="TableId" ColumnName="TableId" />
+          <ScalarProperty Name="SenderName" ColumnName="SenderName" />
+          <ScalarProperty Name="SenderDepartment" ColumnName="SenderDepartment" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="RecipientName" ColumnName="RecipientName" />
+          <ScalarProperty Name="RecipientDepartment" ColumnName="RecipientDepartment" />
+          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+          <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
+          <ScalarProperty Name="RecipientType" ColumnName="RecipientType" />
+          <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestsDatas">
+      <EntityTypeMapping TypeName="Intern_LeaveDBModel.RequestsData">
+        <MappingFragment StoreEntitySet="RequestsData">
+          <ScalarProperty Name="Responder" ColumnName="Responder" />
+          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+          <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+          <ScalarProperty Name="Vin" ColumnName="Vin" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+          <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />
+          <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

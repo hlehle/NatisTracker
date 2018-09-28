@@ -1,0 +1,125 @@
+﻿@model NatisTracker.ViewModels.NatisDataViewModel
+
+<!DOCTYPE html>
+@{
+    ViewBag.Title = "LoadNewNatis";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Load New Natis &middot; FindMy Natis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <style type="text/css">
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+        .container {
+            height: 100%;
+            padding: 5px 5px 5px 5px;
+            margin-left: 1%;
+            margin-right: 1%;
+            width: 98%;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h3>Please Scan Natis</h3>
+
+    <div class="container">
+        <div class="tab-content">
+            <div id="Scan" class="tab-pane fade in active">
+
+                @using (Html.BeginForm("LoadNewNatis", "Process", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    if (Model == null)
+                    {
+                        <h3>Barcode not clearly captured or Natis already in the Safe, please try again</h3>
+                    }
+
+                    else if (Model.engineNo != null)
+                    {
+                        <div class="table-responsive table table-striped">
+                            <table class="table">
+                                <thead style="color:black; background-color:white">
+                                    <tr>
+                                        <th>Contracts Number</th>
+                                        <th>VIN Number</th>
+                                        <th>Registration Number</th>
+                                        <th>Engine Number</th>
+                                        <th>Car Make</th>
+                                        <th>Series Number</th>
+                                        <th>Description</th>
+                                        <th>Registration Date</th>
+                                        <th>Owner name</th>
+                                        <th>Owner ID</th>
+                                        <th>Natis Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.contractNo</td>
+                                        <td>@Model.vin</td>
+                                        <td>@Model.registrationNo</td>
+                                        <td>@Model.engineNo</td>
+                                        <td>@Model.carMake</td>
+                                        <td>@Model.seriesNo</td>
+                                        <td>@Model.description</td>
+                                        <td>@Model.registrationDate</td>
+                                        <td>@Model.OwnerName</td>
+                                        <td>@Model.OwnerID</td>
+                                        <td>@Model.natisLocation</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                        </div>
+                    }
+
+                    
+                    <br /><br />
+                            @Html.TextBoxFor(model => model.file, new { type = "file", id = "File", accept = "All Files/*", capture = "camera", multiple ="multiple" })<br>
+
+                            <br /><br>
+
+
+                            <button align="left" class="btn btn-large btn-primary" type="submit">Scan</button>
+                            <p align="right">
+
+                                @Html.ActionLink("Back to previous page", "AdminView", "Users", null, null)
+                            </p>
+                }
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+
+</html>
