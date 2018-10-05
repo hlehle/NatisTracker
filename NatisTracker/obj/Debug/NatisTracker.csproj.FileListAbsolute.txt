@@ -52,5 +52,5 @@ C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csprojR
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.csproj.ResolveComReference.cache
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.dll
 C:\Development\Projects\NatisTracker\NatisTracker\obj\Debug\NatisTracker.pdb
-C:\Development\Projects\NatisTracker\NatisTracker\bin\FileWatcher.exe
-C:\Development\Projects\NatisTracker\NatisTracker\bin\FileWatcher.pdb
+C:\Development\Projects\NatisTracker\NatisTracker\bin\log4net.dll
+C:\Development\Projects\NatisTracker\NatisTracker\bin\log4net.xml

@@ -14,13 +14,12 @@ namespace FileWatcher
         /// </summary>
         static void Main()
         {
-            var BarCodeLicense = new Aspose.BarCode.License();
-            BarCodeLicense.SetLicense("Aspose.Total.lic");
-            var PdfLicence = new Aspose.Pdf.License();
-            PdfLicence.SetLicense("Aspose.Total.lic");
+            SetLicenses();
+
+
 
 #if (DEBUG)
-            Console.WriteLine("FileWatcher Service");
+            Console.WriteLine("FileWatcher Service Window");
             NatisFileWatcher Watcher = new NatisFileWatcher();
             Watcher.StartDebug();
             ////Test.StopDebug();
@@ -29,10 +28,18 @@ namespace FileWatcher
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new FileWatcher()
+                new NatisFileWatcher()
             };
             ServiceBase.Run(ServicesToRun);
 #endif
+        }
+
+        static void SetLicenses()
+        {
+            var BarCodeLicense = new Aspose.BarCode.License();
+            BarCodeLicense.SetLicense("Aspose.Total.lic");
+            var PdfLicence = new Aspose.Pdf.License();
+            PdfLicence.SetLicense("Aspose.Total.lic");
         }
     }
 }

@@ -14,12 +14,19 @@ namespace EnatisRepository.Repo
     
     public partial class ContractsData
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ContractsData()
+        {
+            this.NatisDatas = new HashSet<NatisData>();
+        }
+    
         public int RecordNumber { get; set; }
         public string ContractNumber { get; set; }
         public string ContractStatus { get; set; }
         public string StatusDescription { get; set; }
         public string VinNumber { get; set; }
     
-        public virtual NatisData NatisData { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NatisData> NatisDatas { get; set; }
     }
 }

@@ -25,7 +25,7 @@ namespace EscalationEmailService
         public void SendEscalationEmails(object sender, ElapsedEventArgs e)
         {
             // This is to notify a user(Origination) that natis document must be submitted back to the admin
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 var deliveries = db.SentIN_Delivery.Where(a => a.CourierStatus.Equals("Received")).ToList();
 
@@ -143,7 +143,7 @@ namespace EscalationEmailService
                                         string body,
                                         Attachment[] attachments = null)
             {
-                var systemParams = new Intern_LeaveDBEntities().SystemParams.FirstOrDefault();
+                var systemParams = new NatisTrackerDBEntities().SystemParams.FirstOrDefault();
 
                 string defaultSenderAddress = systemParams.SenderAddress;
 

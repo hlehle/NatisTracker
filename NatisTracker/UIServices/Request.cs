@@ -15,7 +15,7 @@ namespace NatisTracker.Requests
     {
         public NatisRequests request(NatisRequests viewModel, string name, string department, string email)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 RequestsData database = new RequestsData();
                 database.RequesterName = name;

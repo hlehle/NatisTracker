@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NatisTracker</RootNamespace>
     <AssemblyName>NatisTracker</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -342,10 +342,6 @@
     <ProjectReference Include="..\EscalationEmailService\EscalationEmailService.csproj">
       <Project>{2be50ddf-18ef-450e-a987-57bb7a8bee70}</Project>
       <Name>EscalationEmailService</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileWatcher\FileWatcher.csproj">
-      <Project>{6c1141dd-e3ce-48b9-aa28-8d61b17de423}</Project>
-      <Name>FileWatcher</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

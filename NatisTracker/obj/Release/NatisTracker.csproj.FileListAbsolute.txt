@@ -42,3 +42,15 @@ C:\Development\Projects\NatisTracker\NatisTracker\obj\Release\NatisTracker.pdb
 C:\Development\Projects\NatisTracker\NatisTracker\bin\img\Login2.jpg
 C:\Development\Projects\NatisTracker\NatisTracker\bin\img\logo.png
 C:\Development\Projects\NatisTracker\NatisTracker\bin\img\Login1.jpg
+C:\Development\Projects\NatisTracker\NatisTracker\obj\Release\NatisTracker.csprojResolveAssemblyReference.cache
+C:\Development\Projects\NatisTracker\NatisTracker\bin\img\enatis_logo.png
+C:\Development\Projects\NatisTracker\NatisTracker\bin\img\enatis_logo1.jpg
+C:\Development\Projects\NatisTracker\NatisTracker\bin\Aspose.Pdf.dll
+C:\Development\Projects\NatisTracker\NatisTracker\bin\EnatisRepository.dll
+C:\Development\Projects\NatisTracker\NatisTracker\bin\EscalationEmailService.exe
+C:\Development\Projects\NatisTracker\NatisTracker\bin\Newtonsoft.Json.dll
+C:\Development\Projects\NatisTracker\NatisTracker\bin\EnatisRepository.pdb
+C:\Development\Projects\NatisTracker\NatisTracker\bin\EscalationEmailService.pdb
+C:\Development\Projects\NatisTracker\NatisTracker\bin\Newtonsoft.Json.xml
+C:\Development\Projects\NatisTracker\NatisTracker\bin\log4net.dll
+C:\Development\Projects\NatisTracker\NatisTracker\bin\log4net.xml

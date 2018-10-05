@@ -18,3 +18,5 @@ C:\Development\Projects\NatisTracker\EscalationEmailService\obj\Debug\Escalation
 C:\Development\Projects\NatisTracker\EscalationEmailService\obj\Debug\EscalationEmailService.csproj.GenerateResource.Cache
 C:\Development\Projects\NatisTracker\EscalationEmailService\obj\Debug\EscalationEmailService.exe
 C:\Development\Projects\NatisTracker\EscalationEmailService\obj\Debug\EscalationEmailService.pdb
+C:\Development\Projects\NatisTracker\EscalationEmailService\bin\Debug\log4net.dll
+C:\Development\Projects\NatisTracker\EscalationEmailService\bin\Debug\log4net.xml

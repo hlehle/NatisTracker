@@ -69,7 +69,7 @@ namespace NatisTracker.Controllers
         [HttpGet]
         public ActionResult RequestResponse()
         {
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            NatisTrackerDBEntities db = new NatisTrackerDBEntities();
             var requests = new PopulateViewModels().PopulateRequestsData(db);
             return View(requests);
         }
@@ -84,7 +84,7 @@ namespace NatisTracker.Controllers
                 new Respond().respond(form, @Session["Name"].ToString(), Session["Email"].ToString());
             }
 
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            NatisTrackerDBEntities db = new NatisTrackerDBEntities();
             var requests = new PopulateViewModels().PopulateRequestsData(db);
             return View(requests);
 
@@ -124,7 +124,7 @@ namespace NatisTracker.Controllers
                 viewModel.OwnerID = arr[14];
                 viewModel.natisLocation = "Safe Vault";
 
-                using (var db = new Intern_LeaveDBEntities())
+                using (var db = new NatisTrackerDBEntities())
                 {
                     var natis = db.NatisDatas.Where(a => a.VinNumber == vin).FirstOrDefault();
                     natis.NatisLocation = viewModel.natisLocation;
@@ -168,7 +168,7 @@ namespace NatisTracker.Controllers
                 viewModel.OwnerID = arr[14];
                 viewModel.natisLocation = Session["Department"].ToString();
 
-                using (var db = new Intern_LeaveDBEntities())
+                using (var db = new NatisTrackerDBEntities())
                 {
                     var natis = db.NatisDatas.Where(a => a.VinNumber == vin).FirstOrDefault();
                     natis.NatisLocation = viewModel.natisLocation;
@@ -210,7 +210,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult TickToCollect()
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 var viewModel = new PopulateViewModels().PopulateTickBoxData(db);
                 var internalUser = Session["Name"].ToString();
@@ -223,7 +223,7 @@ namespace NatisTracker.Controllers
         public ActionResult TickToCollect(FormCollection f)
         {
             var viewModel = new TickBoxViewModelList();
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 TryUpdateModel(viewModel);
                 var errors = ModelState.Values.SelectMany(v => v.Errors);
@@ -244,7 +244,7 @@ namespace NatisTracker.Controllers
         public ActionResult GenerateOneReports(FormCollection form)
         {
             var contractNumber = form["hidden"];
-            var log = new Intern_LeaveDBEntities().ScanLogsDatas.Where(a => a.ContractNumber == contractNumber).ToList();
+            var log = new NatisTrackerDBEntities().ScanLogsDatas.Where(a => a.ContractNumber == contractNumber).ToList();
             StringBuilder line = new StringBuilder();
             FileContentResult file = null;
 
@@ -287,7 +287,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult GenerateAuditReports()
         {
-            var log = new Intern_LeaveDBEntities().ScanLogsDatas.ToList();
+            var log = new NatisTrackerDBEntities().ScanLogsDatas.ToList();
             var path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\AuditReport.csv";
             StringBuilder line = new StringBuilder();
             FileContentResult file = null;
@@ -333,7 +333,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult GenerateDepartmentReports(FormCollection form)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 var department = form["HiddenDepartment"];
                 var natis = db.NatisDatas.Where(a => a.NatisLocation == department).ToList();

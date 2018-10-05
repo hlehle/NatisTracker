@@ -9,102 +9,23 @@
 //------------------------------------------------------------------------------
 
 namespace FileWatcher.HubbleService {
-    using System.Runtime.Serialization;
-    using System;
     
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="UploadDocumentResult", Namespace="http://schemas.datacontract.org/2004/07/Hubble.Web.ViewModel.Services")]
-    [System.SerializableAttribute()]
-    public partial class UploadDocumentResult : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ErrorMessageField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string PathField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private bool SuccessField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ErrorMessage {
-            get {
-                return this.ErrorMessageField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ErrorMessageField, value) != true)) {
-                    this.ErrorMessageField = value;
-                    this.RaisePropertyChanged("ErrorMessage");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Path {
-            get {
-                return this.PathField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PathField, value) != true)) {
-                    this.PathField = value;
-                    this.RaisePropertyChanged("Path");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public bool Success {
-            get {
-                return this.SuccessField;
-            }
-            set {
-                if ((this.SuccessField.Equals(value) != true)) {
-                    this.SuccessField = value;
-                    this.RaisePropertyChanged("Success");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="HubbleService.IDocumentUpload")]
     public interface IDocumentUpload {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDocumentUpload/UploadDocument", ReplyAction="http://tempuri.org/IDocumentUpload/UploadDocumentResponse")]
-        FileWatcher.HubbleService.UploadDocumentResult UploadDocument(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages);
+        EnatisRepository.HubbleService.UploadDocumentResult UploadDocument(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDocumentUpload/UploadDocument", ReplyAction="http://tempuri.org/IDocumentUpload/UploadDocumentResponse")]
-        System.Threading.Tasks.Task<FileWatcher.HubbleService.UploadDocumentResult> UploadDocumentAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages);
+        System.Threading.Tasks.Task<EnatisRepository.HubbleService.UploadDocumentResult> UploadDocumentAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDocumentUpload/UploadDocumentForCollection", ReplyAction="http://tempuri.org/IDocumentUpload/UploadDocumentForCollectionResponse")]
-        FileWatcher.HubbleService.UploadDocumentResult UploadDocumentForCollection(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments);
+        EnatisRepository.HubbleService.UploadDocumentResult UploadDocumentForCollection(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDocumentUpload/UploadDocumentForCollection", ReplyAction="http://tempuri.org/IDocumentUpload/UploadDocumentForCollectionResponse")]
-        System.Threading.Tasks.Task<FileWatcher.HubbleService.UploadDocumentResult> UploadDocumentForCollectionAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments);
+        System.Threading.Tasks.Task<EnatisRepository.HubbleService.UploadDocumentResult> UploadDocumentForCollectionAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDocumentUpload/Test", ReplyAction="http://tempuri.org/IDocumentUpload/TestResponse")]
         string Test();
@@ -140,19 +61,19 @@ namespace FileWatcher.HubbleService {
                 base(binding, remoteAddress) {
         }
         
-        public FileWatcher.HubbleService.UploadDocumentResult UploadDocument(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages) {
+        public EnatisRepository.HubbleService.UploadDocumentResult UploadDocument(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages) {
             return base.Channel.UploadDocument(collectionId, document, documentNameAndExtension, title, author, subject, keywords, comments, totalPages);
         }
         
-        public System.Threading.Tasks.Task<FileWatcher.HubbleService.UploadDocumentResult> UploadDocumentAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages) {
+        public System.Threading.Tasks.Task<EnatisRepository.HubbleService.UploadDocumentResult> UploadDocumentAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments, int totalPages) {
             return base.Channel.UploadDocumentAsync(collectionId, document, documentNameAndExtension, title, author, subject, keywords, comments, totalPages);
         }
         
-        public FileWatcher.HubbleService.UploadDocumentResult UploadDocumentForCollection(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments) {
+        public EnatisRepository.HubbleService.UploadDocumentResult UploadDocumentForCollection(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments) {
             return base.Channel.UploadDocumentForCollection(collectionId, document, documentNameAndExtension, title, author, subject, keywords, comments);
         }
         
-        public System.Threading.Tasks.Task<FileWatcher.HubbleService.UploadDocumentResult> UploadDocumentForCollectionAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments) {
+        public System.Threading.Tasks.Task<EnatisRepository.HubbleService.UploadDocumentResult> UploadDocumentForCollectionAsync(int collectionId, byte[] document, string documentNameAndExtension, string title, string author, string subject, string keywords, string comments) {
             return base.Channel.UploadDocumentForCollectionAsync(collectionId, document, documentNameAndExtension, title, author, subject, keywords, comments);
         }
         

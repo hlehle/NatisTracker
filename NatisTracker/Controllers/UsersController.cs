@@ -21,7 +21,7 @@ namespace NatisTracker.Controllers
         // GET: Users                
         public ActionResult AdminView()
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 var viewModel = new AdminViewModel();
 
@@ -52,7 +52,7 @@ namespace NatisTracker.Controllers
             var viewModel = new AdminViewModel();
 
             TryUpdateModel(viewModel);
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            NatisTrackerDBEntities db = new NatisTrackerDBEntities();
 
             var errors = ModelState.Values.SelectMany(v => v.Errors);
 
@@ -92,7 +92,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult UserView()
         {
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            NatisTrackerDBEntities db = new NatisTrackerDBEntities();
 
             var viewModel = new EndUserViewModel();
             string name = Session["Name"].ToString();
@@ -110,7 +110,7 @@ namespace NatisTracker.Controllers
         {
             var viewModel = new EndUserViewModel();
             TryUpdateModel(viewModel, form);
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            NatisTrackerDBEntities db = new NatisTrackerDBEntities();
 
             //if (ModelState.IsValid)
             //{
@@ -140,7 +140,7 @@ namespace NatisTracker.Controllers
         {
             Session["Name"] = FName;
             Session["Surname"] = LName;
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 DeliveryitemViewModel viewModel = new DeliveryitemViewModel();
                 viewModel.NatisDataList = new PopulateViewModels().PopulateNatisData(db);
@@ -170,7 +170,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult DealershipView(DeliveryitemViewModel viewModel)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 //viewModel.deliveryDisplay = db.SentIN_Delivery.ToList();
                 var tryUpdate = TryUpdateModel(viewModel);
@@ -209,7 +209,7 @@ namespace NatisTracker.Controllers
             Session["Surname"] = Surname;
             Session["Email"] = EmailAddress;
             Session["MobileNumber"] = Mobile;
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 DeliveryViewModel viewModel = new DeliveryViewModel();
                 viewModel = PopulateDeliveryViewModel(viewModel, db);
@@ -220,7 +220,7 @@ namespace NatisTracker.Controllers
         [HttpPost]
         public ActionResult OriginationView(DeliveryViewModel viewModel)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 TryUpdateModel(viewModel);
 
@@ -243,7 +243,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult DriverView()
         {
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            NatisTrackerDBEntities db = new NatisTrackerDBEntities();
 
             var driverPackage = new PopulateViewModels().PopulateTickBoxData(db);
             driverPackage.TickBoxList = driverPackage.TickBoxList.Where(a => a.RecipientType.Equals("Driver")).ToList();
@@ -254,7 +254,7 @@ namespace NatisTracker.Controllers
         public ActionResult DriverView(FormCollection f)
         {
             var viewModel = new TickBoxViewModelList();
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 TryUpdateModel(viewModel);
 
@@ -513,7 +513,7 @@ namespace NatisTracker.Controllers
             return list;
         }
 
-        public DeliveryViewModel PopulateDeliveryViewModel(DeliveryViewModel viewModel, Intern_LeaveDBEntities db)
+        public DeliveryViewModel PopulateDeliveryViewModel(DeliveryViewModel viewModel, NatisTrackerDBEntities db)
         {
             viewModel.CourierViewModel = new DeliveryCourierViewModel();
             viewModel.DriverViewModel = new DeliveryDriverViewModel();
@@ -596,7 +596,7 @@ namespace NatisTracker.Controllers
             return viewModel;
         }
 
-        public DriverPackage PopulateDriverPackage(Intern_LeaveDBEntities db)
+        public DriverPackage PopulateDriverPackage(NatisTrackerDBEntities db)
         {
             DriverPackage driverPackage = new DriverPackage();
             var driver = db.TickBoxDatas.Where(a => a.RecipientName == null);
@@ -624,7 +624,7 @@ namespace NatisTracker.Controllers
             return driverPackage;
         }
 
-        public DriverPackage PopulateDriverPackage1(Intern_LeaveDBEntities db)
+        public DriverPackage PopulateDriverPackage1(NatisTrackerDBEntities db)
         {
             DriverPackage driverPackage = new DriverPackage();
             var driver = db.TickBoxDatas.Where(a => a.RecipientName != null);
@@ -655,7 +655,7 @@ namespace NatisTracker.Controllers
 
         public ActionResult ViewNatis(int id, string contractNo)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 var natisData = db.NatisDatas.Where(m => m.RecordNumber == id).FirstOrDefault();
                 return File(natisData.eNatisPDF, "application/pdf", contractNo + ".pdf"); 

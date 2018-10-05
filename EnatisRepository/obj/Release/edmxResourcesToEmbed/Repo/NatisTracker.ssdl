@@ -48,9 +48,9 @@
     <Property Name="DateLoaded" Type="datetime" Nullable="false" />
     <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="EngineNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EngineNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="CarMake" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SeriesNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SeriesNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
     <Property Name="VehicleStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -83,8 +83,8 @@
     <Property Name="DateScanned" Type="datetime" Nullable="false" />
     <Property Name="User" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Department" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="ContractDescription" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContractDescription" Type="nvarchar(max)" />
     <Property Name="Comment" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="SentIN_Delivery">

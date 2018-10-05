@@ -18,7 +18,7 @@ namespace NatisTracker.Requests
             string[] recordNumbers = form["RecordNumber"].Split(new char[] { ',' });
             string[] replies = form["Status"].Split(new char[] { ',' });
 
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 RequestsData response = new RequestsData();
 

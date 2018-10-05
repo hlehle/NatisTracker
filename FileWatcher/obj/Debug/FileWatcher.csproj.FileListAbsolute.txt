@@ -16,3 +16,5 @@ C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.ProjectIn
 C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.csproj.GenerateResource.Cache
 C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.exe
 C:\Development\Projects\NatisTracker\FileWatcher\obj\Debug\FileWatcher.pdb
+C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\log4net.dll
+C:\Development\Projects\NatisTracker\FileWatcher\bin\Debug\log4net.xml

@@ -12,7 +12,7 @@ namespace NatisTracker.Deliveries
     {
         public DeliveryitemViewModel sendDelivery(DeliveryitemViewModel viewModel, string name)
         {
-            Intern_LeaveDBEntities db = new Intern_LeaveDBEntities();
+            NatisTrackerDBEntities db = new NatisTrackerDBEntities();
             
             if (viewModel.WaybillNumber != null || viewModel.DriverDetails != null)
             {
@@ -49,7 +49,7 @@ namespace NatisTracker.Deliveries
         public DeliveryViewModel receiveDelivery(DeliveryViewModel view, string name, string email) { return new DeliveryViewModel(); }
         public void SendNatis(TickBoxViewModelList viewModel, string name, string department)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 if (viewModel.TickBoxList != null)
                 {
@@ -123,7 +123,7 @@ namespace NatisTracker.Deliveries
         }
         public void ReceivePackage(DriverPackage viewModel, string name, string department)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 if (viewModel.PackageItems != null)
                 {

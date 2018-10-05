@@ -9,7 +9,7 @@ namespace NatisTracker.UIServices
 {
     public class PopulateViewModels : IPopulateViewModels
     {
-        public List<EmployeeDataViewModel> PopulateEmployees(Intern_LeaveDBEntities db)
+        public List<EmployeeDataViewModel> PopulateEmployees(NatisTrackerDBEntities db)
         {
             var viewModel = new List<EmployeeDataViewModel>();
 
@@ -36,7 +36,7 @@ namespace NatisTracker.UIServices
 
             return viewModel;
         }
-        public List<NatisDataViewModel> PopulateNatisData(Intern_LeaveDBEntities db)
+        public List<NatisDataViewModel> PopulateNatisData(NatisTrackerDBEntities db)
         {
             var viewModel = new List<NatisDataViewModel>();
 
@@ -77,7 +77,7 @@ namespace NatisTracker.UIServices
 
             return viewModel;
         }
-        public List<ScanLogsDataViewModel> PopulateScanLogs(Intern_LeaveDBEntities db)
+        public List<ScanLogsDataViewModel> PopulateScanLogs(NatisTrackerDBEntities db)
         {
             var viewModel = new List<ScanLogsDataViewModel>();
 
@@ -100,7 +100,7 @@ namespace NatisTracker.UIServices
 
             return viewModel;
         }
-        public List<RequestsDataViewModel> PopulateRequestsData(Intern_LeaveDBEntities db)
+        public List<RequestsDataViewModel> PopulateRequestsData(NatisTrackerDBEntities db)
         {
             var viewModel = new List<RequestsDataViewModel>();
 
@@ -127,7 +127,7 @@ namespace NatisTracker.UIServices
 
             return viewModel;
         }
-        public List<SentIN_DeliveryViewModel> PopulateSentIN_Deliveries(Intern_LeaveDBEntities db)
+        public List<SentIN_DeliveryViewModel> PopulateSentIN_Deliveries(NatisTrackerDBEntities db)
         {
             var viewModel = new List<SentIN_DeliveryViewModel>();
 
@@ -171,7 +171,7 @@ namespace NatisTracker.UIServices
 
             return viewModel;
         }
-        public List<SentOUT_DeliveryViewModel> PopulateSentOUT_Deliveries(Intern_LeaveDBEntities db)
+        public List<SentOUT_DeliveryViewModel> PopulateSentOUT_Deliveries(NatisTrackerDBEntities db)
         {
             var viewModel = new List<SentOUT_DeliveryViewModel>();
 
@@ -182,12 +182,12 @@ namespace NatisTracker.UIServices
 
             return viewModel;
         }
-        public List<ContractNumbersViewModel> PopulateContractNumber(Intern_LeaveDBEntities db)
+        public List<ContractNumbersViewModel> PopulateContractNumber(NatisTrackerDBEntities db)
         {
             var viewModel = new List<ContractNumbersViewModel>();
             return viewModel;
         }
-        public TickBoxViewModelList PopulateTickBoxData(Intern_LeaveDBEntities db)
+        public TickBoxViewModelList PopulateTickBoxData(NatisTrackerDBEntities db)
         {
             var viewModel = new TickBoxViewModelList();
             viewModel.TickBoxList = new List<TickBoxViewModel>();

@@ -7,8 +7,10 @@ C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\Aspose.Pdf.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\EntityFramework.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\EntityFramework.SqlServer.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\Oracle.DataAccess.dll
-C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\Oracle.Web.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\EntityFramework.xml
 C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\EntityFramework.SqlServer.xml
 C:\Development\Projects\NatisTracker\EnatisRepository\obj\Release\EnatisRepository.dll
 C:\Development\Projects\NatisTracker\EnatisRepository\obj\Release\EnatisRepository.pdb
+C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\log4net.dll
+C:\Development\Projects\NatisTracker\EnatisRepository\bin\Release\log4net.xml
+C:\Development\Projects\NatisTracker\EnatisRepository\obj\Release\EnatisRepository.csprojResolveAssemblyReference.cache

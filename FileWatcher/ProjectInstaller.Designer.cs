@@ -39,6 +39,8 @@
             // 
             // serviceInstaller1
             // 
+            this.serviceInstaller1.Description = "eNatis FileWatcher For Auto Upload";
+            this.serviceInstaller1.DisplayName = "eNatis FileWatcher";
             this.serviceInstaller1.ServiceName = "FileWatcher";
             this.serviceInstaller1.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 

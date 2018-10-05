@@ -18,7 +18,7 @@ namespace NatisTracker.ScanNatis
     {
         public bool Scan(NatisDataViewModel viewModel, string name, string department)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 if (viewModel.file != null)
                 {
@@ -129,7 +129,7 @@ namespace NatisTracker.ScanNatis
             }
         }
 
-        public bool isInSafe(Intern_LeaveDBEntities db, NatisData data)
+        public bool isInSafe(NatisTrackerDBEntities db, NatisData data)
         {
             foreach (var item in db.NatisDatas)
             {
@@ -141,7 +141,7 @@ namespace NatisTracker.ScanNatis
             return false;
         }
 
-        public bool isExist(Intern_LeaveDBEntities db, NatisData data)
+        public bool isExist(NatisTrackerDBEntities db, NatisData data)
         {
             foreach (var item in db.NatisDatas)
             {

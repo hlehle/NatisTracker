@@ -18,7 +18,7 @@ namespace EnatisRepository.ScanNatis
     {
         public bool Scan(NatisDataViewModel viewModel, string name, string department)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
 
                 if (viewModel.file != null)

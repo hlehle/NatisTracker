@@ -13,7 +13,7 @@ namespace NatisTracker.Deliveries
     {
         public DeliveryitemViewModel sendDelivery(DeliveryitemViewModel viewModel, string name)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
 
                 if (viewModel.WaybillNumber != null || viewModel.DriverDetails != null)
@@ -52,7 +52,7 @@ namespace NatisTracker.Deliveries
 
         public DeliveryViewModel receiveDelivery(DeliveryViewModel viewModel, string name, string email)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 if (viewModel.CourierViewModel != null)
                 {
@@ -154,7 +154,7 @@ namespace NatisTracker.Deliveries
                                         string body,
                                         Attachment[] attachments = null)
             {
-                var systemParams = new Intern_LeaveDBEntities().SystemParams.FirstOrDefault();
+                var systemParams = new NatisTrackerDBEntities().SystemParams.FirstOrDefault();
 
                 string defaultSenderAddress = systemParams.SenderAddress;
 

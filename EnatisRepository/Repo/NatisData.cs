@@ -14,13 +14,8 @@ namespace EnatisRepository.Repo
     
     public partial class NatisData
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public NatisData()
-        {
-            this.ContractsDatas = new HashSet<ContractsData>();
-        }
-    
         public int RecordNumber { get; set; }
+        public int ContractsDataID { get; set; }
         public string User { get; set; }
         public System.DateTime DateLoaded { get; set; }
         public string VinNumber { get; set; }
@@ -36,7 +31,6 @@ namespace EnatisRepository.Repo
         public string NatisLocation { get; set; }
         public byte[] eNatisPDF { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContractsData> ContractsDatas { get; set; }
+        public virtual ContractsData ContractsData { get; set; }
     }
 }

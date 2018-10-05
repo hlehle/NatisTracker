@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Intern_LeaveDBModelStoreContainer" CdmEntityContainer="Intern_LeaveDBEntities">
+  <EntityContainerMapping StorageEntityContainer="NatisTrackerDBModelStoreContainer" CdmEntityContainer="NatisTracker">
     <EntitySetMapping Name="ContractNumbers">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ContractNumber">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.ContractNumber">
         <MappingFragment StoreEntitySet="ContractNumbers">
           <ScalarProperty Name="ID" ColumnName="ID" />
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
@@ -13,7 +13,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ContractsDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ContractsData">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.ContractsData">
         <MappingFragment StoreEntitySet="ContractsData">
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
@@ -24,7 +24,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="EmployeeDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.EmployeeData">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.EmployeeData">
         <MappingFragment StoreEntitySet="EmployeeData">
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -44,10 +44,10 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="NatisDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.NatisData">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.NatisData">
         <MappingFragment StoreEntitySet="NatisData">
-          <ScalarProperty Name="eNatisPDF" ColumnName="eNatisPDF" />
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="ContractsDataID" ColumnName="ContractsDataID" />
           <ScalarProperty Name="User" ColumnName="User" />
           <ScalarProperty Name="DateLoaded" ColumnName="DateLoaded" />
           <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
@@ -61,11 +61,27 @@
           <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
           <ScalarProperty Name="OwnerIdentityNumber" ColumnName="OwnerIdentityNumber" />
           <ScalarProperty Name="NatisLocation" ColumnName="NatisLocation" />
+          <ScalarProperty Name="eNatisPDF" ColumnName="eNatisPDF" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestsDatas">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.RequestsData">
+        <MappingFragment StoreEntitySet="RequestsData">
+          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
+          <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
+          <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />
+          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
+          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+          <ScalarProperty Name="Vin" ColumnName="Vin" />
+          <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+          <ScalarProperty Name="Responder" ColumnName="Responder" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ScanLogsDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.ScanLogsData">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.ScanLogsData">
         <MappingFragment StoreEntitySet="ScanLogsData">
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="ContractNumber" ColumnName="ContractNumber" />
@@ -80,9 +96,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SentIN_Delivery">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.SentIN_Delivery">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.SentIN_Delivery">
         <MappingFragment StoreEntitySet="SentIN_Delivery">
-          <ScalarProperty Name="RecipientEmail" ColumnName="RecipientEmail" />
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="DealershipName" ColumnName="DealershipName" />
           <ScalarProperty Name="PackageNumber" ColumnName="PackageNumber" />
@@ -97,11 +112,12 @@
           <ScalarProperty Name="DriverContact" ColumnName="DriverContact" />
           <ScalarProperty Name="DeliveryChoice" ColumnName="DeliveryChoice" />
           <ScalarProperty Name="SenderEmail" ColumnName="SenderEmail" />
+          <ScalarProperty Name="RecipientEmail" ColumnName="RecipientEmail" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SentOUT_Delivery">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.SentOUT_Delivery">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.SentOUT_Delivery">
         <MappingFragment StoreEntitySet="SentOUT_Delivery">
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="VinNumber" ColumnName="VinNumber" />
@@ -118,7 +134,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="SystemParams">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.SystemParam">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.SystemParam">
         <MappingFragment StoreEntitySet="SystemParams">
           <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
           <ScalarProperty Name="SenderAddress" ColumnName="SenderAddress" />
@@ -129,7 +145,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="TickBoxDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.TickBoxData">
+      <EntityTypeMapping TypeName="NatisTrackerDBModel.TickBoxData">
         <MappingFragment StoreEntitySet="TickBoxData">
           <ScalarProperty Name="TableId" ColumnName="TableId" />
           <ScalarProperty Name="SenderName" ColumnName="SenderName" />
@@ -141,21 +157,6 @@
           <ScalarProperty Name="ItemQuantity" ColumnName="ItemQuantity" />
           <ScalarProperty Name="RecipientType" ColumnName="RecipientType" />
           <ScalarProperty Name="IsConfirmed" ColumnName="IsConfirmed" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="RequestsDatas">
-      <EntityTypeMapping TypeName="Intern_LeaveDBModel.RequestsData">
-        <MappingFragment StoreEntitySet="RequestsData">
-          <ScalarProperty Name="Responder" ColumnName="Responder" />
-          <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
-          <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
-          <ScalarProperty Name="Vin" ColumnName="Vin" />
-          <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
-          <ScalarProperty Name="RequestStatus" ColumnName="RequestStatus" />
-          <ScalarProperty Name="RequesterDepartment" ColumnName="RequesterDepartment" />
-          <ScalarProperty Name="RequesterName" ColumnName="RequesterName" />
-          <ScalarProperty Name="RecordNumber" ColumnName="RecordNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

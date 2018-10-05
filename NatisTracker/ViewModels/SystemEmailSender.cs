@@ -23,7 +23,7 @@ namespace NatisTracker.ViewModels
                                     string body,
                                     Attachment[] attachments = null)
         {
-            var systemParams = new Intern_LeaveDBEntities().SystemParams.FirstOrDefault();
+            var systemParams = new NatisTrackerDBEntities().SystemParams.FirstOrDefault();
 
             string defaultSenderAddress = systemParams.SenderAddress;
 

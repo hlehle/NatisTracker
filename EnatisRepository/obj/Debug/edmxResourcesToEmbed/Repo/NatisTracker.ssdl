@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Intern_LeaveDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="NatisTrackerDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="ContractNumbers">
     <Key>
       <PropertyRef Name="ID" />
@@ -41,16 +41,17 @@
   </EntityType>
   <EntityType Name="NatisData">
     <Key>
-      <PropertyRef Name="VinNumber" />
+      <PropertyRef Name="RecordNumber" />
     </Key>
     <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractsDataID" Type="int" Nullable="false" />
     <Property Name="User" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="DateLoaded" Type="datetime" Nullable="false" />
     <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="EngineNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EngineNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="CarMake" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="SeriesNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SeriesNumber" Type="nvarchar" MaxLength="50" />
     <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
     <Property Name="VehicleStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -83,7 +84,7 @@
     <Property Name="DateScanned" Type="datetime" Nullable="false" />
     <Property Name="User" Type="nvarchar" MaxLength="100" Nullable="false" />
     <Property Name="Department" Type="nvarchar" MaxLength="100" Nullable="false" />
-    <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" />
     <Property Name="ContractDescription" Type="nvarchar(max)" />
     <Property Name="Comment" Type="nvarchar(max)" />
   </EntityType>
@@ -176,21 +177,19 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ContractsData_NatisData">
-    <End Role="NatisData" Type="Self.NatisData" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="ContractsData" Type="Self.ContractsData" Multiplicity="*" />
+  <Association Name="FK_NatisData_ContractsData">
+    <End Role="ContractsData" Type="Self.ContractsData" Multiplicity="1" />
+    <End Role="NatisData" Type="Self.NatisData" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="NatisData">
-        <PropertyRef Name="VinNumber" />
+      <Principal Role="ContractsData">
+        <PropertyRef Name="RecordNumber" />
       </Principal>
-      <Dependent Role="ContractsData">
-        <PropertyRef Name="VinNumber" />
+      <Dependent Role="NatisData">
+        <PropertyRef Name="ContractsDataID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Intern_LeaveDBModelStoreContainer">
+  <EntityContainer Name="NatisTrackerDBModelStoreContainer">
     <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumbers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ContractsData" EntityType="Self.ContractsData" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" Schema="dbo" store:Type="Tables" />
@@ -209,9 +208,9 @@
       <End Role="TickBoxData" EntitySet="TickBoxData" />
       <End Role="ContractNumbers" EntitySet="ContractNumbers" />
     </AssociationSet>
-    <AssociationSet Name="FK_ContractsData_NatisData" Association="Self.FK_ContractsData_NatisData">
-      <End Role="NatisData" EntitySet="NatisData" />
+    <AssociationSet Name="FK_NatisData_ContractsData" Association="Self.FK_NatisData_ContractsData">
       <End Role="ContractsData" EntitySet="ContractsData" />
+      <End Role="NatisData" EntitySet="NatisData" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

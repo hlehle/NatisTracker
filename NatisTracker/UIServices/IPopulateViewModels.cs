@@ -9,13 +9,13 @@ namespace NatisTracker.UIServices
 {
     public interface IPopulateViewModels
     {
-        List<EmployeeDataViewModel> PopulateEmployees(Intern_LeaveDBEntities db);
-        List<NatisDataViewModel> PopulateNatisData(Intern_LeaveDBEntities db);
-        List<ScanLogsDataViewModel> PopulateScanLogs(Intern_LeaveDBEntities db);
-        List<RequestsDataViewModel> PopulateRequestsData(Intern_LeaveDBEntities db);
-        List<SentIN_DeliveryViewModel> PopulateSentIN_Deliveries(Intern_LeaveDBEntities db);
-        List<SentOUT_DeliveryViewModel> PopulateSentOUT_Deliveries(Intern_LeaveDBEntities db);
-        List<ContractNumbersViewModel> PopulateContractNumber(Intern_LeaveDBEntities db);
-        TickBoxViewModelList PopulateTickBoxData(Intern_LeaveDBEntities db);
+        List<EmployeeDataViewModel> PopulateEmployees(NatisTrackerDBEntities db);
+        List<NatisDataViewModel> PopulateNatisData(NatisTrackerDBEntities db);
+        List<ScanLogsDataViewModel> PopulateScanLogs(NatisTrackerDBEntities db);
+        List<RequestsDataViewModel> PopulateRequestsData(NatisTrackerDBEntities db);
+        List<SentIN_DeliveryViewModel> PopulateSentIN_Deliveries(NatisTrackerDBEntities db);
+        List<SentOUT_DeliveryViewModel> PopulateSentOUT_Deliveries(NatisTrackerDBEntities db);
+        List<ContractNumbersViewModel> PopulateContractNumber(NatisTrackerDBEntities db);
+        TickBoxViewModelList PopulateTickBoxData(NatisTrackerDBEntities db);
     }
 }

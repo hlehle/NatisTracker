@@ -23,9 +23,9 @@ namespace NatisTracker.Controllers
         {
             if (ModelState.IsValid)
             {
-                using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+                using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
                 {
-                    var emp = db.EmployeeDatas.Where(a => a.UserName.Equals(objEmp.UserName)
+                    var emp = db.EmployeeDatas.Where(a => a.UserId.Equals(objEmp.UserName)
                     && a.Password.Equals(objEmp.Password)).FirstOrDefault();
 
                     if (emp != null)
@@ -34,7 +34,6 @@ namespace NatisTracker.Controllers
                         Session["Name"] = emp.ContactName.ToString();
                         Session["Email"] = emp.Email.ToString();
                         Session["Department"] = emp.Department.ToString();
-                        
 
                         if ((bool)emp.IsChangePassword)
                         {
@@ -98,7 +97,7 @@ namespace NatisTracker.Controllers
         public ActionResult ChangePassword()
         {
             var id = Session["ID"].ToString();
-            var view = new Intern_LeaveDBEntities().EmployeeDatas.Where(a => a.UserId == id).Select(a => a.UserId);
+            var view = new NatisTrackerDBEntities().EmployeeDatas.Where(a => a.UserId == id).Select(a => a.UserId);
             var changePassword = new ChangePasswordViewModel();
             changePassword.UserId = id;
             return View(changePassword);
@@ -108,7 +107,7 @@ namespace NatisTracker.Controllers
         {
             var changePassword = new ChangePasswordViewModel();
             TryUpdateModel(changePassword);
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 if (changePassword.Password.Equals(changePassword.ConfirmPassword))
                 {

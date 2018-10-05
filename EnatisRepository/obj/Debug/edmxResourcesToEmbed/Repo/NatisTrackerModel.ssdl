@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="NatisTrackerDBContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ContractNumbers">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RecordNumber" Type="int" />
+    <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsReceived" Type="bit" />
+    <Property Name="TableId" Type="int" />
+  </EntityType>
+  <EntityType Name="ContractsData">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="StatusDescription" Type="nvarchar(max)" />
+    <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmployeeData">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" />
+    <Property Name="Employee_Surname" Type="varchar(max)" />
+    <Property Name="ContactName" Type="nvarchar(max)" />
+    <Property Name="Password" Type="nvarchar(max)" />
+    <Property Name="Department" Type="varchar(max)" />
+    <Property Name="User_Type" Type="varchar(max)" />
+    <Property Name="Email" Type="varchar(max)" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="DCXKIM" Type="nvarchar" MaxLength="50" />
+    <Property Name="DCXLDOMAIL" Type="nvarchar(max)" />
+    <Property Name="LocationCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsChangePassword" Type="bit" />
+  </EntityType>
+  <EntityType Name="NatisData">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractsDataID" Type="int" Nullable="false" />
+    <Property Name="User" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateLoaded" Type="datetime" Nullable="false" />
+    <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RegistrationNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="EngineNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="CarMake" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SeriesNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+    <Property Name="VehicleStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OwnerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="OwnerIdentityNumber" Type="nvarchar" MaxLength="13" Nullable="false" />
+    <Property Name="NatisLocation" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="eNatisPDF" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="RequestsData">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RequesterName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RequesterDepartment" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RequestStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="RequestDate" Type="datetime" Nullable="false" />
+    <Property Name="Vin" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContractNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ReplyDate" Type="datetime" />
+    <Property Name="Responder" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ScanLogsData">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ContractNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateScanned" Type="datetime" Nullable="false" />
+    <Property Name="User" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Department" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="ContractStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="ContractDescription" Type="nvarchar(max)" />
+    <Property Name="Comment" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="SentIN_Delivery">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DealershipName" Type="nvarchar" MaxLength="150" />
+    <Property Name="PackageNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="PackageSender" Type="nvarchar" MaxLength="50" />
+    <Property Name="PackageRecipient" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateSent" Type="datetime" Nullable="false" />
+    <Property Name="DateReceived" Type="datetime" />
+    <Property Name="CourierStatus" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comment" Type="nvarchar" MaxLength="200" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="DriverDetails" Type="nvarchar(max)" />
+    <Property Name="DriverContact" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeliveryChoice" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SenderEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="RecipientEmail" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="SentOUT_Delivery">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VinNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DeliveryChoice" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateSent" Type="datetime" Nullable="false" />
+    <Property Name="PackageSender" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="PackageNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="DriverDetails" Type="nvarchar" MaxLength="50" />
+    <Property Name="DriverContacts" Type="nvarchar" MaxLength="50" />
+    <Property Name="RecipientDetails" Type="nvarchar" MaxLength="50" />
+    <Property Name="RecipientContacts" Type="nvarchar" MaxLength="50" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="SystemParams">
+    <Key>
+      <PropertyRef Name="RecordNumber" />
+    </Key>
+    <Property Name="RecordNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderAddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SmtpServer" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="SmtpServerFallback" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Port" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TickBoxData">
+    <Key>
+      <PropertyRef Name="TableId" />
+    </Key>
+    <Property Name="TableId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SenderName" Type="nvarchar" MaxLength="50" />
+    <Property Name="SenderDepartment" Type="nvarchar" MaxLength="50" />
+    <Property Name="SentDate" Type="datetime" Nullable="false" />
+    <Property Name="RecipientName" Type="nvarchar" MaxLength="50" />
+    <Property Name="RecipientDepartment" Type="nvarchar" MaxLength="50" />
+    <Property Name="ReceivedDate" Type="datetime" />
+    <Property Name="ItemQuantity" Type="int" Nullable="false" />
+    <Property Name="RecipientType" Type="nvarchar" MaxLength="50" />
+    <Property Name="IsConfirmed" Type="bit" />
+  </EntityType>
+  <Association Name="FK_ContractNumbers_SentIN_Delivery">
+    <End Role="SentIN_Delivery" Type="Self.SentIN_Delivery" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SentIN_Delivery">
+        <PropertyRef Name="RecordNumber" />
+      </Principal>
+      <Dependent Role="ContractNumbers">
+        <PropertyRef Name="RecordNumber" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ContractNumbers_TickBoxData">
+    <End Role="TickBoxData" Type="Self.TickBoxData" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ContractNumbers" Type="Self.ContractNumbers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TickBoxData">
+        <PropertyRef Name="TableId" />
+      </Principal>
+      <Dependent Role="ContractNumbers">
+        <PropertyRef Name="TableId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NatisData_ContractsData">
+    <End Role="ContractsData" Type="Self.ContractsData" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="NatisData" Type="Self.NatisData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContractsData">
+        <PropertyRef Name="RecordNumber" />
+      </Principal>
+      <Dependent Role="NatisData">
+        <PropertyRef Name="ContractsDataID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="NatisTrackerDBContextModelStoreContainer">
+    <EntitySet Name="ContractNumbers" EntityType="Self.ContractNumbers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ContractsData" EntityType="Self.ContractsData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmployeeData" EntityType="Self.EmployeeData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NatisData" EntityType="Self.NatisData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RequestsData" EntityType="Self.RequestsData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ScanLogsData" EntityType="Self.ScanLogsData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SentIN_Delivery" EntityType="Self.SentIN_Delivery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SentOUT_Delivery" EntityType="Self.SentOUT_Delivery" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SystemParams" EntityType="Self.SystemParams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TickBoxData" EntityType="Self.TickBoxData" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ContractNumbers_SentIN_Delivery" Association="Self.FK_ContractNumbers_SentIN_Delivery">
+      <End Role="SentIN_Delivery" EntitySet="SentIN_Delivery" />
+      <End Role="ContractNumbers" EntitySet="ContractNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ContractNumbers_TickBoxData" Association="Self.FK_ContractNumbers_TickBoxData">
+      <End Role="TickBoxData" EntitySet="TickBoxData" />
+      <End Role="ContractNumbers" EntitySet="ContractNumbers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NatisData_ContractsData" Association="Self.FK_NatisData_ContractsData">
+      <End Role="ContractsData" EntitySet="ContractsData" />
+      <End Role="NatisData" EntitySet="NatisData" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

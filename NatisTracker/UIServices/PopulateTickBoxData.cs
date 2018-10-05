@@ -12,7 +12,7 @@ namespace NatisTracker.UIServices
     {
         public void PopulateSendToDriver(DriverDocsViewModel ViewModel, string user, string department)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 TickBoxData driverData = new TickBoxData();
                 driverData.SenderName = user;
@@ -38,7 +38,7 @@ namespace NatisTracker.UIServices
         }
         public void PopulateSendToUser(SendToUserViewModel ViewModel, string user, string department)
         {
-            using (Intern_LeaveDBEntities db = new Intern_LeaveDBEntities())
+            using (NatisTrackerDBEntities db = new NatisTrackerDBEntities())
             {
                 TickBoxData driverData = new TickBoxData();
                 driverData.SenderName = user;
